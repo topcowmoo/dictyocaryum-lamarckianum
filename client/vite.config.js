@@ -7,5 +7,8 @@ export default defineConfig({
   server: {
     port: 8000, // Port for dev server
     open: true, // Automatically opens the app in the browser
+    proxy: {
+      "/api": "http://localhost:8001",
+    },
   },
 });
