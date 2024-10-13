@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+    font-family: 'Roboto' 'Poppins', 'Segoe UI', 'Helvetica Neue', 'Arial', 'sans-serif';
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }

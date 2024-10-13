@@ -4,10 +4,10 @@ export default {
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    // extend: {
-    //   fontFamily: {
-    //     sans: ["Roboto", "sans-serif"],
-    //   },
+    extend: {
+      fontFamily: {
+        sans: ["Roboto", "Poppins", "Segoe UI", "Helvetica Neue"],
+      },
     //   colors: {
     //     title: {
     //       light: "#004262",
@@ -30,7 +30,7 @@ export default {
     //       dark: "#FFFFFF",
     //     },
     //   },
-    // },
+    },
   },
   plugins: [],
 };
