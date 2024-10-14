@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 
+// Joi schema for user validation
 const userSchema = Joi.object({
   username: Joi.string().min(3).required(),
   password: Joi.string()
@@ -17,8 +18,8 @@ const userSchema = Joi.object({
 exports.registerUser = async (req, res) => {
   const { username, password } = req.body;
 
+  // Validate the input
   const { error } = userSchema.validate({ username, password });
-
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
@@ -29,7 +30,7 @@ exports.registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Save the new user with the hashed password to the database
-    const newUser = new User({ username, password: hashedPassword });
+    const newUser = new User({ username, passwordHash: hashedPassword });
     await newUser.save();
 
     res.status(201).send('User registered successfully');
@@ -39,7 +40,7 @@ exports.registerUser = async (req, res) => {
   }
 };
 
-// Login User with JWT
+// Login User with JWT and update last login
 exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
 
@@ -51,15 +52,19 @@ exports.loginUser = async (req, res) => {
     }
 
     // Compare the password with the hashed password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
     if (!isPasswordValid) {
       return res.status(400).send('Invalid username or password');
     }
 
+    // Update lastLogin field
+    user.lastLogin = new Date();
+    await user.save();
+
     // Create JWT Token
     const token = jwt.sign(
       { userId: user._id, username: user.username }, // Payload
-      'secretKey', // Replace with environment variable in production
+      process.env.JWT_SECRET, // Use an environment variable for the secret key
       { expiresIn: '1h' } // Token expiration time
     );
 
@@ -74,7 +79,7 @@ const userController = {
   // Get all users (async/await implementation)
   getAllUser: async (req, res) => {
     try {
-      const users = await User.find({}).select('-password -__v').sort({ _id: -1 });
+      const users = await User.find({}).select('-passwordHash -__v').sort({ _id: -1 });
       res.status(200).json(users);
     } catch (err) {
       console.error(err);
@@ -85,7 +90,7 @@ const userController = {
   // Get a single user by ID (async/await implementation)
   getUserById: async ({ params }, res) => {
     try {
-      const user = await User.findOne({ _id: params.id }).select('-password -__v');
+      const user = await User.findOne({ _id: params.id }).select('-passwordHash -__v');
       if (!user) {
         return res.status(404).json({ message: 'No user found with this id!' });
       }
@@ -110,6 +115,12 @@ const userController = {
   // Update user by ID (async/await implementation)
   updateUser: async ({ params, body }, res) => {
     try {
+      // If password is being updated, hash it before saving
+      if (body.password) {
+        body.passwordHash = await bcrypt.hash(body.password, 10);
+        delete body.password;
+      }
+
       const updatedUser = await User.findOneAndUpdate({ _id: params.id }, body, {
         new: true,
         runValidators: true,
