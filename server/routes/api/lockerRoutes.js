@@ -10,7 +10,9 @@ const {
 // Route for getting all passwords
 router.route('/')
 .get(getAllPasswords)
-.post(createPassword)
+.post(createPassword);
+
+router.route('/:id')
 .put(updatePassword)
 .delete(deletePassword);
 
