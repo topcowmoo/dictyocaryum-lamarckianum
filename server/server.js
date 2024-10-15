@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 8001;
@@ -7,7 +8,18 @@ require('dotenv').config({ path: '../.env' });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(routes);
+
+app.use('/api', routes);
+
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+
+  // Serve the React app for all non-API routes
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+}
 
 // Use the MongoDB Atlas connection string from the .env file
 mongoose.connect(process.env.MONGO_URI,
