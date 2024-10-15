@@ -19,6 +19,8 @@
 <a href="https://github.com/topcowmoo/dictyocaryum-lamarckianum"><strong>Explore the docs »</strong></a>
 <br />
 <br />
+
+<!-- https://vpl.onrender.com -->
 <!-- <a href="https://salvatoremammoliti.netlify.app/">Deployed App on Netlify</a> -->
 ·
 <a href="hhttps://github.com/topcowmoo/dictyocaryum-lamarckianum/issues">Report Bug</a>
