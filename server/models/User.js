@@ -15,7 +15,11 @@ const userSchema = new Schema({
   },
   passwordHash: {
     type: String,
-    required: "Password is required",
+    required: true,
+  },
+  salt: {
+    type: String,
+    required: true,
   },
   createdAt: {
     type: Date,

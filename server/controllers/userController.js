@@ -1,7 +1,7 @@
 const { User, Locker } = require('../models');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
+const crypto = require('crypto');
 
 // Joi schema for user validation
 const userSchema = Joi.object({
@@ -14,6 +14,19 @@ const userSchema = Joi.object({
     }),
 });
 
+// Helper function to hash password using PBKDF2
+const hashPassword = (password) => {
+  const salt = crypto.randomBytes(16).toString('hex'); // Generate a salt
+  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, `sha512`).toString(`hex`);
+  return { salt, hash };
+};
+
+// Helper function to verify password using PBKDF2
+const verifyPassword = (password, hash, salt) => {
+  const newHash = crypto.pbkdf2Sync(password, salt, 1000, 64, `sha512`).toString(`hex`);
+  return hash === newHash; // Compare the hash
+};
+
 // Register User
 exports.registerUser = async (req, res) => {
   const { username, password } = req.body;
@@ -25,12 +38,11 @@ exports.registerUser = async (req, res) => {
   }
 
   try {
-    // Hash the password
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    // Hash the password using PBKDF2
+    const { salt, hash } = hashPassword(password);
 
-    // Save the new user with the hashed password to the database
-    const newUser = new User({ username, passwordHash: hashedPassword });
+    // Save the new user with the hashed password and salt to the database
+    const newUser = new User({ username, passwordHash: hash, salt: salt });
     await newUser.save();
 
     res.status(201).send('User registered successfully');
@@ -51,8 +63,8 @@ exports.loginUser = async (req, res) => {
       return res.status(400).send('Invalid username or password');
     }
 
-    // Compare the password with the hashed password
-    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+    // Compare the password with the stored hashed password using PBKDF2
+    const isPasswordValid = verifyPassword(password, user.passwordHash, user.salt);
     if (!isPasswordValid) {
       return res.status(400).send('Invalid username or password');
     }
@@ -117,7 +129,9 @@ const userController = {
     try {
       // If password is being updated, hash it before saving
       if (body.password) {
-        body.passwordHash = await bcrypt.hash(body.password, 10);
+        const { salt, hash } = hashPassword(body.password);
+        body.passwordHash = hash;
+        body.salt = salt;
         delete body.password;
       }
 
