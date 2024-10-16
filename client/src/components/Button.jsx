@@ -1,9 +1,24 @@
+import PropTypes from 'prop-types';
 
-
-function Button() {
+function Button({ icon: Icon, label, onClick, className }) {
   return (
-    <div>Button</div>
-  )
+    <button
+      type="button"
+      onClick={onClick}
+      className={`inline-flex items-center gap-x-2 rounded-sm px-3.5 py-2.5 text-sm dark:text-alltext-dark text-alltext-light dark:hover:border-highlight-dark hover:border-highlight-light ${className}`}
+    >
+      {Icon && <Icon aria-hidden="true" className="-ml-0.5 h-5 w-5" />}
+      {label}
+    </button>
+  );
 }
 
-export default Button
+// Define prop types for the Button component
+Button.propTypes = {
+  icon: PropTypes.elementType,  // Accept an icon as a prop
+  label: PropTypes.string.isRequired, // Button label
+  onClick: PropTypes.func, // Event handler for the button
+  className: PropTypes.string, // Custom styles
+};
+
+export default Button;

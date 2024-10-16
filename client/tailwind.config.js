@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Roboto", "Poppins", "Segoe UI", "Helvetica Neue"],
+        sans: ["Poppins", "Segoe UI", "Helvetica Neue"],
       },
       colors: {
         title: {
@@ -18,17 +18,17 @@ export default {
           dark: "#112D4E",
         },
         alltext: {
-          light: "#274468",
-          dark: "#F9F7F7",
+          light: "#112D4E",
+          dark: "#DEDEDE",
         },
         highlight: {
           light: "#FED7FE",
           dark: "#910693",
         },
-        // focusRing: {
-        //   light: "#004262",
-        //   dark: "#FFFFFF",
-        // },
+        focusRing: {
+          light: "#000000",
+          dark: "#FFFFFF",
+        },
       },
     },
   },
