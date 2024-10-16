@@ -15,7 +15,7 @@ export default {
         },
         bgc: {
           light: "#F7F9F9",
-          dark: "#112D4E",
+          dark: "#242f36",
         },
         alltext: {
           light: "#112D4E",

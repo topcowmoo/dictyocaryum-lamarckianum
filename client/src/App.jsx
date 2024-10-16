@@ -35,11 +35,11 @@ function App() {
   };
   return (
     <div className="bg-bgc-light dark:bg-bgc-dark min-h-screen transition-colors duration-300">
-      <Header toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
+      <Header />
       <main>
         <Outlet />
       </main>
-      <Footer />
+      <Footer toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
     </div>
   );
 }
