@@ -6,7 +6,7 @@ function Header() {
   const navigate = useNavigate();
   return (
 
-    <div className="flex justify-between items-center w-full max-full border-b-2 p-6">
+    <div className="flex justify-between items-center w-full max-full dark:bg-secondarybgc-dark bg-secondarybgc-light border-b-2 p-6">
  
      {/* Logo as a button that navigates to home */}
      <button

@@ -15,6 +15,10 @@ export default {
         },
         bgc: {
           light: "#F7F9F9",
+          dark: "#39434a",
+        },
+        secondarybgc: {
+          light: "#E4E4E4",
           dark: "#242f36",
         },
         alltext: {
