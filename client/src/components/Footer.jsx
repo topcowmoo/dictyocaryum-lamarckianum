@@ -1,13 +1,13 @@
 import Button from "./Button";
 import PropTypes from "prop-types";
-import { PiMoonDuotone, PiSunDimDuotone } from "react-icons/pi";
+import { PiMoonDuotone, PiSunDuotone } from "react-icons/pi";
 
 function Footer({ toggleDarkMode, isDarkMode }) {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer
-      className="fixed bottom-0 left-0 right-0 border-t-2 dark:bg-secondarybgc-dark bg-secondarybgc-light flex items-center justify-between p-5 text-[10px] md:text-[14px] w-full z-10 h-[60px]"
+      className="relative bottom-0 left-0 right-0 border-t-2 bg-[#2f343d] flex items-center justify-between p-5 text-[10px] md:text-[14px] w-full z-10 h-[60px]"
       role="contentinfo"
     >
       {/* Left section: GitHub link and copyright */}
@@ -30,7 +30,7 @@ function Footer({ toggleDarkMode, isDarkMode }) {
       <div className="ml-auto"> {/* Pushes this section to the far right */}
         {isDarkMode ? (
           <Button
-            icon={PiSunDimDuotone}
+            icon={PiSunDuotone}
             label="Light"
             onClick={toggleDarkMode} // Trigger dark mode toggle
           />
