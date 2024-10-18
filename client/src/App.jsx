@@ -34,7 +34,7 @@ function App() {
     });
   };
   return (
-    <div className="bg-bgc-light dark:bg-bgc-dark min-h-screen transition-colors duration-300">
+    <div className=" min-h-screen transition-colors duration-300">
       <Header />
       <main>
         <Outlet />
