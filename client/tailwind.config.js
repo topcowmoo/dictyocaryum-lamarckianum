@@ -9,29 +9,41 @@ export default {
         sans: ["Poppins", "Segoe UI", "Helvetica Neue"],
       },
       colors: {
-        title: {
-          light: "#1D3B77",
-          dark: "#DBE2EF",
-        },
-        bgc: {
+        hefo: {
           light: "#F7F9F9",
           dark: "#39434a",
         },
-        secondarybgc: {
-          light: "#E4E4E4",
-          dark: "#242f36",
+        sidebar: {
+          light: "#F6F6F6",
+          dark: "#2f343d",
+        },
+        vault: {
+          light: "#FBFBFB",
+          dark: "#1F242E",
+        },
+        display: {
+          light: "#F6F6F6",
+          dark: "#15181e",
+        },
+        title: {
+          light: "#242F36",
+          dark: "#DBE2EF",
         },
         alltext: {
-          light: "#112D4E",
-          dark: "#DEDEDE",
+          light: "000000",
+          dark: "#F7F9F9",
         },
         highlight: {
-          light: "#FED7FE",
-          dark: "#910693",
+          light: "#6302C5",
+          dark: "#FEECFE",
         },
-        focusRing: {
-          light: "#000000",
-          dark: "#FFFFFF",
+        buttonbgc: {
+          light: "#242F36",
+          dark: "#DBE2EF",
+        },
+        buttonti: {
+          light: "#F6F6F6",
+          dark: "#39434a",
         },
       },
     },
