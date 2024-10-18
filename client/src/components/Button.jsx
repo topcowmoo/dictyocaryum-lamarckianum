@@ -5,7 +5,7 @@ function Button({ icon: Icon, label, onClick, className }) {
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center gap-x-2 rounded-sm px-3.5 py-2.5 text-sm dark:text-alltext-dark text-alltext-light dark:hover:border-highlight-dark hover:border-highlight-light ${className}`}
+      className={`inline-flex items-center gap-x-2 rounded-sm px-3.5 py-2.5 text-sm dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light ${className}`}
     >
       {Icon && <Icon aria-hidden="true" className="-ml-0.5 h-5 w-5" />}
       {label}
