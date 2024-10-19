@@ -5,7 +5,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/topcowmoo/dictyocaryum-lamarckianum"> 
-    <!-- <img src="https://portfoliobucket2024.s3.amazonaws.com/logo.webp" -->
+    <!-- <img src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg" -->
    <!-- alt="Logo"
    style="height: 150px">
   </a> -->

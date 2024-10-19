@@ -6,7 +6,7 @@ function Header() {
   const navigate = useNavigate();
   return (
 
-    <div className="flex justify-between items-center w-full max-full dark:bg-secondarybgc-dark bg-secondarybgc-light border-b-2 p-6">
+    <div className="flex justify-between items-center w-full max-full border-b-2 p-6">
  
      {/* Logo as a button that navigates to home */}
      <button
@@ -15,9 +15,9 @@ function Header() {
         aria-label="Navigate to Home" // For accessibility
       >
         <img
-          src="https://vaultguardbucket2024.s3.amazonaws.com/lightlogo.webp"
-          alt="Personal logo"
-          className="w-[40px] h-[42px] object-contain"
+          src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
+          alt="App logo"
+          className="w-[80px] h-[80px] object-contain"
         />
       </button>
     <Button

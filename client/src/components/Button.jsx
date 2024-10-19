@@ -5,10 +5,14 @@ function Button({ icon: Icon, label, onClick, className }) {
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center gap-x-2 rounded-sm px-3.5 py-2.5 text-sm dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light ${className}`}
+      className={`inline-flex items-center justify-center gap-x-2 
+        rounded-[4px] h-12 w-36 text-lg 
+        dark:bg-buttonbgc-dark bg-buttonbgc-light 
+        dark:text-buttonti-dark text-buttonti-light 
+        ${className}`}
     >
-      {Icon && <Icon aria-hidden="true" className="-ml-0.5 h-5 w-5" />}
-      {label}
+      {Icon && <Icon aria-hidden="true" className="h-5 w-5" />}
+      <span className="truncate">{label}</span>
     </button>
   );
 }

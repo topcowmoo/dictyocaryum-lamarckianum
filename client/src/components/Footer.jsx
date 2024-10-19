@@ -7,7 +7,7 @@ function Footer({ toggleDarkMode, isDarkMode }) {
 
   return (
     <footer
-      className="relative bottom-0 left-0 right-0 border-t-2 bg-[#2f343d] flex items-center justify-between p-5 text-[10px] md:text-[14px] w-full z-10 h-[60px]"
+      className="relative bottom-0 left-0 right-0 border-t-2 flex items-center justify-between p-5 text-[10px] md:text-[14px] w-full z-10 h-[60px]"
       role="contentinfo"
     >
       {/* Left section: GitHub link and copyright */}
