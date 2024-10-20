@@ -1,16 +1,16 @@
-import Button from "./Button";
 import PropTypes from "prop-types";
-import { PiMoonDuotone, PiSunDuotone } from "react-icons/pi";
+import Button from "./Button";
+import { PiSunDuotone, PiMoonDuotone } from "react-icons/pi";
 
 function Footer({ toggleDarkMode, isDarkMode }) {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer
-      className="fixed bottom-0 left-0 right-0 border-t-2 flex items-center justify-between p-5 text-[10px] md:text-[14px] w-full z-10 h-[60px]"
+      className="relative bottom-0 left-0 right-0 border-t-2 flex items-center justify-between p-5 text-[10px] md:text-[14px] w-full z-10 h-[60px] dark:bg-hefo-dark bg-hefo-light"
       role="contentinfo"
     >
-      {/* Left section: GitHub link and copyright */}
+      {/* Left Section: GitHub link and copyright */}
       <div className="flex items-center dark:text-alltext-dark text-alltext-light">
         <a
           href="https://github.com/topcowmoo"
@@ -22,33 +22,24 @@ function Footer({ toggleDarkMode, isDarkMode }) {
         >
           Salvatore Mammoliti
         </a>
-
         <span className="ml-2">&copy; {currentYear}</span>
       </div>
 
-      {/* Right section: Dark/Light mode toggle button */}
-      <div className="ml-auto"> {/* Pushes this section to the far right */}
-        {isDarkMode ? (
-          <Button
-            icon={PiSunDuotone}
-            label="Light"
-            onClick={toggleDarkMode} // Trigger dark mode toggle
-          />
-        ) : (
-          <Button
-            icon={PiMoonDuotone}
-            label="Dark"
-            onClick={toggleDarkMode}
-          />
-        )}
+      {/* Right Section: Dark/Light mode toggle button */}
+      <div className="ml-auto">
+        <Button
+          icon={isDarkMode ? PiSunDuotone : PiMoonDuotone}
+          label={isDarkMode ? "Light" : "Dark"}
+          onClick={toggleDarkMode}
+        />
       </div>
     </footer>
   );
 }
 
 Footer.propTypes = {
-  toggleDarkMode: PropTypes.func.isRequired, // Required prop to toggle the mode
-  isDarkMode: PropTypes.bool.isRequired, // Current state of the mode (light or dark)
+  toggleDarkMode: PropTypes.func.isRequired, // Toggle function
+  isDarkMode: PropTypes.bool.isRequired,     // Current mode
 };
 
 export default Footer;

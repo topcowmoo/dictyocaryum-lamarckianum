@@ -3,14 +3,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 
-import Home from './pages/Home.jsx';
-import AddPassword from './pages/AddPassword.jsx';
-import EditPassword from './pages/EditPassword.jsx';
+import Dashboard from './pages/Dashboard.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import Profile from './pages/Profile.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import Error from './pages/Error.jsx';
-import Vault from './pages/Vault.jsx';
 import ResetMasterPassword from './pages/ResetMasterPassword.jsx';
 
 
@@ -22,15 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
-      },
-      {
-        path: 'add-password',
-        element: <AddPassword />,
-      },
-      {
-        path: 'edit-password/:id',
-        element: <EditPassword />,
+        element: <Dashboard />,
       },
       {
         path: 'login-page',
@@ -43,10 +32,6 @@ const router = createBrowserRouter([
       {
         path: 'signup-page',
         element: <SignupPage />,
-      },
-      {
-        path: 'vault',
-        element: <Vault />,
       },
       {
         path: 'reset-master-password',
