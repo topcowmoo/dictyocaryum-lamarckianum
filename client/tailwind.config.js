@@ -31,7 +31,7 @@ export default {
           dark: "#DBE2EF",
         },
         alltext: {
-          light: "000000",
+          light: "#191919",
           dark: "#F7F9F9",
         },
         highlight: {
