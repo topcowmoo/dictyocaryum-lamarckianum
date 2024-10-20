@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Button from '../components/Button';
-import { PiSealCheckDuotone } from 'react-icons/pi';
+import { PiSealCheckDuotone, PiEyeDuotone, PiEyeClosedDuotone } from 'react-icons/pi';
 
 function LoginPage() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Track visibility of password
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -15,7 +16,7 @@ function LoginPage() {
       const response = await fetch('/api/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
@@ -33,12 +34,15 @@ function LoginPage() {
     }
   };
 
+  // Toggle password visibility
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <div className="flex min-h-screen">
       {/* Left Section */}
-      <div className="w-1/2 flex flex-col justify-center items-center bg-hefo-light dark:bg-hefo-dark p-8">
-        {/* Dark/Light Toggle Button */}
-
+      <div className="w-1/2 flex flex-col justify-start items-center bg-hefo-light dark:bg-hefo-dark p-12">
         <div className="sm:w-full sm:max-w-sm">
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
@@ -55,35 +59,52 @@ function LoginPage() {
 
         <div className="mt-10 sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleLogin}>
+            {/* Email Input */}
             <div>
-              <label htmlFor="username" className="block text-sm font-medium leading-6 dark:text-title-dark text-title-light">
-                Username
+              <label htmlFor="email" className="block text-sm font-medium leading-6 dark:text-title-dark text-title-light">
+                Email
               </label>
               <input
-                id="username"
+                id="email"
                 type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 className="mt-2 block w-full rounded-md border-0 py-1.5 shadow-sm placeholder:text-gray-400 sm:text-sm"
               />
             </div>
 
+            {/* Password Input with Show/Hide Toggle */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium leading-6 dark:text-title-dark text-title-light">
                 Master Password
               </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="mt-2 block w-full rounded-md border-0 py-1.5 shadow-sm placeholder:text-gray-400 sm:text-sm"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'} // Toggle between text and password
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="mt-2 block w-full rounded-md border-0 py-1.5 shadow-sm placeholder:text-gray-400 sm:text-sm"
+                />
+                {/* Toggle Icon */}
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-3 flex items-center"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? (
+                    <PiEyeClosedDuotone size={20} />
+                  ) : (
+                    <PiEyeDuotone size={20} />
+                  )}
+                </button>
+              </div>
               <Link
                 to="/reset-master-password"
-                className="text-sm font-semibold dark:text-title-dark text-title-light hover:text-highlight-light"
+                className="text-sm font-semibold dark:text-title-dark text-title-light hover:text-highlight-light dark:hover:text-highlight-dark"
               >
                 Forgot password?
               </Link>
