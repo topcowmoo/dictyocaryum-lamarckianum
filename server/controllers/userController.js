@@ -5,12 +5,12 @@ const crypto = require('crypto');
 
 // Joi schema for user validation
 const userSchema = Joi.object({
-  username: Joi.string().min(3).required(),
+  email: Joi.string().min(3).required(),
   password: Joi.string()
     .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'))
     .required()
     .messages({
-      'string.pattern.base': `Password must be at least 8 characters long, include uppercase and lowercase letters, a number, and a special character.`,
+      'string.pattern.base': `Password must be at least 9 characters long, include uppercase and lowercase letters, a number, and a special character.`,
     }),
 });
 
@@ -29,7 +29,7 @@ const verifyPassword = (password, hash, salt) => {
 
 // Register User
 exports.registerUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   // Validate the input
   const { error } = userSchema.validate({ username, password });
@@ -42,7 +42,7 @@ exports.registerUser = async (req, res) => {
     const { salt, hash } = hashPassword(password);
 
     // Save the new user with the hashed password and salt to the database
-    const newUser = new User({ username, passwordHash: hash, salt: salt });
+    const newUser = new User({ email, passwordHash: hash, salt: salt });
     await newUser.save();
 
     res.status(201).send('User registered successfully');
@@ -54,7 +54,7 @@ exports.registerUser = async (req, res) => {
 
 // Login User with JWT and update last login
 exports.loginUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     // Find the user by username
