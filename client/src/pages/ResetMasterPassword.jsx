@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useOutletContext } from 'react-router-dom';
 import Button from '../components/Button';
 import { 
   PiSealCheckDuotone, 
   PiCheckCircleDuotone, 
   PiXCircleDuotone,
   PiEyeDuotone,
-  PiEyeClosedDuotone
+  PiEyeClosedDuotone,
+  PiSunDuotone,
+  PiMoonDuotone,
 } from 'react-icons/pi';
 
 function ResetMasterPassword() {
+  const { toggleDarkMode, isDarkMode } = useOutletContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -66,15 +69,26 @@ function ResetMasterPassword() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="relative flex min-h-screen">
+       <div className="absolute top-4 left-4 cursor-pointer">
+  {isDarkMode ? (
+    <div className="dark:text-highlight-dark">
+      <PiSunDuotone size={30} onClick={toggleDarkMode} />
+    </div>
+  ) : (
+    <div className="text-highlight-light">
+      <PiMoonDuotone size={30} onClick={toggleDarkMode} />
+    </div>
+  )}
+</div>
       
       {/* Reset Password Section */}
-      <div className="w-full flex flex-col justify-start items-center bg-hefo-light dark:bg-hefo-dark p-12">
+      <div className="w-full flex flex-col justify-start items-center bg-hefo-light dark:bg-hefo-dark p-16">
         <div className="sm:w-full sm:max-w-sm">
         <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
             alt="App logo"
-            className="mx-auto h-40 w-auto"
+            className="mx-auto h-36 w-auto"
           />
           <h1 className="mt-10 text-center text-2xl font-bold tracking-tight leading-9 dark:text-title-dark text-title-light">
             VaultGuard Password Locker
@@ -99,7 +113,7 @@ function ResetMasterPassword() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="mt-2 block w-full rounded-md border-0 py-1.5 shadow-sm placeholder:text-gray-400 sm:text-sm"
+                className="mt-2 block w-full rounded-[4px] border-0 py-1.5 shadow-xl sm:text-sm"
               />
             </div>
 
@@ -117,7 +131,7 @@ function ResetMasterPassword() {
                   value={password}
                   onChange={handlePasswordChange}
                   required
-                  className="mt-2 block w-full rounded-md border-0 py-1.5 shadow-sm placeholder:text-gray-400 sm:text-sm"
+                  className="mt-2 block w-full rounded-[4px] border-0 py-1.5 shadow-xl sm:text-sm"
                 />
                 <button
                   type="button"
@@ -133,7 +147,7 @@ function ResetMasterPassword() {
                 {Object.entries(requirements).map(([key, met]) => (
                   <div key={key} className="flex items-center">
                     {met ? (
-                      <PiCheckCircleDuotone size={20} className="text-green-500" />
+                      <PiCheckCircleDuotone size={20} className="text-highlight-light dark:text-highlight-dark" />
                     ) : (
                       <PiXCircleDuotone size={20} className="text-red-500" />
                     )}
@@ -147,14 +161,16 @@ function ResetMasterPassword() {
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
 
+            <div className="flex justify-center">
             <Button
               icon={PiSealCheckDuotone}
               label="Reset"
               className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light dark:hover:bg-highlight-dark hover:bg-highlight-light"
             />
+            </div>
           </form>
 
-          <p className="mt-10 text-center text-sm dark:text-alltext-dark text-alltext-light">
+          <p className="mt-6 text-center text-sm dark:text-alltext-dark text-alltext-light">
             Remember your password?{' '}
             <Link to="/login-page" className="underline dark:text-highlight-dark text-highlight-light">
               Login here

@@ -39,7 +39,12 @@ function App() {
       {isAuthPage ? (
         // Render AuthLayout for auth pages
         <AuthLayout>
-          <Outlet />
+          <Outlet
+            context={{ 
+              toggleDarkMode, 
+              isDarkMode 
+            }}
+          />
         </AuthLayout>
       ) : (
         // Render Header, Footer, and Outlet for non-auth pages
