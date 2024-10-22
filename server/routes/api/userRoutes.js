@@ -1,21 +1,17 @@
-const router = require('express').Router();
-const {
-    getAllUser,
-    getUserById,
-    createUser,
-    updateUser,
-    deleteUser
-} = require('../../controllers/userController');
+// server/routes/api/userRoutes.js
+const express = require('express');
+const router = express.Router();
+const userController = require('../../controllers/userController');
+const { authenticateToken } = require('../../auth');
 
-// Route for getting all users and creating a new user
-router.route('/')
-    .get(getAllUser)     // Get all users
-    .post(createUser);   // Create a new user
+// Public Routes (No token required)
+router.post('/signup', userController.registerUser);
+router.post('/login', userController.loginUser);
 
-// Route for handling individual user actions (by ID)
-router.route('/:id')
-    .get(getUserById)    // Get a single user by ID
-    .put(updateUser)     // Update a user by ID
-    .delete(deleteUser); // Delete a user by ID
+// Protected Routes (Token required)
+router.get('/all', authenticateToken, userController.getAllUser);
+router.get('/:id', authenticateToken, userController.getUserById);
+router.put('/:id', authenticateToken, userController.updateUser);
+router.delete('/:id', authenticateToken, userController.deleteUser);
 
 module.exports = router;

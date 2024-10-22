@@ -1,11 +1,10 @@
 const { User, Locker } = require('../models');
-const jwt = require('jsonwebtoken');
+const { hashPassword, verifyPassword, generateToken } = require('../auth');
 const Joi = require('joi');
-const crypto = require('crypto');
 
 // Joi schema for user validation
 const userSchema = Joi.object({
-  email: Joi.string().min(3).required(),
+  email: Joi.string().email().required(),
   password: Joi.string()
     .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'))
     .required()
@@ -14,157 +13,124 @@ const userSchema = Joi.object({
     }),
 });
 
-// Helper function to hash password using PBKDF2
-const hashPassword = (password) => {
-  const salt = crypto.randomBytes(16).toString('hex'); // Generate a salt
-  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, `sha512`).toString(`hex`);
-  return { salt, hash };
-};
-
-// Helper function to verify password using PBKDF2
-const verifyPassword = (password, hash, salt) => {
-  const newHash = crypto.pbkdf2Sync(password, salt, 1000, 64, `sha512`).toString(`hex`);
-  return hash === newHash; // Compare the hash
-};
-
 // Register User
 exports.registerUser = async (req, res) => {
   const { email, password } = req.body;
 
-  // Validate the input
-  const { error } = userSchema.validate({ username, password });
-  if (error) {
-    return res.status(400).send(error.details[0].message);
-  }
+  // Validate input
+  const { error } = userSchema.validate({ email, password });
+  if (error) return res.status(400).send(error.details[0].message);
 
   try {
-    // Hash the password using PBKDF2
-    const { salt, hash } = hashPassword(password);
-
-    // Save the new user with the hashed password and salt to the database
-    const newUser = new User({ email, passwordHash: hash, salt: salt });
-    await newUser.save();
-
+    const { salt, hash } = hashPassword(password); // Hash password
+    const newUser = new User({ email, passwordHash: hash, salt }); // Create user
+    await newUser.save(); // Save user to DB
     res.status(201).send('User registered successfully');
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     res.status(500).send('Error registering user');
   }
 };
 
-// Login User with JWT and update last login
+// Login User
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Find the user by username
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(400).send('Invalid username or password');
+    const user = await User.findOne({ email });
+    if (!user || !verifyPassword(password, user.passwordHash, user.salt)) {
+      return res.status(400).send('Invalid email or password');
     }
 
-    // Compare the password with the stored hashed password using PBKDF2
-    const isPasswordValid = verifyPassword(password, user.passwordHash, user.salt);
-    if (!isPasswordValid) {
-      return res.status(400).send('Invalid username or password');
-    }
-
-    // Update lastLogin field
-    user.lastLogin = new Date();
+    user.lastLogin = new Date(); // Update last login
     await user.save();
 
-    // Create JWT Token
-    const token = jwt.sign(
-      { userId: user._id, username: user.username }, // Payload
-      process.env.JWT_SECRET, // Use an environment variable for the secret key
-      { expiresIn: '1h' } // Token expiration time
-    );
-
+    const token = generateToken(user); // Generate JWT
     res.status(200).json({ message: 'Login successful!', token });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     res.status(500).send('Error logging in');
   }
 };
 
-const userController = {
-  // Get all users (async/await implementation)
-  getAllUser: async (req, res) => {
-    try {
-      const users = await User.find({}).select('-passwordHash -__v').sort({ _id: -1 });
-      res.status(200).json(users);
-    } catch (err) {
-      console.error(err);
-      res.status(400).send('Error fetching users');
-    }
-  },
-
-  // Get a single user by ID (async/await implementation)
-  getUserById: async ({ params }, res) => {
-    try {
-      const user = await User.findOne({ _id: params.id }).select('-passwordHash -__v');
-      if (!user) {
-        return res.status(404).json({ message: 'No user found with this id!' });
-      }
-      res.status(200).json(user);
-    } catch (err) {
-      console.error(err);
-      res.status(400).send('Error fetching user');
-    }
-  },
-
-  // Create a user (async/await implementation)
-  createUser: async ({ body }, res) => {
-    try {
-      const newUser = await User.create(body);
-      res.status(201).json(newUser);
-    } catch (err) {
-      console.error(err);
-      res.status(400).send('Error creating user');
-    }
-  },
-
-  // Update user by ID (async/await implementation)
-  updateUser: async ({ params, body }, res) => {
-    try {
-      // If password is being updated, hash it before saving
-      if (body.password) {
-        const { salt, hash } = hashPassword(body.password);
-        body.passwordHash = hash;
-        body.salt = salt;
-        delete body.password;
-      }
-
-      const updatedUser = await User.findOneAndUpdate({ _id: params.id }, body, {
-        new: true,
-        runValidators: true,
-      });
-      if (!updatedUser) {
-        return res.status(404).json({ message: 'No user found with this id!' });
-      }
-      res.status(200).json(updatedUser);
-    } catch (err) {
-      console.error(err);
-      res.status(400).send('Error updating user');
-    }
-  },
-
-  // Delete user and related lockers (async/await implementation)
-  deleteUser: async ({ params }, res) => {
-    try {
-      const deletedUser = await User.findOneAndDelete({ _id: params.id });
-      if (!deletedUser) {
-        return res.status(404).json({ message: 'No user with this id!' });
-      }
-
-      // Optionally delete associated lockers
-      await Locker.deleteMany({ userId: deletedUser._id });
-      res.status(200).json({ message: 'User and associated passwords deleted!' });
-    } catch (err) {
-      console.error(err);
-      res.status(400).send('Error deleting user');
-    }
-  },
+// Get All Users
+exports.getAllUser = async (req, res) => {
+  try {
+    const users = await User.find({}).select('-passwordHash -__v').sort({ _id: -1 });
+    res.status(200).json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(400).send('Error fetching users');
+  }
 };
 
-module.exports = userController;
+// Get User by ID
+exports.getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select('-passwordHash -__v');
+    if (!user) {
+      return res.status(404).json({ message: 'No user found with this ID!' });
+    }
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(400).send('Error fetching user');
+  }
+};
+
+// Update User by ID
+exports.updateUser = async (req, res) => {
+  const { password, ...rest } = req.body;
+
+  try {
+    if (password) {
+      const { salt, hash } = hashPassword(password);
+      rest.passwordHash = hash;
+      rest.salt = salt;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, rest, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'No user found with this ID!' });
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    console.error(err);
+    res.status(400).send('Error updating user');
+  }
+};
+
+// Delete User by ID and related lockers
+exports.deleteUser = async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'No user found with this ID!' });
+    }
+
+    await Locker.deleteMany({ userId: deletedUser._id });
+    res.status(200).json({ message: 'User and associated data deleted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(400).send('Error deleting user');
+  }
+};
+
+// Get Current User from Token
+exports.getCurrentUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select('-passwordHash -__v');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(400).send('Error fetching current user');
+  }
+};
