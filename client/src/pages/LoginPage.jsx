@@ -1,6 +1,6 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-import { useNavigate, Link, useOutletContext } from "react-router-dom";
+import { useState, useContext } from "react";
+import { DarkModeContext } from "../context/DarkModeContext";
+import { useNavigate, Link } from "react-router-dom";
 import Button from "../components/Button";
 import {
   PiSealCheckDuotone,
@@ -11,7 +11,7 @@ import {
 } from "react-icons/pi";
 
 function LoginPage() {
-  const { toggleDarkMode, isDarkMode } = useOutletContext();
+  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -168,10 +168,5 @@ function LoginPage() {
     </div>
   );
 }
-
-LoginPage.propTypes = {
-  toggleDarkMode: PropTypes.func.isRequired,
-  isDarkMode: PropTypes.bool.isRequired,
-};
 
 export default LoginPage;

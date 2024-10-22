@@ -1,9 +1,11 @@
-import PropTypes from "prop-types";
+import { DarkModeContext } from "../context/DarkModeContext";
+import { useContext } from "react";
 import Button from "./Button";
 import { PiSunDuotone, PiMoonDuotone } from "react-icons/pi";
 
-function Footer({ toggleDarkMode, isDarkMode }) {
+function Footer() {
   const currentYear = new Date().getFullYear();
+  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
     <footer
@@ -36,10 +38,5 @@ function Footer({ toggleDarkMode, isDarkMode }) {
     </footer>
   );
 }
-
-Footer.propTypes = {
-  toggleDarkMode: PropTypes.func.isRequired, // Toggle function
-  isDarkMode: PropTypes.bool.isRequired,     // Current mode
-};
 
 export default Footer;

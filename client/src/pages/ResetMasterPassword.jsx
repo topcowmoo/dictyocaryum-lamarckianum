@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { useNavigate, Link, useOutletContext } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { DarkModeContext } from '../context/DarkModeContext';
+import { useNavigate, Link } from 'react-router-dom';
 import Button from '../components/Button';
 import { 
   PiSealCheckDuotone, 
@@ -12,7 +13,7 @@ import {
 } from 'react-icons/pi';
 
 function ResetMasterPassword() {
-  const { toggleDarkMode, isDarkMode } = useOutletContext();
+  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
