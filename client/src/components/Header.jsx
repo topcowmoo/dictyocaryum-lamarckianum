@@ -9,7 +9,7 @@ function Header() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
   return (
 
-    <div className="flex justify-between items-center w-full max-full border-b-2 p-6 dark:bg-hefo-dark bg-hefo-light">
+    <div className="flex justify-between items-center w-full max-full p-6 dark:bg-hefo-dark bg-hefo-light">
  
      {/* Logo as a button that navigates to home */}
      <button

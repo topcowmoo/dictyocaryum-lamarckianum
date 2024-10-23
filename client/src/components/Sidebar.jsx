@@ -6,10 +6,7 @@ import {
   PiFolderOpenDuotone,
   PiIdentificationBadgeDuotone,
   PiKeyDuotone,
-  PiUserCircleDuotone
 } from "react-icons/pi";
-import { useNavigate } from "react-router-dom";
-import Button from "./Button";
 
 function SideBar() {
   const items = [
@@ -22,13 +19,10 @@ function SideBar() {
     { id: 4, title: "Login", icon: <PiKeyDuotone size={30} /> },
   ];
 
-  const navigate = useNavigate();
-
   // Sort items by id
   const sortedItems = items.sort((a, b) => a.id - b.id);
 
   return (
-    <>
     <div className="grid grid-cols-1 gap-6 p-6 rounded-[4px]">
       {sortedItems.map((item) => (
         <div
@@ -42,12 +36,6 @@ function SideBar() {
         
       ))}
     </div>
-    <Button
-    icon={PiUserCircleDuotone}
-    label="Account"
-    onClick={() => navigate('/profile')}
-  />
-  </>
   );
 }
 

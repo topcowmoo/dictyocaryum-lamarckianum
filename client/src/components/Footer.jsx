@@ -1,11 +1,22 @@
+import { PiUserCircleDuotone } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
+import Button from "./Button";
+
 function Footer() {
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
 
   return (
     <footer
-      className="relative bottom-0 left-0 right-0 border-t-2 flex items-center justify-between p-5 text-[10px] md:text-[14px] w-full z-10 h-[60px] dark:bg-hefo-dark bg-hefo-light"
+      className="relative bottom-0 left-0 right-0 flex items-center justify-between p-5 text-[10px] md:text-[14px] w-full z-10 h-[60px] dark:bg-hefo-dark bg-hefo-light"
       role="contentinfo"
     >
+
+<Button
+    icon={PiUserCircleDuotone}
+    label="Account"
+    onClick={() => navigate('/profile')}
+  />
       {/* Left Section: GitHub link and copyright */}
       <div className="flex items-center dark:text-alltext-dark text-alltext-light">
         <a

@@ -4,7 +4,7 @@ import EntryDisplay from '../components/EntryDisplay';
 
 function Dashboard() {
   return (
-    <div className="min-h-screen grid grid-cols-[300px_1fr_2fr] p-4 gap-4 bg-purple-300 dark:bg-red-400">
+    <div className="min-h-screen grid grid-cols-[300px_1fr_2fr] p-4 gap-4">
       {/* Sidebar Section */}
       <div className="bg-sidebar-light dark:bg-sidebar-dark p-4 rounded-[4px]">
         <Sidebar />
