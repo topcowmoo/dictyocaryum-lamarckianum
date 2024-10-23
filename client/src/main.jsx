@@ -2,14 +2,13 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
-
+// import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import Profile from './pages/Profile.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import Error from './pages/Error.jsx';
 import ResetMasterPassword from './pages/ResetMasterPassword.jsx';
-
 
 const router = createBrowserRouter([
   {
@@ -19,7 +18,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: (
+          // <ProtectedRoute>
+            <Dashboard />
+          // </ProtectedRoute>
+        ),
       },
       {
         path: 'login-page',
@@ -27,7 +30,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <Profile />,
+        element: (
+          // <ProtectedRoute>
+            <Profile />
+          // </ProtectedRoute>
+        ),
       },
       {
         path: 'signup-page',
