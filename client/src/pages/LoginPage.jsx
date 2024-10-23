@@ -29,7 +29,7 @@ function LoginPage() {
 
       if (!response.ok) {
         const { message } = await response.json();
-        setError(message || "Invalid username or password");
+        setError(message || "Invalid email or password");
         return;
       }
 

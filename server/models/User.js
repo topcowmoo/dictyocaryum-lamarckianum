@@ -5,7 +5,7 @@ const userSchema = new Schema({
     type: String,
     unique: true,
     required: "Email is required",
-    match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please fill a valid email address"],
+    match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
   },
   passwordHash: {
     type: String,
@@ -28,5 +28,8 @@ const userSchema = new Schema({
     default: "user",
   },
 });
+
+// Ensure uniqueness of email
+userSchema.index({ email: 1 }, { unique: true });
 
 module.exports = model("User", userSchema);

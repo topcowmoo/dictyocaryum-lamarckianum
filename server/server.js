@@ -2,19 +2,20 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const routes = require('./routes'); // Correctly import routes from the routes folder
+const userRoutes = require('./routes/api/userRoutes'); 
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const app = express();
 const PORT = process.env.PORT || 8001;
 
 // Middleware
-app.use(cors({ origin: 'http://localhost:8000', credentials: true }));
 app.use(express.json());
+app.use(cors({ origin: 'http://localhost:8000', credentials: true }));
 app.use(express.urlencoded({ extended: true }));
 
+
 // API Routes
-app.use('/api', routes);
+app.use('/api/user', userRoutes);
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
