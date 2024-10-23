@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '../components/Button';
-import { PiUserCircleDuotone } from "react-icons/pi";
+import { DarkModeContext } from "../context/DarkModeContext";
+import { useContext } from "react";
+import Button from "./Button";
+import { PiSunDuotone, PiMoonDuotone } from "react-icons/pi";
 
 function Header() {
   const navigate = useNavigate();
+  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
   return (
 
     <div className="flex justify-between items-center w-full max-full border-b-2 p-6 dark:bg-hefo-dark bg-hefo-light">
@@ -20,11 +23,16 @@ function Header() {
           className="w-[80px] h-[80px] object-contain"
         />
       </button>
-    <Button
-          icon={PiUserCircleDuotone}
-          label="Account"
-          onClick={() => navigate('/profile')}
+
+      {/* Right Section: Dark/Light mode toggle button */}
+      <div className="ml-auto">
+        <Button
+          icon={isDarkMode ? PiSunDuotone : PiMoonDuotone}
+          label={isDarkMode ? "Light" : "Dark"}
+          onClick={toggleDarkMode}
         />
+      </div>
+    
     </div>
   );
 }

@@ -1,11 +1,5 @@
-import { DarkModeContext } from "../context/DarkModeContext";
-import { useContext } from "react";
-import Button from "./Button";
-import { PiSunDuotone, PiMoonDuotone } from "react-icons/pi";
-
 function Footer() {
   const currentYear = new Date().getFullYear();
-  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
     <footer
@@ -25,15 +19,6 @@ function Footer() {
           Salvatore Mammoliti
         </a>
         <span className="ml-2">&copy; {currentYear}</span>
-      </div>
-
-      {/* Right Section: Dark/Light mode toggle button */}
-      <div className="ml-auto">
-        <Button
-          icon={isDarkMode ? PiSunDuotone : PiMoonDuotone}
-          label={isDarkMode ? "Light" : "Dark"}
-          onClick={toggleDarkMode}
-        />
       </div>
     </footer>
   );
