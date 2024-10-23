@@ -3,6 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const userRoutes = require('./routes/api/userRoutes'); 
+const lockerRoutes = require('./routes/api/lockerRoutes');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // API Routes
 app.use('/api/user', userRoutes);
+app.use('/api/locker', lockerRoutes);
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {

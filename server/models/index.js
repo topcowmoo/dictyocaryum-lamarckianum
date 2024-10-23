@@ -1,4 +1,4 @@
-const User = require('./User');
-const Locker = require('./Locker');
+const User = require('../models/User');
+const Locker = require('../models/Locker');
 
 module.exports = { User, Locker };

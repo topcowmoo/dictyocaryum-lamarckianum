@@ -15,16 +15,16 @@ const userSchema = Joi.object({
 
 // Register User
 exports.registerUser = async (req, res) => {
+  console.log('Request Body:', req.body); // Add this line
   const { email, password } = req.body;
 
-  // Validate input
   const { error } = userSchema.validate({ email, password });
   if (error) return res.status(400).send(error.details[0].message);
 
   try {
-    const { salt, hash } = hashPassword(password); // Hash password
-    const newUser = new User({ email, passwordHash: hash, salt }); // Create user
-    await newUser.save(); // Save user to DB
+    const { salt, hash } = hashPassword(password);
+    const newUser = new User({ email, passwordHash: hash, salt });
+    await newUser.save();
     res.status(201).send('User registered successfully');
   } catch (err) {
     console.error(err);

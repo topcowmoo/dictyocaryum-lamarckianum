@@ -1,24 +1,24 @@
-require('dotenv').config({ path: '../.env' }); 
+require('dotenv').config({ path: __dirname + '/../.env' }); 
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const User = require("./models/User");
 const Locker = require("./models/Locker");
 
+// Log the MongoDB URI for debugging
+console.log("Mongo URI:", process.env.MONGODB_URI);
 
-// Correct the connection string to use the environment variable
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+// Connect to MongoDB using the URI from the .env file
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB Atlas connected successfully'))
-  .catch((err) => console.log('MongoDB Atlas connection failed', err));
+  .catch((err) => {
+    console.error('MongoDB Atlas connection failed:', err);
+    process.exit(1); // Exit if connection fails
+  });
 
 // Function to hash passwords using PBKDF2
 const hashPassword = (password) => {
   const salt = crypto.randomBytes(16).toString("hex");
   const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, "sha512").toString("hex");
-  
-  // Return passwordHash and salt
   return { passwordHash: hash, salt };
 };
 
@@ -26,55 +26,74 @@ const hashPassword = (password) => {
 const seedUsers = async () => {
   const users = [
     {
-      username: "testuser1",
       email: "test1@example.com",
-      ...hashPassword("testpassword1"),
+      ...hashPassword("Testpassword1!"),
     },
     {
-      username: "testuser2",
       email: "test2@example.com",
-      ...hashPassword("testpassword2"),
+      ...hashPassword("Testpassword2!"),
     },
   ];
 
-  // Insert users into the database
-  await User.deleteMany(); // Clear any existing users
-  const insertedUsers = await User.insertMany(users); // Insert new users
-  console.log("Users seeded successfully");
+  try {
+    console.log("Seeding users...");
 
-  return insertedUsers; // Return users with IDs
+    // Clear existing users
+    await User.deleteMany({});
+    console.log("Existing users deleted.");
+
+    // Insert new users
+    const insertedUsers = await User.insertMany(users);
+    console.log("Users seeded successfully:", insertedUsers);
+
+    return insertedUsers;
+  } catch (error) {
+    console.error("Error seeding users:", error);
+    throw error;
+  }
 };
 
-// Seed Passwords Using User IDs
+// Seed Passwords using User IDs
 const seedPasswords = async (users) => {
   const passwords = [
     {
-      userId: users[0]._id, // Use the actual _id from inserted users
-      serviceName: "Google", // Add serviceName field
+      userId: users[0]._id,
+      serviceName: "Google",
       site: "Google",
       username: "user1@gmail.com",
-      password: "EncryptedPasswordHere", // Encrypted password
+      password: "EncryptedPasswordHere", // Example encrypted password
     },
     {
-      userId: users[1]._id, // Use the actual _id from inserted users
-      serviceName: "Facebook", // Add serviceName field
+      userId: users[1]._id,
+      serviceName: "Facebook",
       site: "Facebook",
-      username: "user1@facebook.com",
-      password: "EncryptedPasswordHere", // Encrypted password
+      username: "user2@facebook.com",
+      password: "EncryptedPasswordHere", // Example encrypted password
     },
   ];
 
-  // Insert the passwords into the database
-  await Locker.deleteMany(); // Clear any existing password data
-  await Locker.insertMany(passwords); // Insert the new password data
-  console.log("Passwords seeded successfully");
+  try {
+    console.log("Seeding passwords...");
+
+    // Clear existing lockers
+    await Locker.deleteMany({});
+    console.log("Existing lockers deleted.");
+
+    // Insert new passwords
+    await Locker.insertMany(passwords);
+    console.log("Passwords seeded successfully.");
+  } catch (error) {
+    console.error("Error seeding passwords:", error);
+    throw error;
+  }
 };
 
-// Seed the database and close the connection
+// Seed the database
 const seedDB = async () => {
   try {
-    const users = await seedUsers(); // Seed users and get their IDs
-    await seedPasswords(users); // Seed passwords using the user IDs
+    console.log("Seeding database...");
+    const users = await seedUsers();
+    await seedPasswords(users);
   } catch (error) {
     console.error("Error seeding database:", error);
   } finally {
