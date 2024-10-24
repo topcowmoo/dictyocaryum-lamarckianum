@@ -9,7 +9,7 @@ const userSchema = Joi.object({
     .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'))
     .required()
     .messages({
-      'string.pattern.base': `Password must be at least 9 characters long, include uppercase and lowercase letters, a number, and a special character.`,
+      'string.pattern.base': `Password must be at least 14 characters long, include uppercase and lowercase letters, a number, and a special character.`,
     }),
 });
 
@@ -46,6 +46,15 @@ exports.loginUser = async (req, res) => {
     await user.save();
 
     const token = generateToken(user); // Generate JWT
+
+    res.cookie('token', token, {
+      httpOnly: true,  // Prevents access to cookie from JS
+      secure: true,    // Ensures cookie is sent over HTTPS
+      sameSite: 'strict', // Mitigates CSRF attacks
+      maxAge: 24 * 60 * 60 * 1000, // 1-day expiration
+    });
+
+
     res.status(200).json({ message: 'Login successful!', token });
   } catch (err) {
     console.error(err);
