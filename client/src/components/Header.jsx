@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { DarkModeContext } from "../context/DarkModeContext";
 import { useContext } from "react";
 import Button from "./Button";
+import SearchBar from "./SearchBar";
 import { PiSunDuotone, PiMoonDuotone } from "react-icons/pi";
 
 function Header() {
@@ -23,6 +24,9 @@ function Header() {
           className="w-[80px] h-[80px] object-contain"
         />
       </button>
+
+      {/* SearchBar */}
+      <SearchBar />
 
       {/* Right Section: Dark/Light mode toggle button */}
       <div className="ml-auto">
