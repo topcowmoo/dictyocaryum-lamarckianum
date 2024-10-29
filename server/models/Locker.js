@@ -23,6 +23,11 @@ const lockerSchema = new Schema({
         type: Date,
         default: Date.now,
     },
+    category: {
+        type: String,
+        enum: ["all", "identification", "cards", "login", "wi-fi", "entertainment", "deleted"],
+        default: "all",
+    },
 });
 
 module.exports = model('Locker', lockerSchema);
