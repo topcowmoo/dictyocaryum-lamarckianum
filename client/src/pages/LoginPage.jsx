@@ -92,7 +92,7 @@ function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-2 block w-full rounded-[4px] border-0 py-1.5 shadow-xl sm:text-sm"
+              className="mt-2 block w-full rounded-[4px] px-3 border-0 py-1.5 shadow-xl sm:text-sm"
             />
           </div>
 
@@ -110,7 +110,7 @@ function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="mt-2 block w-full rounded-[4px] border-0 py-1.5 shadow-xl sm:text-sm"
+                className="mt-2 block w-full rounded-[4px] border-0 py-1.5 px-3 shadow-xl sm:text-sm"
               />
               <button
                 type="button"

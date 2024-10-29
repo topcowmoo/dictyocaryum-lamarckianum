@@ -27,10 +27,10 @@ function SideBar() {
       {sortedItems.map((item) => (
         <div
           key={item.id}
-          className="flex flex-col items-center justify-center gap-4 p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all"
+          className="flex flex-col items-center justify-center gap-4 p-4 bg-  rounded-lg shadow-md hover:shadow-lg transition-all"
         >
-          <div className="text-orange-300">{item.icon}</div>
-          <h2 className="text-lg font-semibold text-green-600">{item.title}</h2>
+          <div className="dark:text-alltext-dark text-alltext-light">{item.icon}</div>
+          <h2 className="text-lg dark:text-title-dark text-title-light">{item.title}</h2>
         </div>
 
         

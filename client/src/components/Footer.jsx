@@ -1,6 +1,5 @@
 import { PiUserCircleDuotone } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -8,28 +7,31 @@ function Footer() {
 
   return (
     <footer
-      className="relative bottom-0 left-0 right-0 flex items-center justify-between p-5 text-[10px] md:text-[14px] w-full z-10 h-[60px] dark:bg-hefo-dark bg-hefo-light"
+      className="relative bottom-0 left-0 right-0 flex items-center justify-between p-4 text-[10px] md:text-[14px] w-full z-10 h-[60px] dark:bg-hefo-dark bg-hefo-light"
       role="contentinfo"
     >
+      {/* Icon Section */}
+      <div
+        className="cursor-pointer flex items-center"
+        onClick={() => navigate('/profile')}
+      >
+        <PiUserCircleDuotone className="text-[40px] dark:text-title-dark text-title-light dark:hover:text-highlight-dark hover:text-highlight-light" />
+        <span className="ml-2"></span>
+      </div>
 
-<Button
-    icon={PiUserCircleDuotone}
-    label="Account"
-    onClick={() => navigate('/profile')}
-  />
-      {/* Left Section: GitHub link and copyright */}
-      <div className="flex items-center dark:text-alltext-dark text-alltext-light">
+      {/* Right Section: Name and Year */}
+      <div className="flex items-center dark:text-alltext-dark text-alltext-light absolute right-5">
         <a
           href="https://github.com/topcowmoo"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit Salvatore Mammoliti's GitHub"
           title="Visit Salvatore Mammoliti's GitHub"
-          className="hover:underline dark:text-alltext-dark dark:hover:text-highlight-dark text-alltext-light hover:text-highlight-light"
+          className="hover:underline dark:hover:text-highlight-dark hover:text-highlight-light"
         >
           Salvatore Mammoliti
         </a>
-        <span className="ml-2">&copy; {currentYear}</span>
+        <span className="ml-3">&copy; {currentYear}</span>
       </div>
     </footer>
   );
