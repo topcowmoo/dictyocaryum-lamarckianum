@@ -19,14 +19,14 @@ function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-[300px_1fr_2fr] p-4 gap-4">
+    <div className="h-screen grid grid-cols-[300px_1fr_2fr] p-4 gap-4 overflow-hidden">
       {/* Sidebar Section */}
-      <div className="bg-sidebar-light dark:bg-sidebar-dark rounded-[4px]">
+      <div className="bg-sidebar-light dark:bg-sidebar-dark rounded-[4px] h-[72vh] overflow-y-auto">
         <Sidebar onSelectCategory={handleCategorySelect} />
       </div>
 
       {/* Vault Entries Section */}
-      <div className="dark:bg-vault-dark bg-vault-light p-4 rounded-[4px] overflow-y-auto">
+      <div className="dark:bg-vault-dark bg-vault-light p-4 rounded-[4px] h-[72vh] overflow-y-auto">
         <VaultEntries 
           selectedCategory={selectedCategory} 
           onSelectEntry={handleEntrySelect} 
@@ -34,7 +34,7 @@ function Dashboard() {
       </div>
 
       {/* Entry Display Section */}
-      <div className="dark:bg-display-dark bg-display-light p-4 rounded-[4px]">
+      <div className="dark:bg-display-dark bg-display-light p-4 rounded-[4px] h-[72vh] overflow-y-auto">
         <EntryDisplay entry={selectedEntry} />
       </div>
     </div>

@@ -13,17 +13,17 @@ function App() {
   return (
     // Wrap the whole app in the DarkModeProvider so the entire app can access dark mode context
     <DarkModeProvider>
-      <div className="min-h-screen transition-colors duration-300">
+      <div className="h-screen flex flex-col overflow-hidden transition-colors duration-300">
         {isAuthPage ? (
           // Render only the Outlet (auth pages) without Header and Footer
           <Outlet />
         ) : (
           <>
-            <Header />
-            <main className="flex-grow">
+            <Header className="h-[10vh]" />
+            <main className="flex-grow h-full overflow-hidden">
               <Outlet />
             </main>
-            <Footer />
+            <Footer className="h-[10vh]" />
           </>
         )}
       </div>
