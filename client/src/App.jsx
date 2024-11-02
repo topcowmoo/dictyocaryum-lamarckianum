@@ -1,9 +1,8 @@
 import { useLocation, Outlet } from 'react-router-dom';
 import Header from './components/Header';
-import Footer from './components/Footer';
-import { DarkModeProvider } from './context/DarkModeContext'; // Import the DarkMode context
+import { DarkModeProvider } from './context/DarkModeContext';
 
-// Define routes where Header and Footer shouldn't appear
+// Define routes where Header shouldn't appear
 const authRoutes = ['/login-page', '/signup-page', '/reset-master-password'];
 
 function App() {
@@ -11,19 +10,17 @@ function App() {
   const isAuthPage = authRoutes.includes(location.pathname);
 
   return (
-    // Wrap the whole app in the DarkModeProvider so the entire app can access dark mode context
     <DarkModeProvider>
-      <div className="h-screen flex flex-col overflow-hidden transition-colors duration-300">
+      <div className="h-screen flex flex-col transition-colors duration-300">
         {isAuthPage ? (
-          // Render only the Outlet (auth pages) without Header and Footer
+          // Render only the Outlet (auth pages) without Header
           <Outlet />
         ) : (
           <>
             <Header className="h-[10vh]" />
-            <main className="flex-grow h-full overflow-hidden">
+            <main className="flex-grow overflow-y-auto">
               <Outlet />
             </main>
-            <Footer className="h-[10vh]" />
           </>
         )}
       </div>
