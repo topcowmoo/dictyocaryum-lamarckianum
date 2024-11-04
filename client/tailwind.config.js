@@ -11,19 +11,19 @@ export default {
       },
       colors: {
         hefo: {
-          light: "#F7F9F9",
+          light: "#FBFBFB",
           dark: "#39434a",
         },
         sidebar: {
-          light: "#F6F6F6",
+          light: "#F7F9F9",
           dark: "#2f343d",
         },
         vault: {
-          light: "#FBFBFB",
+          light: "#F6F6F6",
           dark: "#1F242E",
         },
         display: {
-          light: "#F6F6F6",
+          light: "#F5F5F5",
           dark: "#15181e",
         },
         title: {
