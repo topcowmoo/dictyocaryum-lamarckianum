@@ -35,6 +35,10 @@ const seedUsers = async () => {
       email: "test2@example.com",
       ...hashVaultPassword("Testpasswdad33odfads??rd1!"), // Includes both `passwordHash` and `salt`
     },
+    {
+      email: "tesdasf1@example.com",
+      ...hashVaultPassword("Testpddsafsaasswdad33ord1!"), // Includes both `passwordHash` and `salt`
+    },
   ];
 
   try {
@@ -62,15 +66,15 @@ const seedPasswords = async (users) => {
       category: "login",
     },
     {
-      userId: users[0]._id,
-      serviceName: "Chase Bank",
-      site: "https://chase.com",
+      userId: users[1]._id,
+      serviceName: "Chase",
+      site: "https://www.chasea.com",
       username: "user1@chase.com",
       password: "EncryptedPassword1211!!",
       category: "cards",
     },
     {
-      userId: users[0]._id,
+      userId: users[2]._id,
       serviceName: "Home WiFi",
       site: "WiFi Network",
       username: "WiFiUser",
@@ -86,7 +90,7 @@ const seedPasswords = async (users) => {
       category: "identification",
     },
     {
-      userId: users[0]._id,
+      userId: users[2]._id,
       serviceName: "Netflix",
       site: "https://www.netflix.com",
       username: "user1@gmail.com",
@@ -94,12 +98,36 @@ const seedPasswords = async (users) => {
       category: "entertainment",
     },
     {
-      userId: users[0]._id,
-      serviceName: "Unknown Service",
-      site: "https://www.example.com",
+      userId: users[1]._id,
+      serviceName: "Visa",
+      site: "https://www.visa.com",
       username: "unknown_user",
       password: "EncryptedPassword1211!!",
-      category: "deleted",
+      category: "cards",
+    },
+    {
+      userId: users[2]._id,
+      serviceName: "Amazon",
+      site: "www.amazon.com",
+      username: "amazonlover",
+      password: "EncryptedPadafasdfassword1211!!",
+      category: "entertainment",
+    },
+    {
+      userId: users[0]._id,
+      serviceName: "Meta",
+      site: "www.meta.com",
+      username: "metametahohoho",
+      password: "EndcryptedPadafasdfassword1211!!",
+      category: "entertainment",
+    },
+    {
+      userId: users[2]._id,
+      serviceName: "Comic Book Realm",
+      site: "www.cbr.com",
+      username: "batmanlover",
+      password: "EncryptedPadafasddfassword1211!!",
+      category: "entertainment",
     },
   ];
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import VaultEntries from '../components/VaultEntries';
-import EntryDisplay from '../components/EntryDisplay';
+import VaultDisplay from '../components/VaultDisplay';
 
 function Dashboard() {
   // State to track the selected category from Sidebar
@@ -19,14 +19,14 @@ function Dashboard() {
   };
 
   return (
-    <div className="h-[calc(100vh-20vh)] grid grid-cols-[300px_1fr_2fr] p-4 gap-4">
+    <div className="h-full grid grid-cols-[300px_1fr_2fr] p-4 gap-4">
       {/* Sidebar Section */}
-      <div className="bg-sidebar-light dark:bg-sidebar-dark rounded-[4px] h-[80vh] overflow-y-hidden">
+      <div className="bg-sidebar-light dark:bg-sidebar-dark border-solid border-2 border-display-dark dark:border-display-light rounded-[4px] h-full overflow-y-auto">
         <Sidebar onSelectCategory={handleCategorySelect} />
       </div>
 
       {/* Vault Entries Section */}
-      <div className="dark:bg-vault-dark bg-vault-light p-4 rounded-[4px] h-[80vh] overflow-y-hidden">
+      <div className="dark:bg-vault-dark bg-vault-light border-solid border-2 border-display-dark dark:border-display-light p-4 rounded-[4px] h-full overflow-y-auto">
         <VaultEntries 
           selectedCategory={selectedCategory} 
           onSelectEntry={handleEntrySelect} 
@@ -34,8 +34,8 @@ function Dashboard() {
       </div>
 
       {/* Entry Display Section */}
-      <div className="dark:bg-display-dark bg-display-light p-4 rounded-[4px] h-[80vh] overflow-y-hidden">
-        <EntryDisplay entry={selectedEntry} />
+      <div className="dark:bg-display-dark bg-display-light border-solid border-2 border-display-dark dark:border-display-light p-4 rounded-[4px] h-full overflow-y-auto">
+        <VaultDisplay entry={selectedEntry} />
       </div>
     </div>
   );

@@ -1,20 +1,7 @@
 import { useState, useEffect } from "react";
-import * as SiIcons from "react-icons/si";
 import PropTypes from "prop-types";
-
-const IconDisplay = ({ iconName }) => {
-  const IconComponent = SiIcons[iconName];
-
-  if (!IconComponent) {
-    return <div>Icon not found</div>;
-  }
-
-  return <IconComponent size={30} color="red" />;
-};
-
-IconDisplay.propTypes = {
-  iconName: PropTypes.string.isRequired,
-};
+import serviceIcons from "../utils/serviceIcons"; // Import the serviceIcons object
+import { PiUserCircleDuotone } from "react-icons/pi"; // Default icon if none is found
 
 const VaultEntries = ({ onSelectEntry }) => {
   const [entries, setEntries] = useState([]);
@@ -43,28 +30,28 @@ const VaultEntries = ({ onSelectEntry }) => {
 
   return (
     <div className="p-4 space-y-4">
-      {entries.map((entry) => (
-        <div
-          key={entry._id}
-          onClick={() => onSelectEntry(entry)}
-          className="flex items-center cursor-pointer p-3 border rounded hover:bg-gray-100 transition"
-        >
-          <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center mr-4">
-            <span>
-              <IconDisplay iconName="SiGoogle" />
-              <IconDisplay iconName="SiNetflix" />
-              <IconDisplay iconName="SiChase" />
-            </span>
+      {entries.map((entry) => {
+        const Icon = serviceIcons[entry.serviceName.toLowerCase()] || PiUserCircleDuotone; // Use default icon if not found
+
+        return (
+          <div
+            key={entry._id}
+            onClick={() => onSelectEntry(entry)}
+            className="flex items-center cursor-pointer p-3 border rounded hover:bg-gray-100 transition"
+          >
+            <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+              <Icon size={32} /> {/* Renders the selected or default icon */}
+            </div>
+            <div className="text-lg font-semibold">{entry.serviceName}</div>
           </div>
-          <div className="text-lg font-semibold">{entry.serviceName}</div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
 
 VaultEntries.propTypes = {
-  onSelectEntry: PropTypes.func.isRequired, // Ensure this prop is required
+  onSelectEntry: PropTypes.func.isRequired,
 };
 
 export default VaultEntries;

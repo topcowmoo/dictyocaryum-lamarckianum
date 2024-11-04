@@ -3,13 +3,11 @@ import Button from "../components/Button";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
 function Error() {
-  const currentYear = new Date().getFullYear();
   return (
     <div className="flex flex-col min-h-screen">
       {/* Main Content */}
       <div className="flex-grow flex items-center justify-center">
         <div className="w-[1980px] h-[1014px] bg-hefo-light rounded-[4px] grid grid-cols-2 gap-8">
-          
           {/* Top Left Box */}
           <div className="bg-communityChest-faint h-[459px] rounded-[10px] flex items-center justify-center">
             <img
@@ -51,13 +49,6 @@ function Error() {
           </div>
         </div>
       </div>
-
-      {/* Footer Section */}
-      <div className="w-full text-center bg-hefo-light pb-4 text-title-light text-[14px] font-libre flex items-center justify-center gap-x-2">
-  <h2 className="inline">Salvatore Mammoliti</h2>
-  <span>&copy; {currentYear}</span>
-</div>
-
     </div>
   );
 }

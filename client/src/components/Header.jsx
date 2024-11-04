@@ -9,7 +9,7 @@ function Header() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
-    <div className="flex justify-between items-center w-full p-6 dark:bg-hefo-dark bg-hefo-light">
+    <div className="flex justify-between items-center w-full p-6 dark:bg-hefo-dark bg-hefo-light border-b-2 border-display-dark dark:border-display-light">
       {/* Left Section: Logo */}
       <div className="flex items-center">
         <button
