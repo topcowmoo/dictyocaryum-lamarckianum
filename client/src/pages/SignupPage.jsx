@@ -50,29 +50,37 @@ function SignupPage() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
+    console.log("Signup initiated");
+  
     try {
       const response = await fetch('/api/user/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-
+  
       if (!response.ok) {
         const { message } = await response.json();
+        console.log("Signup error message:", message);
         setError(message || 'Error signing up. Please try again.');
         return;
       }
-
-      // Clear form and navigate to login
+  
+      const { token } = await response.json();
+      console.log("Received token:", token);
+      localStorage.setItem('token', token); // Store the token
+  
+      console.log("Navigating to dashboard...");
       setEmail('');
       setPassword('');
-      navigate('/login-page');
+      navigate("/dashboard")  // Explicitly navigate to /dashboard for testing
     } catch (error) {
       console.error('Signup error:', error);
       setError('Something went wrong. Please try again.');
     }
   };
+  
+  
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -168,7 +176,7 @@ function SignupPage() {
 
             {/* Submit Button */}
             <div className="flex justify-center">
-              <Button icon={PiSealCheckDuotone} label="Sign Up" />
+              <Button icon={PiSealCheckDuotone} label="Sign Up" type="submit" />
             </div>
           </form>
 

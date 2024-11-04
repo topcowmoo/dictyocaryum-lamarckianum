@@ -15,20 +15,30 @@ const userSchema = Joi.object({
 
 // Register User
 exports.registerUser = async (req, res) => {
-  console.log('Request Body:', req.body); // Add this line
+  console.log('Request Body:', req.body); // Logging for debugging
   const { email, password } = req.body;
 
+  // Validate the input data
   const { error } = userSchema.validate({ email, password });
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).json({ message: error.details[0].message });
 
   try {
+    // Hash the password and create the user
     const { salt, hash } = hashPassword(password);
     const newUser = new User({ email, passwordHash: hash, salt });
     await newUser.save();
-    res.status(201).send('User registered successfully');
+
+    // Generate a JWT token
+    const token = generateToken(newUser);
+
+    // Send a JSON response with a success message and token
+    res.status(201).json({
+      message: 'User registered successfully',
+      token,
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Error registering user');
+    res.status(500).json({ message: 'Error registering user' });
   }
 };
 
@@ -111,6 +121,28 @@ exports.updateUser = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(400).send('Error updating user');
+  }
+};
+
+// Reset Master Password
+exports.resetPassword = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const { salt, hash } = hashPassword(password);
+    user.passwordHash = hash;
+    user.salt = salt;
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successful' });
+  } catch (err) {
+    console.error('Error resetting password:', err);
+    res.status(500).json({ message: 'Error resetting password. Please try again later.' });
   }
 };
 

@@ -20,27 +20,29 @@ function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+  
     try {
       const response = await fetch("/api/user/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-
+  
       if (!response.ok) {
         const { message } = await response.json();
         setError(message || "Invalid email or password");
         return;
       }
-
+  
       const data = await response.json();
-      localStorage.setItem("token", data.token);
-      navigate("/dashboard");
+      localStorage.setItem("token", data.token); // Store the token
+      navigate("/dashboard"); // Navigate to the dashboard on success
     } catch (error) {
       console.error("Login error:", error);
       setError("Something went wrong. Please try again.");
     }
   };
+  
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -129,6 +131,7 @@ function LoginPage() {
             <Button
               icon={PiSealCheckDuotone}
               label="Login"
+              type="submit"
               className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light dark:hover:bg-highlight-dark hover:bg-highlight-light"
             />
           </div>

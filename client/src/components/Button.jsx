@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
-function Button({ icon: Icon, label, onClick, className }) {
+function Button({ icon: Icon, label, onClick, className, type = "button" }) {
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       className={`inline-flex items-center justify-center gap-x-2 
         rounded-[4px] h-12 w-36 text-lg 
@@ -23,6 +23,7 @@ Button.propTypes = {
   label: PropTypes.string.isRequired, // Button label
   onClick: PropTypes.func, // Event handler for the button
   className: PropTypes.string, // Custom styles
+  type: PropTypes.string,
 };
 
 export default Button;

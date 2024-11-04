@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
-// import ProtectedRoute from './components/ProtectedRoute.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import Profile from './pages/Profile.jsx';
@@ -19,9 +19,17 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          // <ProtectedRoute>
+          <ProtectedRoute>
             <Dashboard />
-          // </ProtectedRoute>
+         </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'dashboard',
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
         ),
       },
       {
@@ -31,9 +39,9 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: (
-          // <ProtectedRoute>
+          <ProtectedRoute>
             <Profile />
-          // </ProtectedRoute>
+          </ProtectedRoute>
         ),
       },
       {

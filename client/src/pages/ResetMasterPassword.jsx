@@ -168,6 +168,7 @@ function ResetMasterPassword() {
               <Button
                 icon={PiSealCheckDuotone}
                 label="Reset"
+                type="submit"
                 className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light dark:hover:bg-highlight-dark hover:bg-highlight-light"
               />
             </div>

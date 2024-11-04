@@ -7,6 +7,7 @@ const { authenticateToken } = require('../../auth');
 // Public Routes (No token required)
 router.post('/signup', userController.registerUser);
 router.post('/login', userController.loginUser);
+router.post('/reset-password', userController.resetPassword);
 
 // Protected Routes (Token required)
 router.get('/all', authenticateToken, userController.getAllUser);
