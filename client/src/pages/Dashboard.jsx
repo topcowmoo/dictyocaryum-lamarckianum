@@ -4,16 +4,13 @@ import VaultEntries from '../components/VaultEntries';
 import VaultDisplay from '../components/VaultDisplay';
 
 function Dashboard() {
-  // State to track the selected category from Sidebar
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedEntry, setSelectedEntry] = useState(null);
 
-  // Function to handle category selection from Sidebar
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
   };
 
-  // Function to handle entry selection in VaultEntries
   const handleEntrySelect = (entry) => {
     setSelectedEntry(entry);
   };
@@ -27,15 +24,14 @@ function Dashboard() {
 
       {/* Vault Entries Section */}
       <div className="dark:bg-vault-dark bg-vault-light border-solid border-2 border-display-dark dark:border-display-light p-4 rounded-[4px] h-full overflow-y-auto">
-        <VaultEntries 
-          selectedCategory={selectedCategory} 
-          onSelectEntry={handleEntrySelect} 
-        />
+        <VaultEntries onSelectEntry={handleEntrySelect} selectedCategory={selectedCategory} />
       </div>
 
       {/* Entry Display Section */}
       <div className="dark:bg-display-dark bg-display-light border-solid border-2 border-display-dark dark:border-display-light p-4 rounded-[4px] h-full overflow-y-auto">
-        <VaultDisplay entry={selectedEntry} />
+        {selectedEntry && (
+          <VaultDisplay password={selectedEntry.password} />
+        )}
       </div>
     </div>
   );
