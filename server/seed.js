@@ -121,13 +121,14 @@ const seedPasswords = async (users) => {
       password: "EndcryptedPadafasdfassword1211!!",
       category: "entertainment",
     },
+    
     {
       userId: users[2]._id,
       serviceName: "Comic Book Realm",
       site: "www.cbr.com",
       username: "batmanlover",
       password: "EncryptedPadafasddfassword1211!!",
-      category: "entertainment",
+      category: "deleted",
     },
   ];
 

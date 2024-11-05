@@ -15,18 +15,25 @@ const VaultDisplay = ({ service, username, password, Icon }) => {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(password).then(() => {
-      console.log("Password copied to clipboard");
-    });
+    if (password) {
+      navigator.clipboard.writeText(password).then(() => {
+        console.log("Password copied to clipboard");
+      });
+    }
   };
 
+  // Only render the display content if service, username, or password is present
+  if (!service && !username && !password) {
+    return null; // Renders nothing if no entry is selected
+  }
+
   return (
-    <div className="p-4 bg-gray-100 border border-gray-300 rounded-md shadow-md">
+    <div className="p-4 bg-gray-100 border border-gray-300 rounded-md shadow-md h-full flex flex-col justify-center">
       <div className="flex items-center space-x-4">
         {Icon && <Icon size={32} />} {/* Render the Icon if it's provided */}
         <div>
-          <h2 className="text-xl font-bold">{service || "No Service"}</h2>
-          <p className="text-sm text-gray-600">{username || "No Username"}</p>
+          <h2 className="text-xl font-bold">{service}</h2>
+          <p className="text-sm text-gray-600">{username}</p>
         </div>
       </div>
       <div className="mt-4">
@@ -55,9 +62,9 @@ const VaultDisplay = ({ service, username, password, Icon }) => {
 };
 
 VaultDisplay.propTypes = {
-  service: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
+  service: PropTypes.string,
+  username: PropTypes.string,
+  password: PropTypes.string,
   Icon: PropTypes.elementType,
 };
 

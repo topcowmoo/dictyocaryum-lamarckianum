@@ -5,26 +5,22 @@ import VaultEntries from '../components/VaultEntries';
 import VaultDisplay from '../components/VaultDisplay';
 
 function Dashboard() {
-  const [selectedCategory, setSelectedCategory] = useState(null); // Default to "All" for initial display
-  const [selectedEntry, setSelectedEntry] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedEntry, setSelectedEntry] = useState(null); // Holds selected entry details
   const [entries, setEntries] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { searchQuery } = useOutletContext(); // Get searchQuery from context
+  const { searchQuery } = useOutletContext();
 
   useEffect(() => {
     const fetchEntries = async () => {
-      setLoading(true);
       try {
         const response = await fetch('/api/locker');
         if (!response.ok) throw new Error('Failed to fetch entries');
         const data = await response.json();
-        setEntries(data); // Store entries fetched from the server
+        setEntries(data);
       } catch (error) {
         setError(error.message);
-      } finally {
-        setLoading(false);
       }
     };
     fetchEntries();
@@ -32,7 +28,11 @@ function Dashboard() {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setSelectedEntry(null);
+    setSelectedEntry(null); // Clear selected entry when category changes
+  };
+
+  const handleEntrySelect = (entry) => {
+    setSelectedEntry(entry); // Set selected entry with full entry details
   };
 
   return (
@@ -40,25 +40,24 @@ function Dashboard() {
       <Sidebar onSelectCategory={handleCategorySelect} />
 
       <div className="dark:bg-vault-dark bg-vault-light border-solid border-2 border-display-dark dark:border-display-light p-4 rounded-[4px] h-full overflow-y-auto">
-        {loading ? <p>Loading...</p> : error ? <p>Error: {error}</p> : null}
+        {error ? <p>Error: {error}</p> : null}
         <VaultEntries
           selectedCategory={selectedCategory}
-          searchQuery={searchQuery} // Pass searchQuery to VaultEntries for filtering
+          searchQuery={searchQuery}
           entries={entries}
-          onSelectEntry={(entry) => setSelectedEntry(entry)}
+          onSelectEntry={handleEntrySelect} // Pass selected entry to VaultDisplay
         />
       </div>
 
-      {selectedEntry && (
-        <div className="dark:bg-display-dark bg-display-light border-solid border-2 border-display-dark dark:border-display-light p-4 rounded-[4px] h-full overflow-y-auto">
-          <VaultDisplay
-            service={selectedEntry.serviceName}
-            username={selectedEntry.username}
-            password={selectedEntry.password}
-            Icon={selectedEntry.Icon}
-          />
-        </div>
-      )}
+      {/* Pass entry details directly to VaultDisplay */}
+      <div className="dark:bg-display-dark bg-display-light border-solid border-2 border-display-dark dark:border-display-light p-4 rounded-[4px] h-full overflow-y-auto">
+        <VaultDisplay
+          service={selectedEntry?.serviceName}
+          username={selectedEntry?.username}
+          password={selectedEntry?.password}
+          Icon={selectedEntry?.Icon}
+        />
+      </div>
     </div>
   );
 }
