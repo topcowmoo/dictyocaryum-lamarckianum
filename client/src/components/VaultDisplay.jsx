@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import {
   PiCopyDuotone,
@@ -6,69 +5,50 @@ import {
   PiEyeClosedDuotone,
 } from "react-icons/pi";
 import Button from "./Button";
+import { useState } from "react";
 
 const VaultDisplay = ({ service, username, password, Icon }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        console.log("Copied to clipboard");
-      })
-      .catch((err) => {
-        console.error("Failed to copy text:", err);
-      });
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prevState) => !prevState);
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(password).then(() => {
+      console.log("Password copied to clipboard");
+    });
   };
 
   return (
-    <div className="bg-gray-100 border border-gray-300 rounded-md shadow-md p-4 space-y-4 max-w-md mx-auto">
-      {/* Header Section */}
-      <div className="flex items-center justify-between bg-gray-200 p-4 rounded-md">
-        <div className="flex items-center space-x-4">
-        {Icon && <Icon size={32} />} {/* Render the dynamically passed icon */}
-            <h2 className="text-xl font-semibold">{service}</h2>
-            
-            
+    <div className="p-4 bg-gray-100 border border-gray-300 rounded-md shadow-md">
+      <div className="flex items-center space-x-4">
+        {Icon && <Icon size={32} />} {/* Render the Icon if it's provided */}
+        <div>
+          <h2 className="text-xl font-bold">{service || "No Service"}</h2>
+          <p className="text-sm text-gray-600">{username || "No Username"}</p>
         </div>
       </div>
+      <div className="mt-4">
+        <h3 className="font-semibold">Password:</h3>
+        <p>{showPassword ? password : "••••••••••"}</p>
+      </div>
+      <div className="flex space-x-4 mt-4">
+        {/* Toggle Password Visibility */}
+        <Button
+          icon={showPassword ? PiEyeClosedDuotone : PiEyeDuotone}
+          label={showPassword ? "Hide" : "Show"}
+          onClick={togglePasswordVisibility}
+          iconSize={20}
+        />
 
-      {/* Details Section */}
-      <div className="bg-gray-200 p-4 rounded-md space-y-4">
-       
-      
-
-        {/* Row 1: Username */}
-        <div className="flex justify-between items-center border-b border-gray-300 pb-2">
-          <p className="font-semibold">Username</p>
-          <div className="flex items-center space-x-2">
-            <p className="text-gray-700">{username}</p>
-          </div>
-        </div>
-
-        {/* Row 2: Password with Visibility and Copy Buttons */}
-        <div className="flex justify-between items-center">
-          <p className="font-semibold">Password</p>
-          <div className="flex items-center space-x-2">
-            <p className="text-gray-700">{showPassword ? password : "••••••••••••••"}</p>
-            <Button
-              icon={showPassword ? PiEyeClosedDuotone : PiEyeDuotone}
-              label={showPassword}
-              onClick={togglePasswordVisibility}
-              className="bg-teal-300 text-black p-2 rounded-md"
-            />
-            <Button
-              icon={PiCopyDuotone}
-              label={copyToClipboard}
-              onClick={() => copyToClipboard(password)}
-              className="bg-teal-300 text-black p-2 rounded-md"
-            />
-          </div>
-        </div>
+        {/* Copy Password */}
+        <Button
+          icon={PiCopyDuotone}
+          label="Copy"
+          onClick={copyToClipboard}
+          iconSize={20}
+        />
       </div>
     </div>
   );
@@ -78,7 +58,7 @@ VaultDisplay.propTypes = {
   service: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
-  Icon: PropTypes.elementType
+  Icon: PropTypes.elementType,
 };
 
 export default VaultDisplay;
