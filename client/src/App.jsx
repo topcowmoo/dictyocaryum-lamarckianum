@@ -1,14 +1,16 @@
+import { useState } from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { DarkModeProvider } from './context/DarkModeContext';
 
-// Define routes where Header shouldn't appear
 const authRoutes = ['/login-page', '/signup-page', '/reset-master-password', '/profile'];
 
 function App() {
   const location = useLocation();
   const isAuthPage = authRoutes.includes(location.pathname);
+
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <DarkModeProvider>
@@ -17,9 +19,9 @@ function App() {
           <Outlet />
         ) : (
           <>
-            <Header className="h-[10vh]" />
+            <Header className="h-[10vh]" setSearchQuery={setSearchQuery} />
             <main className="h-[80vh] overflow-hidden">
-              <Outlet />
+              <Outlet context={{ searchQuery }} />
             </main>
             <Footer className="h-[10vh]" />
           </>

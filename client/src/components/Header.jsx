@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../context/DarkModeContext";
+import PropTypes from "prop-types";
 import { useContext } from "react";
 import SearchBar from "./SearchBar";
 import { PiSunDuotone, PiMoonDuotone } from "react-icons/pi";
 
-function Header() {
+function Header({ setSearchQuery }) {
   const navigate = useNavigate();
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
@@ -27,25 +28,23 @@ function Header() {
 
       {/* Center Section: SearchBar */}
       <div className="flex-grow px-8">
-        <SearchBar />
+        <SearchBar onSearchChange={setSearchQuery} />
       </div>
 
       {/* Right Section: Dark/Light Mode Toggle */}
       <div className="flex items-center">
-      <div className="absolute top-10 right-4 pr-3 cursor-pointer">
-  {isDarkMode ? (
-    <div className="dark:text-title-dark text-title-light dark:hover:text-highlight-dark hover:text-highlight-light ">
-      <PiSunDuotone size={30} onClick={toggleDarkMode} />
-    </div>
-  ) : (
-    <div className="dark:text-title-dark text-title-light dark:hover:text-highlight-dark hover:text-highlight-light">
-      <PiMoonDuotone size={30} onClick={toggleDarkMode} />
-    </div>
-  )}
-</div>
+        {isDarkMode ? (
+          <PiSunDuotone size={30} onClick={toggleDarkMode} className="dark:text-title-dark text-title-light" />
+        ) : (
+          <PiMoonDuotone size={30} onClick={toggleDarkMode} className="dark:text-title-dark text-title-light" />
+        )}
       </div>
     </div>
   );
 }
+
+Header.propTypes = {
+  setSearchQuery: PropTypes.func.isRequired,
+};
 
 export default Header;

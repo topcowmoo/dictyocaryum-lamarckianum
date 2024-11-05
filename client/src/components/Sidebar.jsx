@@ -12,12 +12,12 @@ import {
 function Sidebar({ onSelectCategory }) {
   const items = [
     { id: 1, title: "All", icon: <PiFolderOpenDuotone size={28} /> },
-    { id: 2, title: "Entertainment", icon: <PiFilmSlateDuotone size={28} /> },
-    { id: 3, title: "Deleted", icon: <PiTrashDuotone size={28} /> },
-    { id: 4, title: "Wi-Fi", icon: <PiWifiHighDuotone size={28} /> },
-    { id: 5, title: "Cards", icon: <PiCardholderDuotone size={28} /> },
+    { id: 2, title: "Cards", icon: <PiCardholderDuotone size={28} /> },
+    { id: 3, title: "Entertainment", icon: <PiFilmSlateDuotone size={28} /> },
+    { id: 4, title: "Login", icon: <PiKeyDuotone size={28} /> },
+    { id: 5, title: "Wi-Fi", icon: <PiWifiHighDuotone size={28} /> },
     { id: 6, title: "Identification", icon: <PiIdentificationBadgeDuotone size={28} /> },
-    { id: 7, title: "Login", icon: <PiKeyDuotone size={28} /> },
+    { id: 7, title: "Deleted", icon: <PiTrashDuotone size={28} /> },
   ];
 
   return (
