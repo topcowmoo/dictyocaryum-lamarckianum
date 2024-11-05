@@ -39,13 +39,10 @@ const VaultDisplay = ({ service, username, password, Icon }) => {
 
       {/* Details Section */}
       <div className="bg-gray-200 p-4 rounded-md space-y-4">
-        {/* Row 1: Name */}
-        <div className="flex justify-between items-center border-b border-gray-300 pb-2">
-          <p className="font-semibold">Name</p>
-          <p className="text-gray-700">{service}</p>
-        </div>
+       
+      
 
-        {/* Row 2: Username */}
+        {/* Row 1: Username */}
         <div className="flex justify-between items-center border-b border-gray-300 pb-2">
           <p className="font-semibold">Username</p>
           <div className="flex items-center space-x-2">
@@ -53,7 +50,7 @@ const VaultDisplay = ({ service, username, password, Icon }) => {
           </div>
         </div>
 
-        {/* Row 3: Password with Visibility and Copy Buttons */}
+        {/* Row 2: Password with Visibility and Copy Buttons */}
         <div className="flex justify-between items-center">
           <p className="font-semibold">Password</p>
           <div className="flex items-center space-x-2">
