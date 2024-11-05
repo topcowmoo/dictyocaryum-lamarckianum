@@ -30,7 +30,11 @@ function Dashboard() {
       {/* Entry Display Section */}
       <div className="dark:bg-display-dark bg-display-light border-solid border-2 border-display-dark dark:border-display-light p-4 rounded-[4px] h-full overflow-y-auto">
         {selectedEntry && (
-          <VaultDisplay password={selectedEntry.password} />
+          <VaultDisplay
+          service={selectedEntry.serviceName}
+          username={selectedEntry.username}
+          password={selectedEntry.password}
+          Icon={selectedEntry.Icon} />
         )}
       </div>
     </div>

@@ -36,7 +36,7 @@ const VaultEntries = ({ onSelectEntry }) => {
         return (
           <div
             key={entry._id}
-            onClick={() => onSelectEntry(entry)} // Pass the whole entry
+            onClick={() => onSelectEntry({ ...entry, Icon })} // Include the Icon component in the entry
             className="flex items-center cursor-pointer p-3 border rounded hover:bg-gray-100 transition"
           >
             <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center mr-4">

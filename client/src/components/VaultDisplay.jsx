@@ -7,65 +7,81 @@ import {
 } from "react-icons/pi";
 import Button from "./Button";
 
-const VaultDisplay = ({ password }) => {
-  // Function to copy the password to the clipboard
-  const copyToClipboard = () => {
+const VaultDisplay = ({ service, username, password, Icon }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const copyToClipboard = (text) => {
     navigator.clipboard
-      .writeText(password)
+      .writeText(text)
       .then(() => {
-        console.log("Password copied to clipboard");
+        console.log("Copied to clipboard");
       })
       .catch((err) => {
-        console.error("Failed to copy password: ", err);
+        console.error("Failed to copy text:", err);
       });
   };
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center justify-center h-full p-4 text-center relative">
-        <div className="flex-1 bg-vault-light border-2 border-vault-dark p-6 rounded-md shadow-md">
-          <h2 className="text-lg font-bold">Section 1</h2>
-          <p className="text-sm mt-2">
-            Content for the first section goes here.
-          </p>
+    <div className="bg-gray-100 border border-gray-300 rounded-md shadow-md p-4 space-y-4 max-w-md mx-auto">
+      {/* Header Section */}
+      <div className="flex items-center justify-between bg-gray-200 p-4 rounded-md">
+        <div className="flex items-center space-x-4">
+        {Icon && <Icon size={32} />} {/* Render the dynamically passed icon */}
+            <h2 className="text-xl font-semibold">{service}</h2>
+            
+            
+        </div>
+      </div>
+
+      {/* Details Section */}
+      <div className="bg-gray-200 p-4 rounded-md space-y-4">
+        {/* Row 1: Name */}
+        <div className="flex justify-between items-center border-b border-gray-300 pb-2">
+          <p className="font-semibold">Name</p>
+          <p className="text-gray-700">{service}</p>
         </div>
 
-        <div className="flex gap-4 mt-4">
-          <div className="flex-1 bg-vault-light border-2 border-vault-dark p-6 rounded-md shadow-md">
-            <p className="text-sm mt-2">Service Name</p>
+        {/* Row 2: Username */}
+        <div className="flex justify-between items-center border-b border-gray-300 pb-2">
+          <p className="font-semibold">Username</p>
+          <div className="flex items-center space-x-2">
+            <p className="text-gray-700">{username}</p>
+          </div>
+        </div>
 
-            <p className="text-sm mt-2">Username</p>
-
-            <p className="text-sm mt-2">Password</p>
-
+        {/* Row 3: Password with Visibility and Copy Buttons */}
+        <div className="flex justify-between items-center">
+          <p className="font-semibold">Password</p>
+          <div className="flex items-center space-x-2">
+            <p className="text-gray-700">{showPassword ? password : "••••••••••••••"}</p>
+            <Button
+              icon={showPassword ? PiEyeClosedDuotone : PiEyeDuotone}
+              label={showPassword ? "Hide" : "Show"}
+              onClick={togglePasswordVisibility}
+              className="bg-teal-300 text-black p-2 rounded-md"
+            />
             <Button
               icon={PiCopyDuotone}
               label="Copy"
-              onClick={copyToClipboard}
-              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light dark:hover:bg-highlight-dark hover:bg-highlight-light"
-            />
-
-            <Button
-              icon={showPassword ? PiEyeDuotone : PiEyeClosedDuotone}
-              label={showPassword ? "Visibility On" : "Visibility Off"}
-              onClick={togglePasswordVisibility}
-              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light dark:hover:bg-highlight-dark hover:bg-highlight-light"
+              onClick={() => copyToClipboard(password)}
+              className="bg-teal-300 text-black p-2 rounded-md"
             />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
 VaultDisplay.propTypes = {
+  service: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
+  Icon: PropTypes.elementType
 };
 
 export default VaultDisplay;
