@@ -60,13 +60,13 @@ const VaultDisplay = ({ service, username, password, Icon }) => {
             <p className="text-gray-700">{showPassword ? password : "••••••••••••••"}</p>
             <Button
               icon={showPassword ? PiEyeClosedDuotone : PiEyeDuotone}
-              label={showPassword ? "Hide" : "Show"}
+              label={showPassword}
               onClick={togglePasswordVisibility}
               className="bg-teal-300 text-black p-2 rounded-md"
             />
             <Button
               icon={PiCopyDuotone}
-              label="Copy"
+              label={copyToClipboard}
               onClick={() => copyToClipboard(password)}
               className="bg-teal-300 text-black p-2 rounded-md"
             />

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function Button({ icon: Icon, label, onClick, className, type = "button" }) {
+function Button({ icon: Icon, label, onClick, className, type = "button", iconSize }) {
   return (
     <button
       type={type}
@@ -11,7 +11,7 @@ function Button({ icon: Icon, label, onClick, className, type = "button" }) {
         dark:text-buttonti-dark text-buttonti-light 
         ${className}`}
     >
-      {Icon && <Icon aria-hidden="true" className="h-5 w-5" />}
+       {Icon && <Icon size={iconSize} />}
       <span className="truncate">{label}</span>
     </button>
   );
@@ -24,6 +24,7 @@ Button.propTypes = {
   onClick: PropTypes.func, // Event handler for the button
   className: PropTypes.string, // Custom styles
   type: PropTypes.string,
+  iconSize: PropTypes.number,
 };
 
 export default Button;

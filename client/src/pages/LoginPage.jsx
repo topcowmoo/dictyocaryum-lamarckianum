@@ -53,11 +53,11 @@ function LoginPage() {
     {/* Dark Mode Toggle Icon in Top-Left */}
     <div className="absolute top-4 left-4 cursor-pointer">
   {isDarkMode ? (
-    <div className="dark:text-highlight-dark">
+    <div className="dark:text-alltext-dark">
       <PiSunDuotone size={30} onClick={toggleDarkMode} />
     </div>
   ) : (
-    <div className="text-highlight-light">
+    <div className="text-alltext-light">
       <PiMoonDuotone size={30} onClick={toggleDarkMode} />
     </div>
   )}

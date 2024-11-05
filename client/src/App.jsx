@@ -4,7 +4,7 @@ import Footer from './components/Footer';
 import { DarkModeProvider } from './context/DarkModeContext';
 
 // Define routes where Header shouldn't appear
-const authRoutes = ['/login-page', '/signup-page', '/reset-master-password'];
+const authRoutes = ['/login-page', '/signup-page', '/reset-master-password', '/profile'];
 
 function App() {
   const location = useLocation();
