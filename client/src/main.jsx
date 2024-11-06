@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import Profile from './pages/Profile.jsx';
 import SignupPage from './pages/SignupPage.jsx';
+import ChangePassword from './components/ChangePassword.jsx';
 import Error from './pages/Error.jsx';
 import ResetMasterPassword from './pages/ResetMasterPassword.jsx';
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: 'reset-master-password',
         element: <ResetMasterPassword />,
+      },
+      {
+        path: 'change-password',
+        element: <ChangePassword />,
       },
     ],
   },

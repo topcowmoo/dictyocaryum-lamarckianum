@@ -11,7 +11,7 @@ function Profile() {
   // Handle Logout Function
   const handleLogout = () => {
     console.log("User logged out");
-    navigate("/login");
+    navigate("/login-page");
   };
 
   // Handle Change Password
