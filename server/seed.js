@@ -1,4 +1,4 @@
-require('dotenv').config({ path: __dirname + '/../.env' });
+require("dotenv").config({ path: __dirname + "/../.env" });
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const User = require("./models/User");
@@ -7,7 +7,9 @@ const Locker = require("./models/Locker");
 // Function to hash passwords using PBKDF2
 const hashVaultPassword = (password) => {
   const salt = crypto.randomBytes(16).toString("hex");
-  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, "sha512").toString("hex");
+  const hash = crypto
+    .pbkdf2Sync(password, salt, 1000, 64, "sha512")
+    .toString("hex");
   return { passwordHash: hash, salt };
 };
 
@@ -38,6 +40,10 @@ const seedUsers = async () => {
     {
       email: "tesdasf1@example.com",
       ...hashVaultPassword("Testpddsafsaasswdad33ord1!"), // Includes both `passwordHash` and `salt`
+    },
+    {
+      email: "user2@mail.com",
+      ...hashVaultPassword("Password1234345&"),
     },
   ];
 
@@ -106,6 +112,23 @@ const seedPasswords = async (users) => {
       category: "cards",
     },
     {
+      userId: "672ba2a6e7ed520452e90d7d", // Use the _id as a string
+      serviceName: "Apple",
+      site: "https://www.apple.com",
+      username: "user2@mail.com",
+      password: "AAdncrypdadsftedPassword1211!!",
+      category: "login",
+    },
+    {
+      userId: "672ba2a6e7ed520452e90d7d", // Use the _id as a string
+      serviceName: "AmericanExpress",
+      site: "https://www.americanexpress.com",
+      username: "user2@mail.com",
+      password: "AAdncrypdadfasdsftedPassword1211!!",
+      category: "cards",
+    },
+    
+    {
       userId: users[2]._id,
       serviceName: "Amazon",
       site: "www.amazon.com",
@@ -121,7 +144,7 @@ const seedPasswords = async (users) => {
       password: "EndcryptedPadafasdfassword1211!!",
       category: "entertainment",
     },
-    
+
     {
       userId: users[2]._id,
       serviceName: "Comic Book Realm",
@@ -165,7 +188,7 @@ const seedDB = async () => {
 // Run the seeding process
 const startSeeding = async () => {
   await connectDB(); // Ensure connection is established first
-  await seedDB();    // Run seeding logic
+  await seedDB(); // Run seeding logic
 };
 
 startSeeding();
