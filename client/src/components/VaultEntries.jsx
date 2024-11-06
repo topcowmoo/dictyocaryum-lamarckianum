@@ -3,12 +3,20 @@ import serviceIcons from "../utils/serviceIcons";
 import { PiUserCircleDuotone } from "react-icons/pi";
 
 const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries }) => {
-  const filteredEntries = entries.filter((entry) => {
+  const safeEntries = entries || [];
+  const filteredEntries = safeEntries.filter((entry) => {
+    // Ensure entry has serviceName to avoid potential errors
+    const serviceName = entry.serviceName || "";
+  
     if (searchQuery) {
-      return entry.serviceName.toLowerCase().includes(searchQuery.toLowerCase());
+      return serviceName.toLowerCase().includes(searchQuery.toLowerCase());
     }
-
-    const categoryMatch = selectedCategory === "All" || (selectedCategory && entry.category.toLowerCase().trim() === selectedCategory.toLowerCase().trim());
+  
+    // Handle the selectedCategory more defensively
+    const categoryMatch =
+      selectedCategory === "All" ||
+      (selectedCategory && entry.category?.toLowerCase().trim() === selectedCategory.toLowerCase().trim());
+  
     return categoryMatch;
   });
 

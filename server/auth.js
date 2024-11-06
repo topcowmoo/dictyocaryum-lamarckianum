@@ -22,10 +22,9 @@ exports.verifyPassword = (password, hash, salt) => {
   return newHash === hash;
 };
 
-// Middleware to authenticate JWT token
+// Middleware to authenticate JWT token from http cookie
 exports.authenticateToken = (req, res, next) => {
-  const token = req.header('Authorization')?.split(' ')[1]; // Get token from header
-
+  const token = req.cookies.authToken;
   if (!token) return res.status(401).send('Access denied. No token provided.');
 
   try {
@@ -33,6 +32,6 @@ exports.authenticateToken = (req, res, next) => {
     req.user = decoded; // Attach user info to request object
     next();
   } catch (err) {
-    res.status(400).send('Invalid token');
+    res.status(401).send('Invalid token');
   }
 };

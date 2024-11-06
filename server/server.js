@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const userRoutes = require('./routes/api/userRoutes'); 
 const lockerRoutes = require('./routes/api/lockerRoutes');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 8001;
 // Middleware
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:8000', credentials: true }));
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 
