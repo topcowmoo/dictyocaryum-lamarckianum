@@ -5,10 +5,14 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 8000, // Port for dev server
+    port: 8000, // Port for the Vite dev server
     open: true, // Automatically opens the app in the browser
     proxy: {
-      "/api": "http://localhost:8001",
+      '/api': {
+        target: 'http://localhost:8001',
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 });

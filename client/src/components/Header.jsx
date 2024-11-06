@@ -10,7 +10,7 @@ function Header({ setSearchQuery }) {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
-    <div className="flex justify-between items-center w-full p-6 dark:bg-hefo-dark bg-hefo-light border-b-2 border-display-dark dark:border-display-light">
+    <div className="flex justify-start items-center w-full p-6 dark:bg-hefo-dark bg-hefo-light border-b-2 border-display-dark dark:border-display-light">
       {/* Left Section: Logo */}
       <div className="flex items-center">
         <button
@@ -21,18 +21,18 @@ function Header({ setSearchQuery }) {
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
             alt="App logo"
-            className="w-[80px] h-[80px] object-contain"
+            className="w-[55px] h-[55px] object-contain"
           />
         </button>
       </div>
 
       {/* Center Section: SearchBar */}
-      <div className="flex-grow px-8">
+      <div className="flex justify-center flex-grow px-8">
         <SearchBar onSearchChange={setSearchQuery} />
       </div>
 
       {/* Right Section: Dark/Light Mode Toggle */}
-      <div className="flex items-center">
+      <div className="flex justify-end items-center">
         {isDarkMode ? (
           <PiSunDuotone size={30} onClick={toggleDarkMode} className="dark:text-title-dark text-title-light" />
         ) : (

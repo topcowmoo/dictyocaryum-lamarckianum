@@ -1,22 +1,35 @@
-// components/ProtectedRoute.jsx
+import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const ProtectedRoute = ({ children }) => {
-  // Check if the user is authenticated (either localStorage or sessionStorage)
-  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
 
-  // If no token, redirect to login page
-  if (!token) {
-    return <Navigate to="/login-page" replace />;
-  }
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const response = await fetch('http://localhost:8001/api/user/auth/verify', {
+          method: 'GET',
+          credentials: 'include',
+        });
 
-  // If token exists, render the protected content
-  return children;
+        setIsAuthenticated(response.ok);
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
+
+  if (isAuthenticated === null) return null; // Or a loading spinner
+
+  return isAuthenticated ? children : <Navigate to="/login-page" replace />;
 };
 
 ProtectedRoute.propTypes = {
-  children: propTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default ProtectedRoute;
