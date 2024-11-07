@@ -55,14 +55,14 @@ function Dashboard() {
   return (
     <div className="h-full flex flex-col">
       {/* Main Content */}
-      <div className="h-full grid grid-cols-[300px_1fr_2fr] p-4 gap-4">
+      <div className="h-full grid grid-cols-[300px_1fr_2fr]">
         {/* Sidebar */}
-        <div className="p-4 bg-gray-100 border border-gray-300 rounded-md shadow-md h-full flex flex-col justify-start gap-4">
+        <div className="p-4 bg-red-400 h-full flex flex-col justify-start gap-4">
           <Sidebar onSelectCategory={handleCategorySelect} />
         </div>
 
         {/* Vault Entries */}
-        <div className="dark:bg-vault-dark bg-vault-light border-solid border-2 border-display-dark dark:border-display-light p-4 h-full overflow-y-auto">
+        <div className="dark:bg-vault-dark bg-blue-100 p-4 h-full overflow-y-auto">
           {selectedCategory && (
             <VaultEntries
               entries={filteredEntries}
@@ -73,7 +73,7 @@ function Dashboard() {
         </div>
 
         {/* Vault Display */}
-        <div className="dark:bg-display-dark bg-display-light border-solid border-2 border-display-dark dark:border-display-light p-4 h-full overflow-y-auto">
+        <div className="dark:bg-display-dark bg-orange-100 p-4 h-full overflow-y-auto">
           <VaultDisplay
             service={selectedEntry?.serviceName}
             username={selectedEntry?.username}

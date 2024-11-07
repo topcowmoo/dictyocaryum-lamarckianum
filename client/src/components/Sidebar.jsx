@@ -7,7 +7,9 @@ import {
   PiFolderOpenDuotone,
   PiIdentificationBadgeDuotone,
   PiKeyDuotone,
+  PiPlusCircleDuotone
 } from "react-icons/pi";
+import Button from "./Button";
 
 function Sidebar({ onSelectCategory }) {
   const items = [
@@ -34,6 +36,12 @@ function Sidebar({ onSelectCategory }) {
           </div>
         </div>
       ))}
+
+      <Button
+        icon={PiPlusCircleDuotone}
+        label="Add New Entry"
+        size={20}
+        />
     </div>
   );
 }

@@ -10,7 +10,7 @@ function Header({ setSearchQuery }) {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
-    <div className="flex justify-start items-center w-full p-6 dark:bg-hefo-dark bg-hefo-light border-b-2 border-display-dark dark:border-display-light">
+    <div className="flex justify-start items-center w-full p-4 dark:bg-hefo-dark bg-purple-200 border-b-2 border-display-dark dark:border-display-light">
       {/* Left Section: Logo */}
       <div className="flex items-center">
         <button

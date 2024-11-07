@@ -3,6 +3,8 @@ import {
   PiCopyDuotone,
   PiEyeDuotone,
   PiEyeClosedDuotone,
+  PiPencilDuotone,
+  PiTrashDuotone,
 } from "react-icons/pi";
 import Button from "./Button";
 import { useState } from "react";
@@ -56,6 +58,19 @@ const VaultDisplay = ({ service, username, password, Icon }) => {
           onClick={copyToClipboard}
           iconSize={20}
         />
+
+        <Button
+        icon={PiPencilDuotone}
+        label="Edit"
+        iconSize={20}
+        />
+
+<Button
+icon={PiTrashDuotone}
+label="Delete"
+iconSize={20}
+/>
+
       </div>
     </div>
   );
