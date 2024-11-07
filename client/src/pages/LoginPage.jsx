@@ -58,24 +58,24 @@ function LoginPage() {
       </div>
 
       {/* Left Section with Login Form */}
-      <div className="w-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16">
-        <div className="w-full max-w-md">
+      <div className="w-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 xl:p-20">
+        <div className="w-full max-w-md xl:max-w-lg">
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
             alt="App logo"
-            className="mx-auto h-16 md:h-24 2xl:h-32 w-auto"
+            className="mx-auto h-16 md:h-24 xl:h-28 2xl:h-32 w-auto"
           />
-          <h1 className="mt-6 text-center text-2xl md:text-3xl 2xl:text-[31px]">
+          <h1 className="mt-6 text-center text-2xl md:text-3xl xl:text-[27px] 2xl:text-[31px]">
             VaultGuard Password Locker
           </h1>
-          <h2 className="mt-2 text-center text-lg md:text-xl 2xl:text-[25px]">
+          <h2 className="mt-2 text-center text-lg md:text-xl xl:text-[21px] 2xl:text-[25px]">
             Login to your account
           </h2>
         </div>
 
-        <form className="space-y-4 mt-6 w-full max-w-md" onSubmit={handleLogin}>
+        <form className="space-y-4 mt-6 w-full max-w-md xl:max-w-lg" onSubmit={handleLogin}>
           <div>
-            <label htmlFor="email" className="block text-sm md:text-base 2xl:text-[20px]">
+            <label htmlFor="email" className="block text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">
               Email
             </label>
             <input
@@ -84,12 +84,12 @@ function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-1 p-2 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
+              className="mt-1 p-2 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base xl:text-[18px] 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm md:text-base 2xl:text-[20px]">
+            <label htmlFor="password" className="block text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">
               Master Password
             </label>
             <div className="relative">
@@ -99,7 +99,7 @@ function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="mt-1 p-2 pr-10 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
+                className="mt-1 p-2 pr-10 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base xl:text-[18px] 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
               />
               <button
                 type="button"
@@ -115,20 +115,20 @@ function LoginPage() {
             </div>
           </div>
 
-          {error && <p className="text-red-500 text-xs md:text-sm">{error}</p>}
+          {error && <p className="text-red-500 text-xs md:text-sm xl:text-base">{error}</p>}
 
-          <div className="flex justify-center ">
+          <div className="flex justify-center">
             <Button
               icon={PiSealCheckDuotone}
               label="Login"
               type="submit"
-              className="text-sm md:text-base h-10 px-2 md:px-6 md:mt-3 md:mb-3 "
+              className="text-sm md:text-base xl:text-[18px] h-10 md:h-12 xl:h-14 px-4 md:px-6 xl:px-8"
               iconSize={20}
             />
           </div>
         </form>
 
-        <p className="mt-4 text-center text-xs md:text-sm lg:text-base 2xl:text-[20px]">
+        <p className="mt-6 text-center text-xs md:text-sm xl:text-[18px] 2xl:text-[20px]">
           Forgot master password?{" "}
           <Link
             to="/reset-master-password"
@@ -138,7 +138,7 @@ function LoginPage() {
           </Link>
         </p>
 
-        <p className="mt-4 text-center text-xs md:text-sm lg:text-base 2xl:text-[20px]">
+        <p className="mt-6 text-center text-xs md:text-sm xl:text-[18px] 2xl:text-[20px]">
           Don&apos;t have an account?{" "}
           <Link
             to="/signup-page"

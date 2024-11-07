@@ -96,27 +96,27 @@ function SignupPage() {
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
             alt="App logo"
-            className="mx-auto h-16 md:h-24 w-auto 2xl:h-32"
+            className="mx-auto w-auto h-16 md:h-24 xl:h-24 2xl:h-32"
           />
-          <h1 className="mt-6 text-center text-2xl md:text-3xl 2xl:text-[31px]">VaultGuard Password Locker</h1>
-          <h2 className="mt-2 text-center text-lg md:text-xl 2xl:text-[25px]">Create a new account</h2>
+          <h1 className="mt-6 text-center text-2xl md:text-3xl xl:text-[27px] 2xl:text-[31px]">VaultGuard Password Locker</h1>
+          <h2 className="mt-2 text-center text-lg md:text-xl xl:text-[21px] 2xl:text-[25px]">Create a new account</h2>
         </div>
 
         <form className="space-y-4 mt-6 w-full max-w-md" onSubmit={handleSignup}>
           <div>
-            <label htmlFor="email" className="block text-sm md:text-base 2xl:text-[20px]">Email</label>
+            <label htmlFor="email" className="block text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">Email</label>
             <input
               id="email"
               type="email"
               value={email}
               onChange={handleEmailChange}
               required
-              className="mt-1 p-2 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
+              className="mt-1 p-2 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base xl:text-[18px] 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm md:text-base 2xl:text-[20px]">Master Password</label>
+            <label htmlFor="password" className="block text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">Master Password</label>
             <div className="relative">
               <input
                 id="password"
@@ -124,7 +124,7 @@ function SignupPage() {
                 value={password}
                 onChange={handlePasswordChange}
                 required
-                className="mt-1 p-2 pr-10 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
+                className="mt-1 p-2 pr-10 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base xl:text-[18px] 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
               />
               <button
                 type="button"
@@ -140,7 +140,7 @@ function SignupPage() {
               {Object.entries(requirements).map(([key, met]) => (
                 <div key={key} className="flex items-center">
                   {met ? <PiCheckCircleDuotone size={20} className="text-highlight-light dark:text-highlight-dark" /> : <PiXCircleDuotone size={20} className="text-red-500" />}
-                  <span className="ml-2 text-sm md:text-base 2xl:text-[20px]">{getRequirementText(key)}</span>
+                  <span className="ml-2 text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">{getRequirementText(key)}</span>
                 </div>
               ))}
             </div>
@@ -153,7 +153,7 @@ function SignupPage() {
           </div>
         </form>
 
-        <p className="mt-6 text-center text-sm md:text-base 2xl:text-[20px]">
+        <p className="mt-6 text-center text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">
           Already have an account? <Link to="/login-page" className="underline dark:hover:text-highlight-dark hover:text-highlight-light">Login here</Link>
         </p>
       </div>
