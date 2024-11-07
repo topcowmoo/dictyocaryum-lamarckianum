@@ -20,13 +20,13 @@ function Sidebar({ onSelectCategory }) {
     { id: 7, title: "Deleted", icon: <PiTrashDuotone size={28} /> },
   ];
 
-  return (  
-    <div className="p-4 bg-gray-100 border border-gray-300 rounded-md shadow-md h-full flex flex-col justify-start gap-4">
+  return (
+    <div className="flex flex-col gap-4">
       {items.map((item) => (
         <div
           key={item.id}
           className="flex items-center cursor-pointer p-2 hover:bg-gray-100 transition"
-          onClick={() => onSelectCategory(item.title)} // Pass the exact title to filter
+          onClick={() => onSelectCategory(item.title)}
         >
           <div className="flex items-center gap-2">
             <span>{item.icon}</span>

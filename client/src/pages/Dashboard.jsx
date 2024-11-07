@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom'; // Import useOutletContext
+import { useOutletContext } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import VaultEntries from '../components/VaultEntries';
 import VaultDisplay from '../components/VaultDisplay';
@@ -7,31 +7,30 @@ import VaultDisplay from '../components/VaultDisplay';
 function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedEntry, setSelectedEntry] = useState(null);
-  const [entries, setEntries] = useState([]); // Start with no entries
+  const [entries, setEntries] = useState([]);
 
   // Access searchQuery from Outlet context
   const { searchQuery } = useOutletContext();
 
   useEffect(() => {
-    // Fetch entries only if a category is selected
     if (!selectedCategory) return;
 
     const fetchEntries = async () => {
       try {
         const response = await fetch(`http://localhost:8001/api/locker?category=${selectedCategory}`, {
-          method: "GET",
-          credentials: "include", // Include cookies for authentication
+          method: 'GET',
+          credentials: 'include',
         });
 
         if (response.ok) {
           const data = await response.json();
           setEntries(data);
         } else {
-          console.error("Failed to fetch entries:", response.statusText);
-          setEntries([]); // Clear entries if fetching fails
+          console.error('Failed to fetch entries:', response.statusText);
+          setEntries([]);
         }
       } catch (error) {
-        console.error("Error fetching entries:", error);
+        console.error('Error fetching entries:', error);
         setEntries([]);
       }
     };
@@ -41,15 +40,14 @@ function Dashboard() {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setSelectedEntry(null); // Clear the selected entry when the category changes
-    setEntries([]); // Clear current entries until new ones are loaded
+    setSelectedEntry(null);
+    setEntries([]);
   };
 
   const handleEntrySelect = (entry) => {
-    setSelectedEntry(entry); // Set the selected entry
+    setSelectedEntry(entry);
   };
 
-  // Filter entries based on the search query
   const filteredEntries = entries.filter((entry) =>
     entry.serviceName.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -58,19 +56,24 @@ function Dashboard() {
     <div className="h-full flex flex-col">
       {/* Main Content */}
       <div className="h-full grid grid-cols-[300px_1fr_2fr] p-4 gap-4">
-        <Sidebar onSelectCategory={handleCategorySelect} />
+        {/* Sidebar */}
+        <div className="p-4 bg-gray-100 border border-gray-300 rounded-md shadow-md h-full flex flex-col justify-start gap-4">
+          <Sidebar onSelectCategory={handleCategorySelect} />
+        </div>
 
-        <div className="dark:bg-vault-dark bg-vault-light border-solid border-2 border-display-dark dark:border-display-light p-4 rounded-[4px] h-full overflow-y-auto">
-          {selectedCategory && ( // Only render VaultEntries if a category is selected
+        {/* Vault Entries */}
+        <div className="dark:bg-vault-dark bg-vault-light border-solid border-2 border-display-dark dark:border-display-light p-4 h-full overflow-y-auto">
+          {selectedCategory && (
             <VaultEntries
-              entries={filteredEntries} // Use the filtered entries
+              entries={filteredEntries}
               selectedCategory={selectedCategory}
               onSelectEntry={handleEntrySelect}
             />
           )}
         </div>
 
-        <div className="dark:bg-display-dark bg-display-light border-solid border-2 border-display-dark dark:border-display-light p-4 rounded-[4px] h-full overflow-y-auto">
+        {/* Vault Display */}
+        <div className="dark:bg-display-dark bg-display-light border-solid border-2 border-display-dark dark:border-display-light p-4 h-full overflow-y-auto">
           <VaultDisplay
             service={selectedEntry?.serviceName}
             username={selectedEntry?.username}
