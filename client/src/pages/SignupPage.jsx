@@ -111,7 +111,7 @@ function SignupPage() {
               value={email}
               onChange={handleEmailChange}
               required
-              className="mt-1 p-2 block w-full rounded shadow-md sm:text-sm md:text-base dark:text-alltext-light text-alltext-light"
+              className="mt-1 p-2 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base dark:text-alltext-light text-alltext-light"
             />
           </div>
 
@@ -124,7 +124,7 @@ function SignupPage() {
                 value={password}
                 onChange={handlePasswordChange}
                 required
-                className="mt-1 p-2 block w-full rounded shadow-md sm:text-sm md:text-base dark:text-alltext-light text-alltext-light"
+                className="mt-1 p-2 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base dark:text-alltext-light text-alltext-light"
               />
               <button
                 type="button"
@@ -149,7 +149,7 @@ function SignupPage() {
           {error && <p className="text-red-500 text-xs md:text-sm">{error}</p>}
 
           <div className="flex justify-center">
-            <Button icon={PiSealCheckDuotone} label="Sign Up" type="submit" className="text-sm md:text-base h-10 md:h-12 px-4 md:px-6" iconSize={20} />
+            <Button icon={PiSealCheckDuotone} label="Sign Up" type="submit" className="text-sm md:text-base h-10 px-4 md:px-6" iconSize={20} />
           </div>
         </form>
 
