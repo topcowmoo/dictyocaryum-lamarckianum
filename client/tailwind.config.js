@@ -39,8 +39,8 @@ export default {
           dark: "#FEECFE",
         },
         buttonbgc: {
-          light: "#420283",
-          dark: "#FEECFE",
+          light: "#1F242E",
+          dark: "#DBE2EF",
         },
         buttonti: {
           light: "#F6F6F6",
