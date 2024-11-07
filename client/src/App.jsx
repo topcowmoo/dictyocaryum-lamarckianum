@@ -20,7 +20,7 @@ function App() {
         ) : (
           <>
             <Header className="h-[10vh]" setSearchQuery={setSearchQuery} />
-            <main className="h-[80vh] overflow-hidden">
+            <main className="flex-grow overflow-hidden">
               <Outlet context={{ searchQuery }} />
             </main>
             <Footer className="h-[10vh]" />
