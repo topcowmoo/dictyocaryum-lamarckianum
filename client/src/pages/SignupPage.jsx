@@ -124,7 +124,7 @@ function SignupPage() {
                 value={password}
                 onChange={handlePasswordChange}
                 required
-                className="mt-1 p-2 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base dark:text-alltext-light text-alltext-light"
+                className="mt-1 p-2 pr-10 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base dark:text-alltext-light text-alltext-light"
               />
               <button
                 type="button"

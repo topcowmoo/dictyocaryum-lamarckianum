@@ -44,7 +44,7 @@ export default {
         },
         buttonti: {
           light: "#F6F6F6",
-          dark: "#39434a",
+          dark: "#15181e",
         },
         communityChest: {
           faint: "#F0E483",

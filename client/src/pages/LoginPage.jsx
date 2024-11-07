@@ -20,7 +20,6 @@ function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-  
     try {
       const response = await fetch("/api/user/login", {
         method: "POST",
@@ -28,13 +27,13 @@ function LoginPage() {
         body: JSON.stringify({ email, password }),
         credentials: "include", // Include cookies in the request
       });
-  
+
       if (!response.ok) {
         const { message } = await response.json();
         setError(message || "Invalid email or password");
         return;
       }
-  
+
       // Navigate to the dashboard on success
       navigate("/dashboard");
     } catch (error) {
@@ -48,33 +47,35 @@ function LoginPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen">
       {/* Dark Mode Toggle */}
-      <div className="absolute top-4 left-4 cursor-pointer">
+      <div className="absolute top-4 left-4 cursor-pointer dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light">
         {isDarkMode ? (
-          <PiSunDuotone size={30} onClick={toggleDarkMode} />
+          <PiSunDuotone size={40} onClick={toggleDarkMode} />
         ) : (
-          <PiMoonDuotone size={30} onClick={toggleDarkMode} />
+          <PiMoonDuotone size={40} onClick={toggleDarkMode} />
         )}
       </div>
 
       {/* Left Section with Login Form */}
-      <div className="w-1/2 flex flex-col justify-start items-center bg-hefo-light dark:bg-hefo-dark p-16">
-        <div className="sm:w-full sm:max-w-sm">
+      <div className="w-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16">
+        <div className="w-full max-w-md">
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
             alt="App logo"
-            className="mx-auto h-36 w-auto"
+            className="mx-auto h-16 md:h-24 w-auto"
           />
-          <h1 className="mt-10 text-center text-2xl font-bold">
+          <h1 className="mt-6 text-center text-2xl md:text-3xl">
             VaultGuard Password Locker
           </h1>
-          <h2 className="mt-2 text-center text-lg">Login to your account</h2>
+          <h2 className="mt-2 text-center text-lg md:text-xl">
+            Login to your account
+          </h2>
         </div>
 
-        <form className="space-y-6 mt-10 sm:w-full sm:max-w-sm" onSubmit={handleLogin}>
+        <form className="space-y-4 mt-6 w-full max-w-md" onSubmit={handleLogin}>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium">
+            <label htmlFor="email" className="block text-sm md:text-base">
               Email
             </label>
             <input
@@ -83,65 +84,77 @@ function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-2 block w-full rounded-[4px] px-3 py-1.5 shadow-xl sm:text-sm"
+              className="mt-1 p-2 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base dark:text-alltext-light text-alltext-light"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium">
+            <label htmlFor="password" className="block text-sm md:text-base">
               Master Password
             </label>
             <div className="relative">
               <input
                 id="password"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? "text" : "password"} // Toggle between text and password
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="mt-2 block w-full rounded-[4px] px-3 py-1.5 shadow-xl sm:text-sm"
+                className="mt-1 p-2 pr-10 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base dark:text-alltext-light text-alltext-light"
               />
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-3 flex items-center"
+                className="absolute inset-y-0 right-3 flex items-center dark:text-alltext-light text-alltext-light"
               >
-                {showPassword ? <PiEyeClosedDuotone size={20} /> : <PiEyeDuotone size={20} />}
+                {showPassword ? (
+                  <PiEyeClosedDuotone size={20} />
+                ) : (
+                  <PiEyeDuotone size={20} />
+                )}
               </button>
             </div>
           </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && <p className="text-red-500 text-xs md:text-sm">{error}</p>}
 
-          <div className="flex justify-center">
+          <div className="flex justify-center ">
             <Button
               icon={PiSealCheckDuotone}
               label="Login"
               type="submit"
-              className="dark:bg-buttonbgc-dark bg-buttonbgc-light"
+              className="text-sm md:text-base h-10 px-2 md:px-6 md:mt-3 md:mb-3 "
+              iconSize={20}
             />
           </div>
         </form>
 
-        <p className="mt-6 text-center">
+        <p className="mt-4 text-center text-xs md:text-sm lg:text-base">
           Forgot master password?{" "}
-          <Link to="/reset-master-password" className="underline">
+          <Link
+            to="/reset-master-password"
+            className="underline hover:text-highlight-light dark:hover:text-highlight-dark transition-colors duration-200"
+          >
             Reset here
           </Link>
         </p>
 
-        <p className="mt-6 text-center">
+        <p className="mt-4 text-center text-xs md:text-sm lg:text-base">
           Don&apos;t have an account?{" "}
-          <Link to="/signup-page" className="underline">
+          <Link
+            to="/signup-page"
+            className="underline hover:text-highlight-light dark:hover:text-highlight-dark transition-colors duration-200"
+          >
             Sign up here
           </Link>
         </p>
       </div>
 
-      <div className="w-1/2 h-screen overflow-hidden">
+      {/* Right Section with Illustration */}
+      <div className="hidden md:block md:w-1/2 h-full overflow-hidden">
         <img
           src="https://vaultguardbucket2024.s3.amazonaws.com/pexels-ozge-taskiran-85164141-12651886.webp"
           alt="Login illustration"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-bottom"
         />
       </div>
     </div>
