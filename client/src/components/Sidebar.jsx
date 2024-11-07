@@ -10,8 +10,11 @@ import {
   PiPlusCircleDuotone
 } from "react-icons/pi";
 import Button from "./Button";
+import { useState } from "react";
 
 function Sidebar({ onSelectCategory }) {
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const items = [
     { id: 1, title: "All", icon: <PiFolderOpenDuotone size={28} /> },
     { id: 2, title: "Cards", icon: <PiCardholderDuotone size={28} /> },
@@ -22,26 +25,48 @@ function Sidebar({ onSelectCategory }) {
     { id: 7, title: "Deleted", icon: <PiTrashDuotone size={28} /> },
   ];
 
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    onSelectCategory(item.title);
+  };
+
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       {items.map((item) => (
         <div
           key={item.id}
-          className="flex items-center cursor-pointer p-2 hover:bg-gray-100 transition"
-          onClick={() => onSelectCategory(item.title)}
+          className="flex items-center cursor-pointer p-2 transition dark:text-alltext-dark text-alltext-light hover:underline"
+          onClick={() => handleItemClick(item)}
         >
           <div className="flex items-center gap-2">
-            <span>{item.icon}</span>
-            <span className="text-lg">{item.title}</span>
+            <span
+              className={`${
+                selectedItem?.id === item.id
+                  ? "dark:text-highlight-dark text-highlight-light font-bold "
+                  : ""
+              }`}
+            >
+              {item.icon}
+            </span>
+            <span
+              className={`text-[18px] ${
+                selectedItem?.id === item.id
+                  ? "dark:text-highlight-dark text-highlight-light font-bold text-shadow-pop-top"
+                  : ""
+              }`}
+            >
+              {item.title}
+            </span>
           </div>
         </div>
       ))}
 
+      {/* Add New Entry Button */}
       <Button
         icon={PiPlusCircleDuotone}
         label="Add New Entry"
         size={20}
-        />
+      />
     </div>
   );
 }

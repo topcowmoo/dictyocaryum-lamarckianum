@@ -10,7 +10,7 @@ function Header({ setSearchQuery }) {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
-    <div className="flex justify-start items-center w-full p-4 dark:bg-hefo-dark bg-purple-200 border-b-2 border-display-dark dark:border-display-light">
+    <div className="flex justify-start items-center w-full p-4 dark:bg-hefo-dark bg-hefo-light">
       {/* Left Section: Logo */}
       <div className="flex items-center">
         <button
@@ -34,9 +34,9 @@ function Header({ setSearchQuery }) {
       {/* Right Section: Dark/Light Mode Toggle */}
       <div className="flex justify-end items-center">
         {isDarkMode ? (
-          <PiSunDuotone size={30} onClick={toggleDarkMode} className="dark:text-title-dark text-title-light" />
+          <PiSunDuotone size={30} onClick={toggleDarkMode} className="dark:text-title-dark text-title-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
         ) : (
-          <PiMoonDuotone size={30} onClick={toggleDarkMode} className="dark:text-title-dark text-title-light" />
+          <PiMoonDuotone size={30} onClick={toggleDarkMode} className="dark:text-title-dark text-title-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
         )}
       </div>
     </div>

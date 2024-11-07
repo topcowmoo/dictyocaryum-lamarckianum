@@ -30,12 +30,12 @@ const VaultDisplay = ({ service, username, password, Icon }) => {
   }
 
   return (
-    <div className="p-4 bg-gray-100 border border-gray-300 rounded-md shadow-md h-full flex flex-col justify-center">
+    <div className="p-4 h-full flex flex-col justify-center dark:text-alltext-dark text-alltext-light">
       <div className="flex items-center space-x-4">
         {Icon && <Icon size={32} />} {/* Render the Icon if it's provided */}
         <div>
           <h2 className="text-xl font-bold">{service}</h2>
-          <p className="text-sm text-gray-600">{username}</p>
+          <p className="text-sm">{username}</p>
         </div>
       </div>
       <div className="mt-4">

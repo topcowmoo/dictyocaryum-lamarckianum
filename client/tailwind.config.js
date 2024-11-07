@@ -11,19 +11,19 @@ export default {
       },
       colors: {
         hefo: {
-          light: "#FBFBFB",
+          light: "#F7F9F9",
           dark: "#39434a",
         },
         sidebar: {
-          light: "#F7F9F9",
+          light: "#e1e1e1",
           dark: "#2f343d",
         },
         vault: {
-          light: "#F6F6F6",
+          light: "#d5d5d5",
           dark: "#1F242E",
         },
         display: {
-          light: "#F5F5F5",
+          light: "#c4c4c4",
           dark: "#15181e",
         },
         title: {
@@ -35,12 +35,12 @@ export default {
           dark: "#F7F9F9",
         },
         highlight: {
-          light: "#6302C5",
+          light: "#420283",
           dark: "#FEECFE",
         },
         buttonbgc: {
-          light: "#242F36",
-          dark: "#DBE2EF",
+          light: "#420283",
+          dark: "#FEECFE",
         },
         buttonti: {
           light: "#F6F6F6",
@@ -48,7 +48,7 @@ export default {
         },
         communityChest: {
           faint: "#F0E483",
-        }
+        },
       },
     },
   },

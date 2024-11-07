@@ -57,12 +57,12 @@ function Dashboard() {
       {/* Main Content */}
       <div className="h-full grid grid-cols-[300px_1fr_2fr]">
         {/* Sidebar */}
-        <div className="p-4 bg-red-400 h-full flex flex-col justify-start gap-4">
+        <div className="p-4 h-full flex flex-col justify-start gap-4 dark:bg-sidebar-dark bg-sidebar-light">
           <Sidebar onSelectCategory={handleCategorySelect} />
         </div>
 
         {/* Vault Entries */}
-        <div className="dark:bg-vault-dark bg-blue-100 p-4 h-full overflow-y-auto">
+        <div className="dark:bg-vault-dark bg-vault-light p-4 h-full overflow-y-auto">
           {selectedCategory && (
             <VaultEntries
               entries={filteredEntries}
@@ -73,7 +73,7 @@ function Dashboard() {
         </div>
 
         {/* Vault Display */}
-        <div className="dark:bg-display-dark bg-orange-100 p-4 h-full overflow-y-auto">
+        <div className="dark:bg-display-dark bg-display-light p-4 h-full overflow-y-auto">
           <VaultDisplay
             service={selectedEntry?.serviceName}
             username={selectedEntry?.username}
