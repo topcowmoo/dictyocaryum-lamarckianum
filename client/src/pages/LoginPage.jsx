@@ -63,19 +63,19 @@ function LoginPage() {
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
             alt="App logo"
-            className="mx-auto h-16 md:h-24 w-auto"
+            className="mx-auto h-16 md:h-24 2xl:h-32 w-auto"
           />
-          <h1 className="mt-6 text-center text-2xl md:text-3xl">
+          <h1 className="mt-6 text-center text-2xl md:text-3xl 2xl:text-[31px]">
             VaultGuard Password Locker
           </h1>
-          <h2 className="mt-2 text-center text-lg md:text-xl">
+          <h2 className="mt-2 text-center text-lg md:text-xl 2xl:text-[25px]">
             Login to your account
           </h2>
         </div>
 
         <form className="space-y-4 mt-6 w-full max-w-md" onSubmit={handleLogin}>
           <div>
-            <label htmlFor="email" className="block text-sm md:text-base">
+            <label htmlFor="email" className="block text-sm md:text-base 2xl:text-[20px]">
               Email
             </label>
             <input
@@ -84,12 +84,12 @@ function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-1 p-2 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base dark:text-alltext-light text-alltext-light"
+              className="mt-1 p-2 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm md:text-base">
+            <label htmlFor="password" className="block text-sm md:text-base 2xl:text-[20px]">
               Master Password
             </label>
             <div className="relative">
@@ -99,7 +99,7 @@ function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="mt-1 p-2 pr-10 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base dark:text-alltext-light text-alltext-light"
+                className="mt-1 p-2 pr-10 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
               />
               <button
                 type="button"
@@ -128,7 +128,7 @@ function LoginPage() {
           </div>
         </form>
 
-        <p className="mt-4 text-center text-xs md:text-sm lg:text-base">
+        <p className="mt-4 text-center text-xs md:text-sm lg:text-base 2xl:text-[20px]">
           Forgot master password?{" "}
           <Link
             to="/reset-master-password"
@@ -138,7 +138,7 @@ function LoginPage() {
           </Link>
         </p>
 
-        <p className="mt-4 text-center text-xs md:text-sm lg:text-base">
+        <p className="mt-4 text-center text-xs md:text-sm lg:text-base 2xl:text-[20px]">
           Don&apos;t have an account?{" "}
           <Link
             to="/signup-page"
