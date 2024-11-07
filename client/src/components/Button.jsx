@@ -8,7 +8,8 @@ function Button({ icon: Icon, label, onClick, className, type = "button", iconSi
       className={`inline-flex items-center justify-center gap-x-2 
         rounded-[4px] h-12 w-36 text-lg 
         dark:bg-buttonbgc-dark bg-buttonbgc-light 
-        dark:text-buttonti-dark text-buttonti-light 
+        dark:text-buttonti-dark text-buttonti-light
+        transition-transform duration-150 transform active:scale-95 
         ${className}`}
     >
        {Icon && <Icon size={iconSize} />}
