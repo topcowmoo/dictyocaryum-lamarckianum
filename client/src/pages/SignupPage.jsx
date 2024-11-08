@@ -140,7 +140,7 @@ function SignupPage() {
               {Object.entries(requirements).map(([key, met]) => (
                 <div key={key} className="flex items-center mt-11 lg:gap-2">
                   {met ? <PiCheckCircleDuotone size={20} className="text-highlight-light dark:text-highlight-dark" /> : <PiXCircleDuotone size={20} className="text-red-500" />}
-                  <span className="ml-2 text-sm md:text-[13.5px] xl:text-[18px] 2xl:text-[20px]">{getRequirementText(key)}</span>
+                  <span className="ml-2 text-sm md:text-[13px] xl:text-[18px] 2xl:text-[20px]">{getRequirementText(key)}</span>
                 </div>
               ))}
             </div>
