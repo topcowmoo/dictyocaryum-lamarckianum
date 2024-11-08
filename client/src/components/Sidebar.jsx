@@ -7,13 +7,12 @@ import {
   PiFolderOpenDuotone,
   PiIdentificationBadgeDuotone,
   PiKeyDuotone,
-  PiPlusCircleDuotone
+  PiPlusCircleDuotone,
 } from "react-icons/pi";
-import Button from "./Button";
 import { useState } from "react";
 
 function Sidebar({ onSelectCategory }) {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItemId, setSelectedItemId] = useState(null);
 
   const items = [
     { id: 1, title: "All", icon: <PiFolderOpenDuotone size={28} /> },
@@ -26,47 +25,75 @@ function Sidebar({ onSelectCategory }) {
   ];
 
   const handleItemClick = (item) => {
-    setSelectedItem(item);
+    setSelectedItemId(item.id);
     onSelectCategory(item.title);
   };
 
-  return (
-    <div className="flex flex-col gap-6">
-      {items.map((item) => (
-        <div
-          key={item.id}
-          className="flex items-center cursor-pointer p-2 transition dark:text-alltext-dark text-alltext-light hover:underline"
-          onClick={() => handleItemClick(item)}
-        >
-          <div className="flex items-center gap-2">
-            <span
-              className={`${
-                selectedItem?.id === item.id
-                  ? "dark:text-highlight-dark text-highlight-light font-bold "
-                  : ""
-              }`}
-            >
-              {item.icon}
-            </span>
-            <span
-              className={`text-[18px] ${
-                selectedItem?.id === item.id
-                  ? "dark:text-highlight-dark text-highlight-light font-bold text-shadow-pop-top"
-                  : ""
-              }`}
-            >
-              {item.title}
-            </span>
-          </div>
-        </div>
-      ))}
+  const handleAddNewEntry = () => {
+    setSelectedItemId("new"); // Unique identifier for "Add New Entry"
+    console.log("Add New Entry clicked");
+  };
 
-      {/* Add New Entry Button */}
-      <Button
-        icon={PiPlusCircleDuotone}
-        label="Add New Entry"
-        size={20}
-      />
+  return (
+    <div className="flex flex-col justify-between h-full">
+      {/* Sidebar Items */}
+      <div className="flex flex-col gap-7">
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className="flex items-center cursor-pointer p-2 transition dark:text-alltext-dark text-alltext-light hover:underline"
+            onClick={() => handleItemClick(item)}
+          >
+            <div className="flex items-center gap-2">
+              <span
+                className={`${
+                  selectedItemId === item.id
+                    ? "dark:text-highlight-dark text-highlight-light font-bold"
+                    : ""
+                }`}
+              >
+                {item.icon}
+              </span>
+              <span
+                className={`text-[18px] ${
+                  selectedItemId === item.id
+                    ? "dark:text-highlight-dark text-highlight-light font-bold text-shadow-pop-top"
+                    : ""
+                }`}
+              >
+                {item.title}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Add New Entry Item at the Bottom */}
+      <div
+        className="flex items-center cursor-pointer p-2 mt-auto transition dark:text-alltext-dark text-alltext-light hover:underline"
+        onClick={handleAddNewEntry}
+      >
+        <div className="flex items-center gap-2">
+          <span
+            className={`${
+              selectedItemId === "new"
+                ? "dark:text-highlight-dark text-highlight-light font-bold"
+                : ""
+            }`}
+          >
+            <PiPlusCircleDuotone size={28} />
+          </span>
+          <span
+            className={`text-[18px] ${
+              selectedItemId === "new"
+                ? "dark:text-highlight-dark text-highlight-light font-bold text-shadow-pop-top"
+                : ""
+            }`}
+          >
+            Add New Entry
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
