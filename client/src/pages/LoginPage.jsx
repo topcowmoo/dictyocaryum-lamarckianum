@@ -50,15 +50,11 @@ function LoginPage() {
     <div className="flex flex-col md:flex-row min-h-screen">
       {/* Dark Mode Toggle */}
       <div className="absolute top-4 left-4 cursor-pointer dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light">
-        {isDarkMode ? (
-          <PiSunDuotone size={40} onClick={toggleDarkMode} />
-        ) : (
-          <PiMoonDuotone size={40} onClick={toggleDarkMode} />
-        )}
+      {isDarkMode ? <PiSunDuotone className="2xl:text-[45px]" onClick={toggleDarkMode} /> : <PiMoonDuotone className="2xl:text-[45px]" onClick={toggleDarkMode} />}
       </div>
 
       {/* Left Section with Login Form */}
-      <div className="w-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 xl:p-20">
+      <div className="w-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 xl:p-20 2xl:min-h-screen justify-center">
         <div className="w-full max-w-md xl:max-w-lg">
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
@@ -68,7 +64,7 @@ function LoginPage() {
           <h1 className="mt-6 text-center text-2xl md:text-3xl xl:text-[27px] 2xl:text-[31px]">
             VaultGuard Password Locker
           </h1>
-          <h2 className="mt-2 text-center text-lg md:text-xl xl:text-[21px] 2xl:text-[25px]">
+          <h2 className="mt-4 text-center text-lg md:text-xl xl:text-[21px] 2xl:text-[25px]">
             Login to your account
           </h2>
         </div>
@@ -106,23 +102,27 @@ function LoginPage() {
                 onClick={togglePasswordVisibility}
                 className="absolute inset-y-0 right-3 flex items-center dark:text-alltext-light text-alltext-light"
               >
-                {showPassword ? (
-                  <PiEyeClosedDuotone size={20} />
-                ) : (
-                  <PiEyeDuotone size={20} />
-                )}
+                {showPassword ? <PiEyeClosedDuotone className="2xl:text-[24px]" /> : <PiEyeDuotone className="2xl:text-[24px]" />}
               </button>
             </div>
           </div>
 
-          {error && <p className="text-red-500 text-xs md:text-sm xl:text-base">{error}</p>}
 
+          <div className="h-5 md:h-6 xl:h-t">
+
+          {error ? (
+      <p className="text-red-500 text-xs md:text-sm xl:text-base">{error}</p>
+    ) : (
+      <p className="invisible text-xs md:text-sm xl:text-base">Placeholder for error</p>
+    )}
+          </div>
+        
           <div className="flex justify-center">
             <Button
               icon={PiSealCheckDuotone}
               label="Login"
               type="submit"
-              className="text-sm md:text-base xl:text-[18px] h-10 md:h-12 xl:h-14 px-4 md:px-6 xl:px-8"
+              className="text-sm md:text-base xl:text-[18px] h-10 md:h-12 xl:h-14 px-4 md:px-6 xl:px-8 mt-2 mb-2"
               iconSize={20}
             />
           </div>

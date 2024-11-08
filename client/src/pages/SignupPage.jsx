@@ -78,7 +78,7 @@ function SignupPage() {
     <div className="flex flex-col md:flex-row min-h-screen">
       {/* Dark Mode Toggle */}
       <div className="absolute top-4 right-4 cursor-pointer dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light">
-        {isDarkMode ? <PiSunDuotone size={40} onClick={toggleDarkMode} /> : <PiMoonDuotone size={40} onClick={toggleDarkMode} />}
+        {isDarkMode ? <PiSunDuotone className="2xl:text-[45px]" onClick={toggleDarkMode} /> : <PiMoonDuotone className="2xl:text-[45px]" onClick={toggleDarkMode} />}
       </div>
 
       {/* Left Image Section (hidden on sm and below) */}
@@ -91,7 +91,7 @@ function SignupPage() {
       </div>
 
       {/* Right Form Section */}
-      <div className="w-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16">
+      <div className="w-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 2xl:min-h-screen justify-center">
         <div className="w-full max-w-md">
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
@@ -131,14 +131,14 @@ function SignupPage() {
                 onClick={togglePasswordVisibility}
                 className="absolute inset-y-0 right-3 flex items-center dark:text-alltext-light text-alltext-light"
               >
-                {showPassword ? <PiEyeClosedDuotone size={20} /> : <PiEyeDuotone size={20} />}
+                {showPassword ? <PiEyeClosedDuotone className="2xl:text-[24px]" /> : <PiEyeDuotone className="2xl:text-[24px]" />}
               </button>
             </div>
 
             {/* Password Requirements */}
             <div className="mt-4 space-y-1">
               {Object.entries(requirements).map(([key, met]) => (
-                <div key={key} className="flex items-center">
+                <div key={key} className="flex items-center mt-11 gap-2">
                   {met ? <PiCheckCircleDuotone size={20} className="text-highlight-light dark:text-highlight-dark" /> : <PiXCircleDuotone size={20} className="text-red-500" />}
                   <span className="ml-2 text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">{getRequirementText(key)}</span>
                 </div>
@@ -149,7 +149,7 @@ function SignupPage() {
           {error && <p className="text-red-500 text-xs md:text-sm">{error}</p>}
 
           <div className="flex justify-center">
-            <Button icon={PiSealCheckDuotone} label="Sign Up" type="submit" className="text-sm md:text-base h-10 px-4 md:px-6" iconSize={20} />
+            <Button icon={PiSealCheckDuotone} label="Sign Up" type="submit" className="text-sm md:text-base h-10 px-4 md:px-6 mt-4" iconSize={20} />
           </div>
         </form>
 
