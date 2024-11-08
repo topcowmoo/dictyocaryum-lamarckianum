@@ -128,7 +128,7 @@ function LoginPage() {
           </div>
         </form>
 
-        <p className="mt-6 text-center text-xs md:text-sm xl:text-[18px] 2xl:text-[20px]">
+        <p className="mt-6 text-center text-xs md:text-[13px] xl:text-[18px] 2xl:text-[20px]">
           Forgot master password?{" "}
           <Link
             to="/reset-master-password"
@@ -138,7 +138,7 @@ function LoginPage() {
           </Link>
         </p>
 
-        <p className="mt-6 text-center text-xs md:text-sm xl:text-[18px] 2xl:text-[20px]">
+        <p className="mt-6 text-center text-xs md:text-[13px] xl:text-[18px] 2xl:text-[20px] ">
           Don&apos;t have an account?{" "}
           <Link
             to="/signup-page"

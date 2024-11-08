@@ -139,8 +139,8 @@ function SignupPage() {
             <div className="mt-4 space-y-1">
               {Object.entries(requirements).map(([key, met]) => (
                 <div key={key} className="flex items-center mt-11 lg:gap-2">
-                  {met ? <PiCheckCircleDuotone size={20} className="text-highlight-light dark:text-highlight-dark" /> : <PiXCircleDuotone size={20} className="text-red-500" />}
-                  <span className="ml-2 text-sm md:text-[13px] xl:text-[18px] 2xl:text-[20px]">{getRequirementText(key)}</span>
+                  {met ? <PiCheckCircleDuotone className="text-highlight-light dark:text-highlight-dark text-[18px]" /> : <PiXCircleDuotone className="text-[18px] text-red-500" />}
+                  <span className="ml-2 text-sm md:text-[11px] xl:text-[18px] 2xl:text-[20px]">{getRequirementText(key)}</span>
                 </div>
               ))}
             </div>
@@ -153,7 +153,7 @@ function SignupPage() {
           </div>
         </form>
 
-        <p className="mt-6 text-center text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">
+        <p className="mt-6 text-center text-sm md:text-[13px] xl:text-[18px] 2xl:text-[20px]">
           Already have an account? <Link to="/login-page" className="underline dark:hover:text-highlight-dark hover:text-highlight-light">Login here</Link>
         </p>
       </div>
