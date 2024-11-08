@@ -50,7 +50,7 @@ function LoginPage() {
     <div className="flex flex-col md:flex-row min-h-screen">
       {/* Dark Mode Toggle */}
       <div className="absolute top-4 left-4 cursor-pointer dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light">
-      {isDarkMode ? <PiSunDuotone className="lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} /> : <PiMoonDuotone className=" lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} />}
+      {isDarkMode ? <PiSunDuotone className="md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} /> : <PiMoonDuotone className="md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} />}
       </div>
 
       {/* Left Section with Login Form */}
@@ -102,7 +102,7 @@ function LoginPage() {
                 onClick={togglePasswordVisibility}
                 className="absolute inset-y-0 right-3 flex items-center dark:text-alltext-light text-alltext-light"
               >
-                {showPassword ? <PiEyeClosedDuotone className="lg:text-[20px] 2xl:text-[24px]" /> : <PiEyeDuotone className="lg:text-[20px] 2xl:text-[24px]" />}
+                {showPassword ? <PiEyeClosedDuotone className="md:text-[18px] lg:text-[20px] 2xl:text-[24px]" /> : <PiEyeDuotone className="md:text-[18px] lg:text-[20px] 2xl:text-[24px]" />}
               </button>
             </div>
           </div>
