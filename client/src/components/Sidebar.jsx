@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Modal from "./Modal";
 import AddPasswordForm from "./AddPasswordForm";
+import Dropdown from "./Dropdown";
 import {
   PiFilmSlateDuotone,
   PiTrashDuotone,
