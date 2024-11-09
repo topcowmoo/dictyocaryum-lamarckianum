@@ -50,21 +50,21 @@ function LoginPage() {
     <div className="flex flex-col md:flex-row min-h-screen">
       {/* Dark Mode Toggle */}
       <div className="absolute top-4 left-4 cursor-pointer dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light">
-      {isDarkMode ? <PiSunDuotone className="md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} /> : <PiMoonDuotone className="md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} />}
+      {isDarkMode ? <PiSunDuotone className="text-[23px] md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} /> : <PiMoonDuotone className="text-[23px] md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} />}
       </div>
 
       {/* Left Section with Login Form */}
-      <div className="w-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 xl:p-20 2xl:min-h-screen justify-center">
+      <div className="w-full h-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 xl:p-20 2xl:min-h-screen justify-center">
         <div className="w-full max-w-md xl:max-w-lg">
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
             alt="App logo"
             className="mx-auto h-16 md:h-24 xl:h-28 2xl:h-32 w-auto"
           />
-          <h1 className="mt-6 text-center text-2xl md:text-3xl xl:text-[27px] 2xl:text-[31px]">
+          <h1 className="mt-6 text-center text-[21px] md:text-3xl xl:text-[27px] 2xl:text-[31px]">
             VaultGuard Password Locker
           </h1>
-          <h2 className="mt-4 text-center text-lg md:text-xl xl:text-[21px] 2xl:text-[25px]">
+          <h2 className="mt-4 text-center text-[18px] md:text-xl xl:text-[21px] 2xl:text-[25px]">
             Login to your account
           </h2>
         </div>
@@ -128,7 +128,7 @@ function LoginPage() {
           </div>
         </form>
 
-        <p className="mt-6 text-center text-xs md:text-[13px] xl:text-[18px] 2xl:text-[20px]">
+        <p className="mt-6 text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px]">
           Forgot master password?{" "}
           <Link
             to="/reset-master-password"
@@ -138,7 +138,7 @@ function LoginPage() {
           </Link>
         </p>
 
-        <p className="mt-6 text-center text-xs md:text-[13px] xl:text-[18px] 2xl:text-[20px] ">
+        <p className="mt-6 text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px] ">
           Don&apos;t have an account?{" "}
           <Link
             to="/signup-page"

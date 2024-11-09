@@ -78,7 +78,7 @@ function SignupPage() {
     <div className="flex flex-col md:flex-row min-h-screen">
       {/* Dark Mode Toggle */}
       <div className="absolute top-4 right-4 cursor-pointer dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light">
-        {isDarkMode ? <PiSunDuotone className="md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} /> : <PiMoonDuotone className="md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} />}
+        {isDarkMode ? <PiSunDuotone className="text-[22px] md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} /> : <PiMoonDuotone className="text-[22px] md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} />}
       </div>
 
       {/* Left Image Section (hidden on sm and below) */}
@@ -91,15 +91,15 @@ function SignupPage() {
       </div>
 
       {/* Right Form Section */}
-      <div className="w-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 2xl:min-h-screen justify-center">
-        <div className="w-full max-w-md">
+      <div className="w-full h-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 2xl:min-h-screen justify-start">
+        <div className="w-full max-w-2xl">
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
             alt="App logo"
             className="mx-auto w-auto h-16 md:h-24 xl:h-24 2xl:h-32"
           />
-          <h1 className="mt-6 text-center text-2xl md:text-3xl xl:text-[27px] 2xl:text-[31px]">VaultGuard Password Locker</h1>
-          <h2 className="mt-2 text-center text-lg md:text-xl xl:text-[21px] 2xl:text-[25px]">Create a new account</h2>
+          <h1 className="mt-14 mb-10 text-center text-[20px] md:text-3xl xl:text-[27px] 2xl:text-[44px]">VaultGuard Password Locker</h1>
+          <h2 className="mt-2 text-center text-[18px] md:text-xl xl:text-[21px] 2xl:text-[25px]">Create a new account</h2>
         </div>
 
         <form className="space-y-4 mt-6 w-full max-w-md" onSubmit={handleSignup}>
@@ -140,7 +140,7 @@ function SignupPage() {
               {Object.entries(requirements).map(([key, met]) => (
                 <div key={key} className="flex items-center mt-11 lg:gap-2">
                   {met ? <PiCheckCircleDuotone className="text-highlight-light dark:text-highlight-dark text-[18px]" /> : <PiXCircleDuotone className="text-[18px] text-red-500" />}
-                  <span className="ml-2 text-sm md:text-[11px] xl:text-[18px] 2xl:text-[20px]">{getRequirementText(key)}</span>
+                  <span className="ml-2 text-[13px] md:text-[11px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px]">{getRequirementText(key)}</span>
                 </div>
               ))}
             </div>
@@ -153,7 +153,7 @@ function SignupPage() {
           </div>
         </form>
 
-        <p className="mt-6 text-center text-sm md:text-[13px] xl:text-[18px] 2xl:text-[20px]">
+        <p className="mt-6 text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px]">
           Already have an account? <Link to="/login-page" className="underline dark:hover:text-highlight-dark hover:text-highlight-light">Login here</Link>
         </p>
       </div>
