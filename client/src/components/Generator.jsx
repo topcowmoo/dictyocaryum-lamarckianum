@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Button from "./Button";
-import { PiCopyDuotone, PiArrowClockwiseDuotone } from "react-icons/pi";
+import { PiCopyDuotone, PiArrowClockwiseDuotone, PiSealCheckDuotone, } from "react-icons/pi";
 
 // Helper function to generate a secure password
 function generatePassword(length, includeUppercase, includeLowercase, includeNumbers, includeSymbols, minNumbers, minSpecial) {
@@ -9,7 +9,7 @@ function generatePassword(length, includeUppercase, includeLowercase, includeNum
     lowercase: "abcdefghijklmnopqrstuvwxyz",
     uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     numbers: "0123456789",
-    symbols: "!@#$%^&*", // Updated to exclude ( and )
+    symbols: "!@#$%^&*",
   };
 
   let password = "";
@@ -69,7 +69,7 @@ function Generator({ onSelectedPassword, onClose }) {
   };
 
   return (
-    <div className="password-generator p-4 bg-[#f2f2d0] rounded-lg">
+    <div className="password-generator p-4 rounded-[4px] dark:bg-vault-dark bg-vault-light dark:text-vault-light text-vault-dark">
       <h1 className="text-xl text-center mb-4">Password Generator</h1>
 
       {/* Password Length Slider */}
@@ -78,7 +78,7 @@ function Generator({ onSelectedPassword, onClose }) {
         <input
           type="range"
           min="14"
-          max="128"
+          max="60"
           value={length}
           onChange={(e) => setLength(Number(e.target.value))}
           className="w-3/4"
@@ -138,7 +138,7 @@ function Generator({ onSelectedPassword, onClose }) {
           onChange={(e) => setMinNumbers(Number(e.target.value))}
           min="1"
           disabled={!includeNumbers}
-          className="w-16 p-1 border rounded"
+          className="w-16 p-1 border rounded-[4px]"
         />
       </div>
 
@@ -150,20 +150,20 @@ function Generator({ onSelectedPassword, onClose }) {
           onChange={(e) => setMinSpecial(Number(e.target.value))}
           min="1"
           disabled={!includeSymbols}
-          className="w-16 p-1 border rounded"
+          className="w-16 p-1 border rounded-[4px]"
         />
       </div>
 
       {/* Generated Password */}
-      <div className="mb-4 p-2 bg-white rounded shadow">
-        <h3 className="text-center text-xl">{password || "Password will appear here"}</h3>
+      <div className="mb-4 p-2 bg-white rounded-[4px] shadow">
+        <h3 className="text-center text-xl">{password}</h3>
       </div>
 
       {/* Generate and Copy Buttons */}
       <div className="flex justify-center gap-4">
         <Button onClick={handleGenerate} label="Refresh" icon={PiArrowClockwiseDuotone} />
         <Button onClick={() => navigator.clipboard.writeText(password)} label="Copy" icon={PiCopyDuotone} />
-        <Button onClick={handleUsePassword} label="Use Password" />
+        <Button onClick={handleUsePassword} label="Use Password" icon={PiSealCheckDuotone} />
       </div>
     </div>
   );

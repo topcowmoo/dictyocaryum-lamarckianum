@@ -6,21 +6,14 @@ import {
   PiEyeClosedDuotone,
   PiPencilDuotone,
   PiTrashDuotone,
-  PiArrowClockwiseDuotone,
 } from "react-icons/pi";
 import Button from "./Button";
-import Generator from "./Generator"; // Import the Password Generator component
 
 const VaultDisplay = ({ service, username, password, Icon, onDelete, onEdit }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showGenerator, setShowGenerator] = useState(false); // State to control the Password Generator
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
-  };
-
-  const toggleGenerator = () => {
-    setShowGenerator((prev) => !prev); // Toggle the Password Generator visibility
   };
 
   const copyToClipboard = () => {
@@ -91,20 +84,8 @@ const VaultDisplay = ({ service, username, password, Icon, onDelete, onEdit }) =
               iconSize={20}
             />
 
-            {/* Password Generator Icon */}
-            <button
-              type="button"
-              onClick={toggleGenerator}
-              className="flex items-center dark:text-alltext-light text-alltext-light"
-            >
-              <PiArrowClockwiseDuotone size={20} />
-            </button>
+          
           </div>
-
-          {/* Password Generator Modal */}
-          {showGenerator && (
-            <Generator onClose={toggleGenerator} /> // Close the generator when done
-          )}
         </>
       )}
     </div>
