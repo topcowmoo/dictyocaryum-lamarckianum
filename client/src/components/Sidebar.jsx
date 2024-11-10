@@ -1,8 +1,5 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import Modal from "./Modal";
-import AddPasswordForm from "./AddPasswordForm";
-import Dropdown from "./Dropdown";
 import {
   PiFilmSlateDuotone,
   PiTrashDuotone,
@@ -14,9 +11,8 @@ import {
   PiPlusCircleDuotone,
 } from "react-icons/pi";
 
-function Sidebar({ onSelectCategory }) {
+function Sidebar({ onSelectCategory, onAddNewEntry }) {
   const [selectedItemId, setSelectedItemId] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Corrected state variable
 
   const items = [
     { id: 1, title: "All", icon: <PiFolderOpenDuotone size={28} /> },
@@ -35,11 +31,7 @@ function Sidebar({ onSelectCategory }) {
 
   const handleAddNewEntry = () => {
     setSelectedItemId("new"); // Unique identifier for "Add New Entry"
-    setIsModalOpen(true); // Open the modal
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false); // Close the modal
+    onAddNewEntry(); // Call the parent handler
   };
 
   return (
@@ -102,19 +94,13 @@ function Sidebar({ onSelectCategory }) {
           </span>
         </div>
       </div>
-
-      {/* Modal for Add New Entry */}
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <AddPasswordForm />
-        </Modal>
-      )}
     </div>
   );
 }
 
 Sidebar.propTypes = {
   onSelectCategory: PropTypes.func.isRequired,
+  onAddNewEntry: PropTypes.func.isRequired, // New prop
 };
 
 export default Sidebar;

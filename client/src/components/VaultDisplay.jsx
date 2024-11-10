@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import {
   PiCopyDuotone,
@@ -5,15 +6,21 @@ import {
   PiEyeClosedDuotone,
   PiPencilDuotone,
   PiTrashDuotone,
+  PiArrowClockwiseDuotone,
 } from "react-icons/pi";
 import Button from "./Button";
-import { useState } from "react";
+import Generator from "./Generator"; // Import the Password Generator component
 
-const VaultDisplay = ({ service, username, password, Icon }) => {
+const VaultDisplay = ({ service, username, password, Icon, onDelete, onEdit }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showGenerator, setShowGenerator] = useState(false); // State to control the Password Generator
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const toggleGenerator = () => {
+    setShowGenerator((prev) => !prev); // Toggle the Password Generator visibility
   };
 
   const copyToClipboard = () => {
@@ -24,54 +31,83 @@ const VaultDisplay = ({ service, username, password, Icon }) => {
     }
   };
 
-  // Only render the display content if service, username, or password is present
-  if (!service && !username && !password) {
-    return null; // Renders nothing if no entry is selected
-  }
+  // Check if the VaultDisplay is empty
+  const isEmpty = !service && !username && !password;
 
   return (
     <div className="p-4 h-full flex flex-col justify-center dark:text-alltext-dark text-alltext-light">
-      <div className="flex items-center space-x-4">
-        {Icon && <Icon size={32} />} {/* Render the Icon if it's provided */}
-        <div>
-          <h2 className="text-xl font-bold">{service}</h2>
-          <p className="text-sm">{username}</p>
+      {isEmpty ? (
+        // Render the logo when the VaultDisplay is empty
+        <div className="flex justify-center items-center h-full">
+          <img
+            src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
+            alt="App logo"
+            className="w-[400px] h-[400px] object-contain"
+          /> 
         </div>
-      </div>
-      <div className="mt-4">
-        <h3 className="font-semibold">Password:</h3>
-        <p>{showPassword ? password : "••••••••••"}</p>
-      </div>
-      <div className="flex space-x-4 mt-4">
-        {/* Toggle Password Visibility */}
-        <Button
-          icon={showPassword ? PiEyeClosedDuotone : PiEyeDuotone}
-          label={showPassword ? "Hide" : "Show"}
-          onClick={togglePasswordVisibility}
-          iconSize={20}
-        />
+      ) : (
+        // Render the content if service, username, or password is present
+        <>
+          <div className="flex items-center space-x-4">
+            {Icon && <Icon size={32} />} {/* Render the Icon if it's provided */}
+            <div>
+              <h2 className="text-xl font-bold">{service}</h2>
+              <p className="text-sm">{username}</p>
+            </div>
+          </div>
+          <div className="mt-4">
+            <h3 className="font-semibold">Password:</h3>
+            <p>{showPassword ? password : "••••••••••"}</p>
+          </div>
+          <div className="flex space-x-4 mt-4">
+            {/* Toggle Password Visibility */}
+            <Button
+              icon={showPassword ? PiEyeClosedDuotone : PiEyeDuotone}
+              label={showPassword ? "Hide" : "Show"}
+              onClick={togglePasswordVisibility}
+              iconSize={20}
+            />
 
-        {/* Copy Password */}
-        <Button
-          icon={PiCopyDuotone}
-          label="Copy"
-          onClick={copyToClipboard}
-          iconSize={20}
-        />
+            {/* Copy Password */}
+            <Button
+              icon={PiCopyDuotone}
+              label="Copy"
+              onClick={copyToClipboard}
+              iconSize={20}
+            />
 
-        <Button
-        icon={PiPencilDuotone}
-        label="Edit"
-        iconSize={20}
-        />
+            {/* Edit Button */}
+            <Button
+              icon={PiPencilDuotone}
+              label="Edit"
+              onClick={onEdit}
+              iconSize={20}
+            />
 
-<Button
-icon={PiTrashDuotone}
-label="Delete"
-iconSize={20}
-/>
+            {/* Delete Button */}
+            <Button
+              icon={PiTrashDuotone}
+              label="Delete"
+              onClick={onDelete}
+              iconSize={20}
+            />
 
-      </div>
+            {/* Password Generator Icon */}
+            <button
+              type="button"
+              onClick={toggleGenerator}
+              className="flex items-center dark:text-alltext-light text-alltext-light"
+            >
+              <PiArrowClockwiseDuotone size={20} />
+            </button>
+          </div>
+
+          {/* Password Generator Modal */}
+          {showGenerator && (
+            <Generator onClose={toggleGenerator} /> // Close the generator when done
+          )}
+        </>
+      )}
     </div>
   );
 };
@@ -81,6 +117,8 @@ VaultDisplay.propTypes = {
   username: PropTypes.string,
   password: PropTypes.string,
   Icon: PropTypes.elementType,
+  onDelete: PropTypes.func.isRequired, // Function to handle deleting the entry
+  onEdit: PropTypes.func.isRequired, // Function to handle editing the entry
 };
 
 export default VaultDisplay;

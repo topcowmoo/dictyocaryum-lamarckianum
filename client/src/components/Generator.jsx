@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import Button from "./Button";
 import { PiCopyDuotone, PiArrowClockwiseDuotone } from "react-icons/pi";
 
@@ -8,19 +9,17 @@ function generatePassword(length, includeUppercase, includeLowercase, includeNum
     lowercase: "abcdefghijklmnopqrstuvwxyz",
     uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     numbers: "0123456789",
-    symbols: "!@#$%^&*()",
+    symbols: "!@#$%^&*", // Updated to exclude ( and )
   };
 
   let password = "";
   let allCharacters = "";
 
-  // Add character sets based on user selection
   if (includeLowercase) allCharacters += charset.lowercase;
   if (includeUppercase) allCharacters += charset.uppercase;
   if (includeNumbers) allCharacters += charset.numbers;
   if (includeSymbols) allCharacters += charset.symbols;
 
-  // Ensure minimum numbers and symbols only if their checkboxes are selected
   if (includeNumbers) {
     for (let i = 0; i < minNumbers; i++) {
       password += charset.numbers[Math.floor(Math.random() * charset.numbers.length)];
@@ -33,17 +32,15 @@ function generatePassword(length, includeUppercase, includeLowercase, includeNum
     }
   }
 
-  // Fill the rest of the password with random characters from the selected character sets
   while (password.length < length) {
     const randomByte = crypto.getRandomValues(new Uint8Array(1))[0];
     password += allCharacters[randomByte % allCharacters.length];
   }
 
-  // Shuffle the password for randomness
   return password.split('').sort(() => 0.5 - Math.random()).join('');
 }
 
-function Generator() {
+function Generator({ onSelectedPassword, onClose }) {
   const [password, setPassword] = useState("");
   const [length, setLength] = useState(14);
   const [minNumbers, setMinNumbers] = useState(1);
@@ -60,10 +57,15 @@ function Generator() {
       includeLowercase,
       includeNumbers,
       includeSymbols,
-      includeNumbers ? minNumbers : 0, // Respect the checkbox for numbers
-      includeSymbols ? minSpecial : 0  // Respect the checkbox for symbols
+      includeNumbers ? minNumbers : 0,
+      includeSymbols ? minSpecial : 0
     );
     setPassword(newPassword);
+  };
+
+  const handleUsePassword = () => {
+    onSelectedPassword(password);
+    onClose();
   };
 
   return (
@@ -135,7 +137,7 @@ function Generator() {
           value={minNumbers}
           onChange={(e) => setMinNumbers(Number(e.target.value))}
           min="1"
-          disabled={!includeNumbers} // Disable if numbers are not included
+          disabled={!includeNumbers}
           className="w-16 p-1 border rounded"
         />
       </div>
@@ -147,7 +149,7 @@ function Generator() {
           value={minSpecial}
           onChange={(e) => setMinSpecial(Number(e.target.value))}
           min="1"
-          disabled={!includeSymbols} // Disable if symbols are not included
+          disabled={!includeSymbols}
           className="w-16 p-1 border rounded"
         />
       </div>
@@ -159,24 +161,17 @@ function Generator() {
 
       {/* Generate and Copy Buttons */}
       <div className="flex justify-center gap-4">
-        <Button
-          onClick={handleGenerate}
-          label="Refresh"
-          icon={PiArrowClockwiseDuotone}
-        >
-          Refresh
-        </Button>
-
-        <Button
-          onClick={() => navigator.clipboard.writeText(password)}
-          label="Copy"
-          icon={PiCopyDuotone}
-        >
-          Copy
-        </Button>
+        <Button onClick={handleGenerate} label="Refresh" icon={PiArrowClockwiseDuotone} />
+        <Button onClick={() => navigator.clipboard.writeText(password)} label="Copy" icon={PiCopyDuotone} />
+        <Button onClick={handleUsePassword} label="Use Password" />
       </div>
     </div>
   );
 }
+
+Generator.propTypes = {
+  onSelectedPassword: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
 
 export default Generator;
