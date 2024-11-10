@@ -35,15 +35,14 @@ const VaultDisplay = ({ service, username, password, Icon, onDelete, onEdit }) =
   const isEmpty = !service && !username && !password;
 
   return (
-    <div className="p-4 h-full flex flex-col justify-center dark:text-alltext-dark text-alltext-light">
+    <div className="h-full flex flex-col justify-center items-center dark:text-alltext-dark text-alltext-light xl:text-[30px]">
       {isEmpty ? (
         // Render the logo when the VaultDisplay is empty
         <div className="flex justify-center items-center h-full">
-          <img
-            src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
-            alt="App logo"
-            className="w-[400px] h-[400px] object-contain"
-          /> 
+          <h1 className="mix-blend-overlay">
+  VaultGuard Password Locker
+</h1>
+
         </div>
       ) : (
         // Render the content if service, username, or password is present
