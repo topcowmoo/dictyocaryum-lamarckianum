@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { DarkModeContext } from "../context/DarkModeContext";
 import { useNavigate } from "react-router-dom";
-import { PiSunDuotone, PiMoonDuotone, PiSignOutDuotone, PiSealCheckDuotone } from "react-icons/pi";
+import { PiSunDuotone, PiMoonDuotone, PiSignOutDuotone, PiSealCheckDuotone, PiArrowCircleLeftDuotone } from "react-icons/pi";
 import Button from "../components/Button";
 
 function Profile() {
@@ -55,6 +55,13 @@ function Profile() {
             onClick={handleLogout}
             className="dark:text-alltext-dark text-alltext-light w-32 md:w-36 text-sm"
           />
+          <Button
+            icon={PiArrowCircleLeftDuotone}
+            iconSize={20}
+            label="Go Back"
+            onClick={() => navigate("/dashboard")}
+            className="dark:text-alltext-dark text-alltext-light w-32 md:w-36 text-sm"
+            />
         </div>
       </div>
 
