@@ -7,7 +7,6 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Poppins", "Segoe UI", "Helvetica Neue"],
-        libre: ["'Libre Franklin'", "sans-serif"],
       },
       colors: {
         hefo: {
@@ -45,9 +44,6 @@ export default {
         buttonti: {
           light: "#F6F6F6",
           dark: "#15181e",
-        },
-        communityChest: {
-          faint: "#F0E483",
         },
       },
     },

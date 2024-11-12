@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   PiEyeDuotone,
   PiEyeClosedDuotone,
@@ -8,7 +9,6 @@ import Modal from "./Modal.jsx";
 import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
 import serviceIcons from "../utils/serviceIcons.js";
-import { useState } from "react";
 
 function AddPassword() {
   const [password, setPassword] = useState("");

@@ -10,6 +10,7 @@ import SignupPage from './pages/SignupPage.jsx';
 import ChangePassword from './components/ChangePassword.jsx';
 import Error from './pages/Error.jsx';
 import ResetMasterPassword from './pages/ResetMasterPassword.jsx';
+import { DarkModeProvider } from './context/DarkModeContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -62,5 +63,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <DarkModeProvider>
   <RouterProvider router={router} />
+  </DarkModeProvider>
 );
