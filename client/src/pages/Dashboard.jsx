@@ -5,6 +5,8 @@ import VaultEntries from "../components/VaultEntries";
 import VaultDisplay from "../components/VaultDisplay";
 import AddPassword from "../components/AddPassword";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedEntry, setSelectedEntry] = useState(null);
@@ -20,8 +22,8 @@ function Dashboard() {
       try {
         // If no category is selected, fetch all entries
         const url = selectedCategory
-          ? `http://localhost:8001/api/locker?category=${selectedCategory}`
-          : "http://localhost:8001/api/locker"; // Fetch all entries when no category is selected
+          ? `${apiURL}/api/locker?category=${selectedCategory}`
+          : `${apiURL}/api/locker`; // Fetch all entries when no category is selected
 
         const response = await fetch(url, {
           method: "GET",

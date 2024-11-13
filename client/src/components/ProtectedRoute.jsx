@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const ProtectedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch('http://localhost:8001/api/user/auth/verify', {
+        const response = await fetch(`${apiURL}/api/user/auth/verify`, {
           method: 'GET',
           credentials: 'include',
         });
