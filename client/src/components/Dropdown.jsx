@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { PiCaretDown } from "react-icons/pi";
 
 function Dropdown({ items, placeholder = "Select an Option" }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,19 +12,20 @@ function Dropdown({ items, placeholder = "Select an Option" }) {
   };
 
   return (
-    <div className="relative w-64">
+    <div className="relative w-full">
       {/* Selected Item */}
       <div
-        className="border border-gray-300 p-2 rounded cursor-pointer flex items-center justify-between"
+        className="bg-white p-2 rounded-[4px] cursor-pointer flex items-center justify-between"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{selectedItem}</span>
-        <span className="ml-2">&#x25BC;</span> {/* Down Arrow */}
+        <PiCaretDown size={20} 
+        className="ml-2" />
       </div>
 
       {/* Dropdown List */}
       {isOpen && (
-        <div className="absolute mt-2 border border-gray-300 bg-white rounded shadow-lg w-full z-10">
+        <div className="absolute mt-2 border border-gray-300 bg-white rounded-[4px] shadow-lg w-full z-10">
           {items.map((item) => (
             <div
               key={item.id}

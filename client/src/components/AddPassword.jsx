@@ -2,7 +2,8 @@ import { useState } from "react";
 import {
   PiEyeDuotone,
   PiEyeClosedDuotone,
-  PiArrowClockwiseDuotone,
+  PiArrowsClockwiseDuotone,
+  PiSealCheckDuotone,
 } from "react-icons/pi";
 import Button from "./Button.jsx";
 import Modal from "./Modal.jsx";
@@ -49,46 +50,49 @@ function AddPassword() {
       <h2 className="text-lg font-bold mb-4">Add New Entry</h2>
       <form>
         <div className="mb-4">
-          <label className="block mb-1">Service Name</label>
-          <Dropdown items={serviceItems} />
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-1">Category</label>
-          <Dropdown items={categoryItems} />
-        </div>
-
-        <div className="mb-4">
           <label className="block mb-1">Username</label>
-          <input type="text" className="w-full border border-gray-300 p-2 rounded" />
+          <input type="text" className="w-full border border-gray-300 p-2 rounded-[4px]" />
         </div>
 
-        <div className="mb-4 relative">
-          <label className="block mb-1">Password</label>
-          <input
-            id="password"
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-gray-300 p-2 rounded"
-          />
-          <button
-            type="button"
-            onClick={togglePasswordVisibility}
-            className="absolute inset-y-0 right-8 flex items-center"
-            aria-label="Toggle password visibility"
-          >
-            {showPassword ? <PiEyeClosedDuotone className="text-[20px]" /> : <PiEyeDuotone className="text-[20px]" />}
-          </button>
-          <button
-            type="button"
-            onClick={toggleGeneratorModal}
-            className="absolute inset-y-0 right-0 flex items-center"
-            aria-label="Open Password Generator"
-          >
-            <PiArrowClockwiseDuotone className="text-[20px]" />
-          </button>
-        </div>
+        <div className="mb-4">
+  <label htmlFor="password" className="block mb-1">Password</label> {/* Positioned on top */}
+  <div className="relative flex items-center border border-gray-300 rounded-[4px]">
+    <input
+      id="password"
+      type={showPassword ? "text" : "password"}
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      className="w-full p-2 pr-16 rounded-[4px] focus:outline-none"
+    />
+
+    {/* Show/Hide Password Icon */}
+    <button
+      type="button"
+      onClick={togglePasswordVisibility}
+      className="absolute right-8 flex items-center justify-center text-gray-500"
+      aria-label="Toggle password visibility"
+    >
+      {showPassword ? (
+        <PiEyeClosedDuotone className="text-[20px]" />
+      ) : (
+        <PiEyeDuotone className="text-[20px]" />
+      )}
+    </button>
+
+    {/* Copy Password Icon */}
+    <button
+      type="button"
+      onClick={toggleGeneratorModal}
+      className="absolute right-2 flex items-center justify-center text-gray-500"
+      aria-label="Open Password Generator"
+    >
+      <PiArrowsClockwiseDuotone className="text-[20px]" />
+    </button>
+  </div>
+</div>
+
+
+
 
         {showGenerator && (
           <Modal onClose={toggleGeneratorModal}>
@@ -98,11 +102,25 @@ function AddPassword() {
 
         <div className="mb-4">
           <label className="block mb-1">Website Address</label>
-          <input type="text" className="w-full border border-gray-300 p-2 rounded" />
+          <input type="text" className="w-full border border-gray-300 p-2 rounded-[4px]" />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1">Service Name</label>
+          <Dropdown items={serviceItems} />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1">Category</label>
+          <Dropdown items={categoryItems} />
         </div>
 
         <div className="flex flex-col gap-4">
-          <Button type="submit" label="Save" className="px-4 py-2 rounded text-white bg-blue-500" />
+          <Button
+          icon={PiSealCheckDuotone}
+          type="submit" 
+          label="Save" 
+          className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light" />
         </div>
       </form>
     </div>

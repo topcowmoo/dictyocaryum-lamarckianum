@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Button from "./Button";
-import { PiCopyDuotone, PiArrowClockwiseDuotone, PiSealCheckDuotone, } from "react-icons/pi";
+import { PiCopyDuotone, PiArrowsClockwiseDuotone, PiSealCheckDuotone, } from "react-icons/pi";
 
 // Helper function to generate a secure password
 function generatePassword(length, includeUppercase, includeLowercase, includeNumbers, includeSymbols, minNumbers, minSpecial) {
@@ -161,7 +161,7 @@ function Generator({ onSelectedPassword, onClose }) {
 
       {/* Generate and Copy Buttons */}
       <div className="flex justify-center gap-4">
-        <Button onClick={handleGenerate} label="Refresh" icon={PiArrowClockwiseDuotone} />
+        <Button onClick={handleGenerate} label="Refresh" icon={PiArrowsClockwiseDuotone} />
         <Button onClick={() => navigator.clipboard.writeText(password)} label="Copy" icon={PiCopyDuotone} />
         <Button onClick={handleUsePassword} label="Use Password" icon={PiSealCheckDuotone} />
       </div>
