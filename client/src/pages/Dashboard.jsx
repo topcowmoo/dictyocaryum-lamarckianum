@@ -5,7 +5,10 @@ import VaultEntries from "../components/VaultEntries";
 import VaultDisplay from "../components/VaultDisplay";
 import AddPassword from "../components/AddPassword";
 
+console.log("Environment Variables:", import.meta.env); // Check if VITE_API_URL is present
 const apiURL = import.meta.env.VITE_API_URL;
+console.log("apiURL:", apiURL); // Should log http://localhost:8001
+
 
 function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -24,6 +27,8 @@ function Dashboard() {
         const url = selectedCategory
           ? `${apiURL}/api/locker?category=${selectedCategory}`
           : `${apiURL}/api/locker`; // Fetch all entries when no category is selected
+
+ console.log("Fetching from URL:", url); // Log the URL
 
         const response = await fetch(url, {
           method: "GET",
