@@ -30,13 +30,11 @@ function AddPassword() {
 
   // Category items for the dropdown
   const categoryItems = [
-    { id: 1, title: "All" },
-    { id: 2, title: "Cards" },
-    { id: 3, title: "Entertainment" },
-    { id: 4, title: "Login" },
-    { id: 5, title: "Wi-Fi" },
-    { id: 6, title: "Identification" },
-    { id: 7, title: "Deleted" },
+    { id: 1, title: "Cards" },
+    { id: 2, title: "Entertainment" },
+    { id: 3, title: "Login" },
+    { id: 4, title: "Wi-Fi" },
+    { id: 5, title: "Identification" },
   ];
 
   const serviceItems = Object.entries(serviceIcons).map(([key, Icon], index) => ({
