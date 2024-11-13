@@ -1,38 +1,42 @@
-import { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
-import VaultEntries from '../components/VaultEntries';
-import VaultDisplay from '../components/VaultDisplay';
-import AddPassword from '../components/AddPassword'; // Import AddPassword
+import { useState, useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
+import VaultEntries from "../components/VaultEntries";
+import VaultDisplay from "../components/VaultDisplay";
+import AddPassword from "../components/AddPassword";
 
 function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [entries, setEntries] = useState([]);
-  const [showAddPassword, setShowAddPassword] = useState(false); // State to toggle AddPassword form
+  const [showAddPassword, setShowAddPassword] = useState(false);
 
   // Access searchQuery from Outlet context
   const { searchQuery } = useOutletContext();
 
+  // Fetch entries on page load or when selectedCategory changes
   useEffect(() => {
-    if (!selectedCategory) return;
-
     const fetchEntries = async () => {
       try {
-        const response = await fetch(`http://localhost:8001/api/locker?category=${selectedCategory}`, {
-          method: 'GET',
-          credentials: 'include',
+        // If no category is selected, fetch all entries
+        const url = selectedCategory
+          ? `http://localhost:8001/api/locker?category=${selectedCategory}`
+          : "http://localhost:8001/api/locker"; // Fetch all entries when no category is selected
+
+        const response = await fetch(url, {
+          method: "GET",
+          credentials: "include",
         });
 
         if (response.ok) {
           const data = await response.json();
           setEntries(data);
         } else {
-          console.error('Failed to fetch entries:', response.statusText);
+          console.error("Failed to fetch entries:", response.statusText);
           setEntries([]);
         }
       } catch (error) {
-        console.error('Error fetching entries:', error);
+        console.error("Error fetching entries:", error);
         setEntries([]);
       }
     };
@@ -57,22 +61,31 @@ function Dashboard() {
     setSelectedEntry(null); // Clear the selected entry
   };
 
-  // Define handleDelete and handleEdit functions
   const handleDelete = () => {
-    // Logic to delete the entry
     console.log("Entry deleted");
     setSelectedEntry(null); // Clear the selection
   };
 
   const handleEdit = (updatedEntry) => {
-    // Logic to update the entry
     console.log("Entry updated:", updatedEntry);
     setSelectedEntry(updatedEntry); // Update the selected entry
   };
 
-  const filteredEntries = entries.filter((entry) =>
-    entry.serviceName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Filter entries based on search query and category
+  const filteredEntries = entries.filter((entry) => {
+    const serviceName = entry.serviceName?.toLowerCase() || "";
+    const query = searchQuery.toLowerCase();
+
+    // Match search query or category
+    const matchesSearch = serviceName.includes(query);
+    const matchesCategory =
+      !selectedCategory ||
+      selectedCategory === "All" ||
+      (selectedCategory &&
+        entry.category?.toLowerCase().trim() === selectedCategory.toLowerCase().trim());
+
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="h-full flex flex-col">
@@ -85,11 +98,13 @@ function Dashboard() {
 
         {/* Vault Entries */}
         <div className="dark:bg-vault-dark bg-vault-light p-4 h-full overflow-y-auto">
-          {selectedCategory && !showAddPassword && (
+          {/* Show entries when category is selected or if there's a search query */}
+          {(selectedCategory || searchQuery) && !showAddPassword && (
             <VaultEntries
               entries={filteredEntries}
               selectedCategory={selectedCategory}
               onSelectEntry={handleEntrySelect}
+              searchQuery={searchQuery} // Pass searchQuery to VaultEntries
             />
           )}
         </div>
