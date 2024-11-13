@@ -49,6 +49,12 @@ function SignupPage() {
   const handleSignup = async (e) => {
     e.preventDefault();
 
+    const { minLength, hasUppercase, hasLowercase, hasNumber, hasSpecialChar} = requirements;
+    if (!minLength || !hasUppercase || !hasLowercase || !hasNumber || !hasSpecialChar) {
+      setError('Password does not meet the requirements.');
+      return;
+    }
+
     try {
       const response = await fetch('api/user/signup', {
         method: 'POST',
