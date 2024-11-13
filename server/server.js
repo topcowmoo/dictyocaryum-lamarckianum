@@ -10,11 +10,25 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const app = express();
 const PORT = process.env.PORT || 8001;
 
+const allowedOrigins = [
+  'http://localhost:8000',
+  'https://vpl.onrender.com',
+];
+
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:8000', credentials: true }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+    },
+    credentials: true
+  }));
 
 
 // API Routes
