@@ -50,12 +50,12 @@ function AddPassword() {
       <h2 className="text-lg font-bold mb-4">Add New Entry</h2>
       <form>
         <div className="mb-4">
-          <label className="block mb-1">Username</label>
+          <label className="block mb-1 dark:text-title-dark text-title-light">Username</label>
           <input type="text" className="w-full border border-gray-300 p-2 rounded-[4px]" />
         </div>
 
         <div className="mb-4">
-  <label htmlFor="password" className="block mb-1">Password</label> {/* Positioned on top */}
+  <label htmlFor="password" className="block mb-1 dark:text-title-dark text-title-light">Password</label> {/* Positioned on top */}
   <div className="relative flex items-center border border-gray-300 rounded-[4px]">
     <input
       id="password"
@@ -101,17 +101,17 @@ function AddPassword() {
         )}
 
         <div className="mb-4">
-          <label className="block mb-1">Website Address</label>
+          <label className="block mb-1 dark:text-title-dark text-title-light">Website Address</label>
           <input type="text" className="w-full border border-gray-300 p-2 rounded-[4px]" />
         </div>
 
         <div className="mb-4">
-          <label className="block mb-1">Service Name</label>
+          <label className="block mb-1 dark:text-title-dark text-title-light">Service Name</label>
           <Dropdown items={serviceItems} />
         </div>
 
         <div className="mb-4">
-          <label className="block mb-1">Category</label>
+          <label className="block mb-1 dark:text-title-dark text-title-light">Category</label>
           <Dropdown items={categoryItems} />
         </div>
 
