@@ -9,7 +9,7 @@ import Button from "./Button.jsx";
 import Modal from "./Modal.jsx";
 import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
-import serviceIcons from "../utils/serviceIcons.js";
+import serviceIcons from "../utils/serviceIcons.js"; // Importing serviceIcons
 
 function AddPassword() {
   const [password, setPassword] = useState("");
@@ -37,6 +37,7 @@ function AddPassword() {
     { id: 5, title: "Identification" },
   ];
 
+  // Map serviceIcons to create serviceItems
   const serviceItems = Object.entries(serviceIcons).map(([key, Icon], index) => ({
     id: index + 1,
     title: key.charAt(0).toUpperCase() + key.slice(1),
@@ -53,44 +54,44 @@ function AddPassword() {
         </div>
 
         <div className="mb-4">
-  <label htmlFor="password" className="block mb-1 dark:text-title-dark text-title-light">Password</label> {/* Positioned on top */}
-  <div className="relative flex items-center border border-gray-300 rounded-[4px]">
-    <input
-      id="password"
-      type={showPassword ? "text" : "password"}
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      className="w-full p-2 pr-16 rounded-[4px] focus:outline-none"
-    />
+          <label htmlFor="password" className="block mb-1 dark:text-title-dark text-title-light">
+            Password
+          </label>
+          {/* Positioned on top */}
+          <div className="relative flex items-center border border-gray-300 rounded-[4px]">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-2 pr-16 rounded-[4px] focus:outline-none"
+            />
 
-    {/* Show/Hide Password Icon */}
-    <button
-      type="button"
-      onClick={togglePasswordVisibility}
-      className="absolute right-8 flex items-center justify-center text-gray-500"
-      aria-label="Toggle password visibility"
-    >
-      {showPassword ? (
-        <PiEyeClosedDuotone className="text-[20px]" />
-      ) : (
-        <PiEyeDuotone className="text-[20px]" />
-      )}
-    </button>
+            {/* Show/Hide Password Icon */}
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-8 flex items-center justify-center text-gray-500"
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? (
+                <PiEyeClosedDuotone className="text-[20px]" />
+              ) : (
+                <PiEyeDuotone className="text-[20px]" />
+              )}
+            </button>
 
-    {/* Copy Password Icon */}
-    <button
-      type="button"
-      onClick={toggleGeneratorModal}
-      className="absolute right-2 flex items-center justify-center text-gray-500"
-      aria-label="Open Password Generator"
-    >
-      <PiArrowsClockwiseDuotone className="text-[20px]" />
-    </button>
-  </div>
-</div>
-
-
-
+            {/* Copy Password Icon */}
+            <button
+              type="button"
+              onClick={toggleGeneratorModal}
+              className="absolute right-2 flex items-center justify-center text-gray-500"
+              aria-label="Open Password Generator"
+            >
+              <PiArrowsClockwiseDuotone className="text-[20px]" />
+            </button>
+          </div>
+        </div>
 
         {showGenerator && (
           <Modal onClose={toggleGeneratorModal}>
@@ -115,10 +116,11 @@ function AddPassword() {
 
         <div className="flex flex-col gap-4">
           <Button
-          icon={PiSealCheckDuotone}
-          type="submit" 
-          label="Save" 
-          className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light" />
+            icon={PiSealCheckDuotone}
+            type="submit"
+            label="Save"
+            className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+          />
         </div>
       </form>
     </div>
