@@ -81,6 +81,32 @@ router.post('/reset-password', async (req, res) => {
   }
 });
 
+// Change Password Route
+router.post('/change-password', auth.authenticateToken, async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+
+  try {
+    // Find the authenticated user
+    const user = await User.findById(req.user.userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    // Verify the old password
+    if (!auth.verifyPassword(oldPassword, user.passwordHash, user.salt)) {
+      return res.status(401).json({ message: 'Incorrect old password' });
+    }
+
+    // Hash the new password and update the user's password
+    const { hash, salt } = auth.hashPassword(newPassword);
+    user.passwordHash = hash;
+    user.salt = salt;
+    await user.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error changing password', error });
+  }
+});
+
 // Protected Routes (require authenticateToken middleware)
 
 // Verify Token Route

@@ -1,12 +1,21 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DarkModeContext } from "../context/DarkModeContext";
 import { useNavigate } from "react-router-dom";
-import { PiSunDuotone, PiMoonDuotone, PiSignOutDuotone, PiSealCheckDuotone, PiArrowCircleLeftDuotone } from "react-icons/pi";
+import {
+  PiSunDuotone,
+  PiMoonDuotone,
+  PiSignOutDuotone,
+  PiSealCheckDuotone,
+  PiArrowCircleLeftDuotone,
+} from "react-icons/pi";
 import Button from "../components/Button";
+import Modal from "../components/Modal"; // Import Modal component
+import ChangePassword from "../components/ChangePassword"; // Import ChangePassword component
 
 function Profile() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
 
   // Handle Logout Function
   const handleLogout = () => {
@@ -16,7 +25,12 @@ function Profile() {
 
   // Handle Change Password
   const handleChangePassword = () => {
-    navigate("/change-password");
+    setIsModalOpen(true); // Open the modal
+  };
+
+  // Close Modal Function
+  const closeModal = () => {
+    setIsModalOpen(false); // Close the modal
   };
 
   return (
@@ -45,7 +59,7 @@ function Profile() {
             icon={PiSealCheckDuotone}
             iconSize={20}
             label="Change Password"
-            onClick={handleChangePassword}
+            onClick={handleChangePassword} // Open the modal on click
             className="dark:text-alltext-dark text-alltext-light w-32 md:w-36 text-sm"
           />
           <Button
@@ -61,7 +75,7 @@ function Profile() {
             label="Go Back"
             onClick={() => navigate("/dashboard")}
             className="dark:text-alltext-dark text-alltext-light w-32 md:w-36 text-sm"
-            />
+          />
         </div>
       </div>
 
@@ -73,6 +87,13 @@ function Profile() {
           className="h-full w-full object-cover object-bottom"
         />
       </div>
+
+      {/* Modal for Change Password */}
+      {isModalOpen && (
+        <Modal onClose={closeModal} showCloseButton={false}>
+          <ChangePassword /> {/* Only the ChangePassword form is rendered */}
+        </Modal>
+      )}
     </div>
   );
 }
