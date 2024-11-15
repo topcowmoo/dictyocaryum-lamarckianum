@@ -80,22 +80,22 @@ function ChangePassword() {
 
   return (
     <div className="p-4">
-      <h2 className="text-lg font-bold mb-4">Change Password</h2>
+      <h2 className="text-lg dark:text-title-dark text-title-light mb-4">Change Password</h2>
       <form onSubmit={handleSubmit}>
         {/* Old Password Input */}
         <div className="mb-4">
-          <label className="block mb-1">Old Password</label>
+          <label className="block mb-1 dark:text-title-dark text-title-light">Old Password</label>
           <div className="relative">
             <input
               type={showOldPassword ? "text" : "password"}
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded-md"
+              className="w-full border border-gray-300 p-2 rounded-[4px]"
             />
             <button
               type="button"
               onClick={toggleOldPasswordVisibility}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-red-500"
             >
               {showOldPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
             </button>
@@ -104,18 +104,18 @@ function ChangePassword() {
 
         {/* New Password Input */}
         <div className="mb-4">
-          <label className="block mb-1">New Password</label>
+          <label className="block mb-1 dark:text-title-dark text-title-light">New Password</label>
           <div className="relative">
             <input
               type={showNewPassword ? "text" : "password"}
               value={newPassword}
               onChange={handleNewPasswordChange}
-              className="w-full border border-gray-300 p-2 rounded-md"
+              className="w-full border border-gray-300 p-2 rounded-[4px]"
             />
             <button
               type="button"
               onClick={toggleNewPasswordVisibility}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-500"
             >
               {showNewPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
             </button>
@@ -123,19 +123,19 @@ function ChangePassword() {
 
 
           {/* Confirm New Password Input */}
-        <div className="mb-4">
-          <label className="block mb-1">Confirm New Password</label>
+        <div className="mt-4">
+          <label className="block mb-1 dark:text-title-dark text-title-light">Confirm New Password</label>
           <div className="relative">
             <input
               type={showConfirmPassword ? "text" : "password"}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded-md"
+              className="w-full border border-gray-300 p-2 rounded-[4px]"
             />
             <button
               type="button"
               onClick={toggleConfirmPasswordVisibility}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-orange-500"
             >
               {showConfirmPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
             </button>
@@ -146,11 +146,11 @@ function ChangePassword() {
             {Object.entries(requirements).map(([key, met]) => (
               <div key={key} className="flex items-center">
                 {met ? (
-                  <PiCheckCircleDuotone className="text-green-500" />
+                  <PiCheckCircleDuotone className="dark:text-highlight-dark text-highlight-light" />
                 ) : (
                   <PiXCircleDuotone className="text-red-500" />
                 )}
-                <span className="ml-2 text-sm">{getRequirementText(key)}</span>
+                <span className="ml-2 text-sm dark:text-title-dark text-title-light">{getRequirementText(key)}</span>
               </div>
             ))}
           </div>
@@ -164,8 +164,7 @@ function ChangePassword() {
         {/* Submit Button */}
         <button
           type="submit"
-          className="flex items-center px-4 py-2 bg-green-500 text-white rounded-md"
-        >
+          className="flex items-center p-3 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light">
           <PiSealCheckDuotone className="mr-2" />
           Save Changes
         </button>

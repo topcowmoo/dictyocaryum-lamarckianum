@@ -90,7 +90,7 @@ function Profile() {
 
       {/* Modal for Change Password */}
       {isModalOpen && (
-        <Modal onClose={closeModal} showCloseButton={false}>
+        <Modal onClose={closeModal} showCloseButton={true}>
           <ChangePassword /> {/* Only the ChangePassword form is rendered */}
         </Modal>
       )}
