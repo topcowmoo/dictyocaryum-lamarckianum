@@ -1,7 +1,8 @@
+// Importing necessary hooks, context, and components
 import { useState, useContext } from "react";
-import { DarkModeContext } from "../context/DarkModeContext";
-import { useNavigate, Link } from "react-router-dom";
-import Button from "../components/Button";
+import { DarkModeContext } from "../context/DarkModeContext"; // Context for dark mode
+import { useNavigate, Link } from "react-router-dom"; // For navigation and linking between routes
+import Button from "../components/Button"; // Custom Button component
 import {
   PiSealCheckDuotone,
   PiCheckCircleDuotone,
@@ -10,16 +11,20 @@ import {
   PiEyeClosedDuotone,
   PiSunDuotone,
   PiMoonDuotone,
-} from "react-icons/pi";
+} from "react-icons/pi"; // Importing icons from react-icons
 
 function ResetMasterPassword() {
+  // Accessing dark mode context and state
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
+
+  // State for managing form input and validation
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false); // Toggles password visibility
+  const [error, setError] = useState(null); // Error message state
+  const navigate = useNavigate(); // Hook for navigation
 
+  // State for tracking password requirement checks
   const [requirements, setRequirements] = useState({
     minLength: false,
     hasUppercase: false,
@@ -28,16 +33,17 @@ function ResetMasterPassword() {
     hasSpecialChar: false,
   });
 
-  // Handle email input with sanitation
+  // Handle changes in the email input and sanitize input
   const handleEmailChange = (e) => {
-    setEmail(e.target.value.trim().replace(/[<>"'`]/g, ""));
+    setEmail(e.target.value.trim().replace(/[<>"'`]/g, "")); // Sanitize to prevent XSS attacks
   };
 
-  // Validate password and update state
+  // Handle changes in the password input and validate requirements
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
 
+    // Check if the password meets various requirements
     setRequirements({
       minLength: value.length >= 14,
       hasUppercase: /[A-Z]/.test(value),
@@ -47,21 +53,25 @@ function ResetMasterPassword() {
     });
   };
 
+  // Handle form submission to reset the password
   const handleReset = async (e) => {
     e.preventDefault();
     try {
+      // Send a POST request to the reset password endpoint
       const response = await fetch("/api/user/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
+      // Handle errors from the response
       if (!response.ok) {
         const { message } = await response.json();
         setError(message || "Error resetting password. Please try again.");
         return;
       }
 
+      // Clear the form and navigate to the login page on success
       setEmail("");
       setPassword("");
       navigate("/login-page");
@@ -71,6 +81,7 @@ function ResetMasterPassword() {
     }
   };
 
+  // Toggle the visibility of the password
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
@@ -89,11 +100,13 @@ function ResetMasterPassword() {
       {/* Reset Password Section */}
       <div className="w-full flex flex-col items-center bg-hefo-light dark:bg-hefo-dark p-16">
         <div className="sm:w-full sm:max-w-sm">
+          {/* App Logo */}
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
             alt="App logo"
             className="mx-auto h-36 w-auto"
           />
+          {/* Page Title */}
           <h1 className="mt-10 text-center text-2xl font-bold tracking-tight leading-9 dark:text-title-dark text-title-light">
             VaultGuard Password Locker
           </h1>
@@ -133,6 +146,7 @@ function ResetMasterPassword() {
                   required
                   className="mt-2 block w-full rounded-[4px] border-0 py-1.5 shadow-xl sm:text-sm"
                 />
+                {/* Toggle Password Visibility Button */}
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
@@ -143,7 +157,7 @@ function ResetMasterPassword() {
                 </button>
               </div>
 
-              {/* Password Requirements */}
+              {/* Password Requirements List */}
               <div className="mt-4 space-y-1">
                 {Object.entries(requirements).map(([key, met]) => (
                   <div key={key} className="flex items-center">
@@ -174,6 +188,7 @@ function ResetMasterPassword() {
             </div>
           </form>
 
+          {/* Link to Login Page */}
           <p className="mt-6 text-center text-sm dark:text-alltext-dark text-alltext-light">
             Remember your password?{" "}
             <Link to="/login-page" className="underline dark:text-highlight-dark text-highlight-light">
@@ -186,7 +201,7 @@ function ResetMasterPassword() {
   );
 }
 
-// Helper function to get text for each requirement
+// Helper function to get the text for each password requirement
 const getRequirementText = (key) => {
   switch (key) {
     case "minLength":

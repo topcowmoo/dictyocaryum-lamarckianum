@@ -1,7 +1,8 @@
+// Importing necessary hooks, context, and components
 import { useState, useContext } from 'react';
-import { DarkModeContext } from '../context/DarkModeContext';
-import { useNavigate, Link } from 'react-router-dom';
-import Button from '../components/Button';
+import { DarkModeContext } from '../context/DarkModeContext'; // Context for managing dark mode
+import { useNavigate, Link } from 'react-router-dom'; // For navigation and linking between routes
+import Button from '../components/Button'; // Custom button component
 import {
   PiSealCheckDuotone,
   PiCheckCircleDuotone,
@@ -9,17 +10,21 @@ import {
   PiEyeDuotone,
   PiEyeClosedDuotone,
   PiSunDuotone,
-  PiMoonDuotone
-} from 'react-icons/pi';
+  PiMoonDuotone,
+} from 'react-icons/pi'; // Importing icons from react-icons
 
 function SignupPage() {
+  // Accessing dark mode context and state
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
+
+  // State for form input and validation
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false); // Toggles password visibility
+  const [error, setError] = useState(null); // Error message state
+  const navigate = useNavigate(); // Hook for navigation
 
+  // State for password requirements
   const [requirements, setRequirements] = useState({
     minLength: false,
     hasUppercase: false,
@@ -28,15 +33,19 @@ function SignupPage() {
     hasSpecialChar: false,
   });
 
+  // Handles changes in the email input field
   const handleEmailChange = (e) => {
+    // Sanitize email input to prevent XSS attacks
     const sanitizedEmail = e.target.value.trim().replace(/[<>"'`]/g, '');
     setEmail(sanitizedEmail);
   };
 
+  // Handles changes in the password input field and checks requirements
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
 
+    // Updating password requirement checks
     setRequirements({
       minLength: value.length >= 14,
       hasUppercase: /[A-Z]/.test(value),
@@ -46,48 +55,60 @@ function SignupPage() {
     });
   };
 
+  // Handles form submission and signup process
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    const { minLength, hasUppercase, hasLowercase, hasNumber, hasSpecialChar} = requirements;
+    // Destructuring password requirement state
+    const { minLength, hasUppercase, hasLowercase, hasNumber, hasSpecialChar } = requirements;
+
+    // Checking if all password requirements are met
     if (!minLength || !hasUppercase || !hasLowercase || !hasNumber || !hasSpecialChar) {
       setError('Password does not meet the requirements.');
       return;
     }
 
     try {
+      // Sending signup request to the API
       const response = await fetch('api/user/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include', // Include cookies in the request
+        body: JSON.stringify({ email, password }), // Sending email and password
+        credentials: 'include', // Including cookies in the request
       });
 
+      // Handling error responses from the API
       if (!response.ok) {
         const { message } = await response.json();
         setError(message || 'Error signing up. Please try again.');
         return;
       }
 
-      navigate("/dashboard"); // Navigate to the dashboard on success
+      // Navigating to the dashboard on successful signup
+      navigate('/dashboard');
     } catch (error) {
       console.error('Signup error:', error);
       setError('Something went wrong. Please try again.');
     }
   };
 
+  // Toggles the visibility of the password
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
-      {/* Dark Mode Toggle */}
+      {/* Dark Mode Toggle Button */}
       <div className="absolute top-4 right-4 cursor-pointer dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light">
-        {isDarkMode ? <PiSunDuotone className="text-[22px] md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} /> : <PiMoonDuotone className="text-[22px] md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} />}
+        {isDarkMode ? (
+          <PiSunDuotone className="text-[22px] md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} />
+        ) : (
+          <PiMoonDuotone className="text-[22px] md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} />
+        )}
       </div>
 
-      {/* Left Image Section (hidden on sm and below) */}
+      {/* Left Image Section (only visible on medium screens and above) */}
       <div className="hidden md:block md:w-1/2 h-full overflow-hidden">
         <img
           src="https://vaultguardbucket2024.s3.amazonaws.com/pexels-ozge-taskiran-85164141-12651886.webp"
@@ -99,16 +120,21 @@ function SignupPage() {
       {/* Right Form Section */}
       <div className="w-full h-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 2xl:min-h-screen justify-start">
         <div className="w-full max-w-2xl">
+          {/* App Logo */}
           <img
             src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
             alt="App logo"
             className="mx-auto w-auto h-16 md:h-24 xl:h-24 2xl:h-32"
           />
+
+          {/* Page Title and Subtitle */}
           <h1 className="mt-14 mb-10 text-center text-[20px] md:text-3xl xl:text-[27px] 2xl:text-[44px]">VaultGuard Password Locker</h1>
           <h2 className="mt-2 text-center text-[18px] md:text-xl xl:text-[21px] 2xl:text-[25px]">Create a new account</h2>
         </div>
 
+        {/* Signup Form */}
         <form className="space-y-4 mt-6 w-full max-w-md" onSubmit={handleSignup}>
+          {/* Email Input */}
           <div>
             <label htmlFor="email" className="block text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">Email</label>
             <input
@@ -121,6 +147,7 @@ function SignupPage() {
             />
           </div>
 
+          {/* Password Input */}
           <div>
             <label htmlFor="password" className="block text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">Master Password</label>
             <div className="relative">
@@ -132,6 +159,7 @@ function SignupPage() {
                 required
                 className="mt-1 p-2 pr-10 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base xl:text-[18px] 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
               />
+              {/* Password Visibility Toggle Button */}
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
@@ -141,7 +169,7 @@ function SignupPage() {
               </button>
             </div>
 
-            {/* Password Requirements */}
+            {/* Password Requirements List */}
             <div className="mt-4 space-y-1">
               {Object.entries(requirements).map(([key, met]) => (
                 <div key={key} className="flex items-center mt-11 lg:gap-2">
@@ -152,13 +180,16 @@ function SignupPage() {
             </div>
           </div>
 
+          {/* Error Message */}
           {error && <p className="text-red-500 text-xs md:text-sm">{error}</p>}
 
+          {/* Signup Button */}
           <div className="flex justify-center">
             <Button icon={PiSealCheckDuotone} label="Sign Up" type="submit" className="text-sm md:text-base h-10 px-4 md:px-6 mt-4" iconSize={20} />
           </div>
         </form>
 
+        {/* Link to Login Page */}
         <p className="mt-6 text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px]">
           Already have an account? <Link to="/login-page" className="underline dark:hover:text-highlight-dark hover:text-highlight-light">Login here</Link>
         </p>
@@ -167,7 +198,7 @@ function SignupPage() {
   );
 }
 
-// Helper function for password requirements
+// Helper function to get password requirement text based on the key
 const getRequirementText = (key) => {
   switch (key) {
     case 'minLength':
