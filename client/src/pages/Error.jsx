@@ -23,7 +23,7 @@ function Error() {
             <span className="sr-only">VaultGuard Password Locker</span> {/* Screen reader text for accessibility */}
             <img
               alt="App logo"
-              src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg" // Logo of the app
+              src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg" // Logo of the app
               className="h-32 w-auto"
             />
           </a>

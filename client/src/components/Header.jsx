@@ -19,7 +19,7 @@ function Header({ setSearchQuery }) {
           aria-label="Navigate to Home"
         >
           <img
-            src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
+            src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
             alt="App logo"
             className="w-[55px] h-[55px] object-contain"
           />

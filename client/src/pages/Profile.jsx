@@ -54,7 +54,7 @@ function Profile() {
       <div className="w-full lg:w-1/2 flex flex-col items-center justify-center bg-hefo-light dark:bg-hefo-dark p-8 md:p-16">
         {/* App Logo */}
         <img
-          src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
+          src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
           alt="App logo"
           className="h-20 w-auto mb-4 md:h-24"
         />

@@ -72,7 +72,7 @@ function LoginPage() {
         <div className="w-full max-w-md xl:max-w-lg">
           {/* App Logo */}
           <img
-            src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
+            src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
             alt="App logo"
             className="mx-auto h-16 md:h-24 xl:h-28 2xl:h-32 w-auto"
           />
@@ -176,7 +176,7 @@ function LoginPage() {
       {/* Right Section with Illustration (visible only on medium screens and above) */}
       <div className="hidden md:block md:w-1/2 h-full overflow-hidden">
         <img
-          src="https://vaultguardbucket2024.s3.amazonaws.com/pexels-ozge-taskiran-85164141-12651886.webp"
+          src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/pexels-ozge-taskiran-85164141-12651886.webp"
           alt="Login illustration"
           className="h-full w-full object-cover object-bottom"
         />

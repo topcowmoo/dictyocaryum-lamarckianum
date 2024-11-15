@@ -102,7 +102,7 @@ function ResetMasterPassword() {
         <div className="sm:w-full sm:max-w-sm">
           {/* App Logo */}
           <img
-            src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg"
+            src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
             alt="App logo"
             className="mx-auto h-36 w-auto"
           />

@@ -5,10 +5,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/topcowmoo/dictyocaryum-lamarckianum"> 
-    <!-- <img src="https://vaultguardbucket2024.s3.amazonaws.com/logo.svg" -->
+    <img src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
    <!-- alt="Logo"
    style="height: 150px">
-  </a> -->
+  </a> 
 
 <h3 align="center">VaultGuard Password Locker</h3>
 
