@@ -1,8 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Importing Tailwind CSS layers to include base styles, components, and utility classes */
+@tailwind base; /* Includes base styles for resetting and normalizing browser defaults */
+@tailwind components; /* Includes component classes, which can be customized or extended */
+@tailwind utilities; /* Includes utility classes for quick styling */
 
+/* Custom global styles */
 html {
+    /* Setting a custom font stack for the entire HTML document */
     font-family: 'Poppins', 'Segoe UI', 'Helvetica Neue', 'Arial', 'sans-serif';
+
+    /* Adding a smooth transition effect for background color and text color changes */
     transition: background-color 0.3s ease, color 0.3s ease;
-  }
+}
