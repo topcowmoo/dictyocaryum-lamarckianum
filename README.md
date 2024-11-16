@@ -1,18 +1,16 @@
 <a name="readme-top"></a>
 
-<!-- [![Netlify Status](https://api.netlify.com/api/v1/badges/9780abc1-5367-4808-a38b-5a5d8a783e8d/deploy-status)](https://app.netlify.com/sites/salvatoremammoliti/deploys) -->
-
 <br />
 <div align="center">
   <a href="https://github.com/topcowmoo/dictyocaryum-lamarckianum"> 
     <img src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
    <!-- alt="Logo"
-   style="height: 150px">
+   style="height: 110px">
   </a> 
 
-<h3 align="center">VaultGuard Password Locker</h3>
+<h3 align="center">VaultGuard Password Locker</h3> 
 
-<!-- <p align="center"> This project is a single-page React portfolio designed to showcase my skills and projects as a full-stack web developer. Built using Vite for fast development and Tailwind CSS for responsive and modern styling, this Progressive Web App (PWA) includes sections like About, Projects, and Contact. It provides a clean, professional interface for potential employers or clients to explore my work and easily connect with me. The portfolio is hosted on Netlify (link below). Thank you for visiting! </p> -->
+<p align="center"> VaultGuard Password Locker is a secure, single-page React app designed to manage and store login credentials effortlessly. Built with Vite and styled using Tailwind CSS, it features an intuitive dashboard, category-based organization, search functionality, and dark mode support. Advanced security measures ensure that your data is always protected. Thank you for exploring VaultGuard! </p>
 
 <br />
 <br />
@@ -20,8 +18,7 @@
 <br />
 <br />
 
-<!-- https://vpl.onrender.com -->
-<!-- <a href="https://salvatoremammoliti.netlify.app/">Deployed App on Netlify</a> -->
+<a href="https://vpl.onrender.com/">Deployed App on Render</a>
 ·
 <a href="hhttps://github.com/topcowmoo/dictyocaryum-lamarckianum/issues">Report Bug</a>
 ·
@@ -57,9 +54,9 @@
 
 ## About The Project
 
-<!-- A clean and modern design with both dark and light mode options allows users to toggle between themes for an optimal viewing experience. The site is fully responsive, providing smooth functionality across all devices, from desktops to mobile. Each section—About, Projects, and Contact—is designed for easy navigation and a seamless user experience. The portfolio is hosted on Netlify and showcases my work and skills as a full-stack web developer.
+VaultGuard Password Locker provides a secure and efficient way to manage your passwords. It features a responsive design with customizable dark and light modes for a seamless user experience on any device. Built with React, Vite, and Tailwind CSS, the app emphasizes speed, security, and ease of use, ensuring your credentials remain safe and easily accessible.
 
-Dark Mode Landing Page:
+<!-- Dark Mode Landing Page:
 
 ![image](https://portfoliobucket2024.s3.amazonaws.com/landingdark.webp)
 
@@ -91,7 +88,7 @@ Hamburger Menu In Dark Mode:
 
 ## Built With
 
-<!-- ![My Skills](https://portfoliobucket2024.s3.amazonaws.com/readicons.svg) -->
+![My Skills](https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/ico2.svg)
 
 <!-- INSTALLATION -->
 
@@ -100,7 +97,7 @@ Hamburger Menu In Dark Mode:
 1. Clone the repo to your local machince.
 
    ```sh
-   git clone https://github.com/topcowmoo/dypsis-integra
+   git clone https://github.com/topcowmoo/dictyocaryum-lamarckianum
    ```
 
 2. Install NPM packages
@@ -142,7 +139,7 @@ Salvatore Mammoliti - [@github](https://github.com/topcowmoo) - <mammoliti.sam@g
 
 Project Link: [https://github.com/topcowmoo/dictyocaryum-lamarckianum](https://github.com/topcowmoo/dictyocaryum-lamarckianum)
 
-<!-- Netlify Link: [https://salvatoremammoliti.netlify.app/](https://salvatoremammoliti.netlify.app/) -->
+Render Link: [https://vpl.onrender.com](https://vpl.onrender.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -150,16 +147,15 @@ Project Link: [https://github.com/topcowmoo/dictyocaryum-lamarckianum](https://g
 
 ## Acknowledgments
 
-<!-- - [Vite](https://vitejs.dev/)
+- [Vite](https://vitejs.dev/)
 - [Amazon S3](https://aws.amazon.com/s3/)
 - [React](https://react.dev/)
-- [Netlify](https://www.netlify.com/)
+- [Render](https://render.com/)
 - [Tailwindcss](https://tailwindcss.com/)
-- [Adobe Express](https://new.express.adobe.com/)
 - [ChatGPT](https://chat.openai.com/)
 - [Best README Template](https://github.com/othneildrew/Best-README-Template)
 - [Simple Icons](https://simpleicons.org/)
-- [Figma](https://www.figma.com/) -->
+- [Figma](https://www.figma.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
