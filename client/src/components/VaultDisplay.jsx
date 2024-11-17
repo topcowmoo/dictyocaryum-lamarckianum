@@ -28,7 +28,7 @@ const VaultDisplay = ({ service, username, password, Icon, onDelete, onEdit }) =
   const isEmpty = !service && !username && !password;
 
   return (
-    <div className="h-full flex flex-col justify-center items-center dark:text-alltext-dark text-alltext-light xl:text-[30px]">
+    <div className="h-full flex flex-col justify-start items-center dark:text-alltext-dark text-alltext-light xl:text-[30px]">
       {isEmpty ? (
         // Render the logo when the VaultDisplay is empty
         <div className="flex justify-center items-center h-full">
@@ -41,14 +41,14 @@ const VaultDisplay = ({ service, username, password, Icon, onDelete, onEdit }) =
         // Render the content if service, username, or password is present
         <>
           <div className="flex items-center space-x-4">
-            {Icon && <Icon size={32} />} {/* Render the Icon if it's provided */}
+            {Icon && <Icon size={35} />} {/* Render the Icon if it's provided */}
             <div>
-              <h2 className="text-xl font-bold">{service}</h2>
-              <p className="text-sm">{username}</p>
+              <h2 className="text-[30px] dark:text-title-dark text-title-light">{service}</h2>
+              <p className="text-[25px] dark:text-alltext-dark text-alltext-light">{username}</p>
             </div>
           </div>
           <div className="mt-4">
-            <h3 className="font-semibold">Password:</h3>
+            <h3 className="font-[30px] dark:text-title-dark text-title-light">Password:</h3>
             <p>{showPassword ? password : "••••••••••"}</p>
           </div>
           <div className="flex space-x-4 mt-4">
