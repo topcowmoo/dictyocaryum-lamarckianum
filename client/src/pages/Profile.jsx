@@ -59,38 +59,56 @@ function Profile() {
           className="h-20 w-auto mb-4 md:h-24"
         />
         {/* Account Management Title */}
-        <h1 className="text-center text-xl md:text-2xl font-bold dark:text-title-dark text-title-light mb-4 md:mb-6">
+        <h1 className="text-center text-xl md:text-2xl font-bold dark:text-title-dark text-title-light mb-8">
           Account Management
         </h1>
 
-        {/* Buttons for Account Actions */}
-        <div className="flex flex-col space-y-4 md:space-y-6 text-center">
-          {/* Button to open Change Password modal */}
-          <Button
-            icon={PiSealCheckDuotone}
-            iconSize={20}
-            label="Change Password"
-            onClick={handleChangePassword}
-            className="dark:text-alltext-dark text-alltext-light w-32 md:w-36 text-sm"
-          />
+        {/* Card Container */}
+        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 w-full max-w-lg">
+          {/* Card 1: Change Password */}
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <h2 className="text-lg font-semibold dark:text-alltext-dark text-title-light mb-3">Change Your Password</h2>
+            <p className="text-sm dark:text-alltext-dark text-gray-600 mb-4">
+              Update your master password to keep your account secure.
+            </p>
+            <Button
+              icon={PiSealCheckDuotone}
+              iconSize={20}
+              label="Change Password"
+              onClick={handleChangePassword}
+              className="dark:text-alltext-dark text-alltext-light w-full text-sm"
+            />
+          </div>
 
-          {/* Logout Button */}
-          <Button
-            icon={PiSignOutDuotone}
-            iconSize={20}
-            label="Logout"
-            onClick={handleLogout}
-            className="dark:text-alltext-dark text-alltext-light w-32 md:w-36 text-sm"
-          />
+          {/* Card 2: Logout */}
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <h2 className="text-lg font-semibold dark:text-alltext-dark text-title-light mb-3">Sign Out</h2>
+            <p className="text-sm dark:text-alltext-dark text-gray-600 mb-4">
+              Log out of your account securely when you are done.
+            </p>
+            <Button
+              icon={PiSignOutDuotone}
+              iconSize={20}
+              label="Logout"
+              onClick={handleLogout}
+              className="dark:text-alltext-dark text-alltext-light w-full text-sm"
+            />
+          </div>
 
-          {/* Button to navigate back to the dashboard */}
-          <Button
-            icon={PiArrowCircleLeftDuotone}
-            iconSize={20}
-            label="Go Back"
-            onClick={() => navigate("/dashboard")}
-            className="dark:text-alltext-dark text-alltext-light w-32 md:w-36 text-sm"
-          />
+          {/* Card 3: Go Back */}
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <h2 className="text-lg font-semibold dark:text-alltext-dark text-title-light mb-3">Back to Dashboard</h2>
+            <p className="text-sm dark:text-alltext-dark text-gray-600 mb-4">
+              Return to your main dashboard and view your information.
+            </p>
+            <Button
+              icon={PiArrowCircleLeftDuotone}
+              iconSize={20}
+              label="Go Back"
+              onClick={() => navigate("/dashboard")}
+              className="dark:text-alltext-dark text-alltext-light w-full text-sm"
+            />
+          </div>
         </div>
       </div>
 
