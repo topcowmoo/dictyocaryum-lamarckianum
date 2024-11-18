@@ -5,7 +5,7 @@ const crypto = require('crypto'); // Import the crypto library for hashing passw
 // The token contains the user's ID and email, and expires in 7 hours
 exports.generateToken = (user) => {
   return jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, {
-    expiresIn: '10h', // Token expiration time set to 10 hours
+    expiresIn: '24h', // Token expiration time set to 24 hours
   });
 };
 

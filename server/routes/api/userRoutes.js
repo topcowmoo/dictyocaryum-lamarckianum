@@ -26,7 +26,7 @@ router.post("/signup", async (req, res) => {
       httpOnly: true, // Make the cookie inaccessible to client-side JavaScript
       secure: process.env.NODE_ENV === "production", // Use secure cookies in production
       sameSite: "lax", // Restrict cross-site cookie sending
-      maxAge: 60 * 60 * 1000, // Set cookie expiration time to 1 hour
+      maxAge: 24 * 60 * 60 * 1000, // Set cookie expiration time to 24 hour
     });
 
     res.status(201).json({ message: "Signup successful" }); // Respond with success message
