@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types';
 
-function Button({ icon: Icon, label, onClick, className, type = "button", iconSize }) {
+function Button({ icon: Icon, label, onClick, className, type = "button", iconSize, size = "md" }) {
+
+const sizeClasses = {
+  sm: "h-8 w-24 text-sm",
+  md: "h-10 w-10 text-lg",
+  lg: "h-16 w-48 text-xl",
+};
+
   return (
     <button
       type={type}
@@ -10,7 +17,7 @@ function Button({ icon: Icon, label, onClick, className, type = "button", iconSi
         dark:bg-buttonbgc-dark bg-buttonbgc-light 
         dark:text-buttonti-dark text-buttonti-light
         transition-transform duration-150 transform active:scale-95 
-        ${className}`}
+        ${sizeClasses[size]}${className}`}
     >
        {Icon && <Icon size={iconSize} />}
       <span className="truncate">{label}</span>
@@ -26,6 +33,7 @@ Button.propTypes = {
   className: PropTypes.string, // Custom styles
   type: PropTypes.string,
   iconSize: PropTypes.number,
+  size: PropTypes.oneOf(["sm", "md", "lg"]),
 };
 
 export default Button;

@@ -45,12 +45,12 @@ const VaultDisplay = ({
       ) : (
         <>
           {/* Top Section with Service Info and Edit Button */}
-          <div className="flex justify-between items-center dark:bg-buttonbgc-dark bg-buttonbgc-light p-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light">
-            <div className="flex items-center space-x-4">
+          <div className="flex justify-start items-center dark:bg-buttonbgc-dark bg-buttonbgc-light py-6 px-3 rounded-t-[4px] dark:text-alltext-dark text-alltext-light">
+            <div className="flex items-center space-x-5">
               {Icon && <Icon size={45} className="dark:text-buttonti-dark text-buttonti-light" />}{" "}
               {/* Icon */}
               <div>
-                <h2 className="text-2xl dark:text-buttonti-dark text-buttonti-light">
+                <h2 className="text-[34px] dark:text-buttonti-dark text-buttonti-light">
                   {service}
                 </h2>
               </div>
@@ -58,19 +58,19 @@ const VaultDisplay = ({
           </div>
 
           {/* Main Content Section */}
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-b-[4px] space-y-4 backdrop-blur-xl">
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-b-[4px] space-y-4">
             <div className="border-b pb-2">
-              <h3 className="font-medium text-title-light dark:text-title-dark">
+              <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                 Service Name
               </h3>
-              <p className="text-lg dark:text-alltext-dark text-alltext-light">{service}</p>
+              <p className="text-[16px] dark:text-alltext-dark text-alltext-light">{service}</p>
             </div>
             <div className="border-b pb-2">
-              <h3 className="font-medium text-title-light dark:text-title-dark">
+              <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                 Username
               </h3>
               <div className="flex justify-between items-center">
-                <p className="text-lg dark:text-alltext-dark text-alltext-light">{username}</p>
+                <p className="text-[16px] dark:text-alltext-dark text-alltext-light">{username}</p>
                 {/* Copy Icon Button */}
                 <button
                   type="button"
@@ -83,11 +83,11 @@ const VaultDisplay = ({
               </div>
             </div>
             <div className="border-b pb-2">
-              <h3 className="font-medium text-title-light dark:text-title-dark">
+              <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                 Password
               </h3>
               <div className="flex justify-between items-center">
-                <p className="text-lg dark:text-alltext-dark text-alltext-light">
+                <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
                   {showPassword ? password : "••••••••••"}
                 </p>
                 {/* Visibility and Copy Icon Buttons */}
@@ -117,20 +117,22 @@ const VaultDisplay = ({
             </div>
 
             {/* Actions Section */}
-            <div className="flex justify-around space-x-4 mt-4">
+            <div className="flex justify-around space-x-4 mt-4 py-4">
               <Button
               icon={PiPencilDuotone}
               label="Edit"
                 type="button"
                 onClick={onEdit}
-                className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
+                size="md"
+                className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
               />       
               <Button
               icon={PiTrashDuotone}
                 type="button"
                 label="Delete"
                 onClick={onDelete}
-                className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
+                size="md"
+                className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
               />
             </div>
           </div>
