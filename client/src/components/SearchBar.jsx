@@ -25,7 +25,7 @@ function SearchBar({ onSearchChange }) {
         placeholder="Search..."
         value={searchValue}
         onChange={handleSearchChange} // Update search on every keystroke
-        className="block w-full rounded-[4px] border-solid border-2 border-highlight-light dark:border-highlight-dark py-1.5 px-3 pl-10 text-gray-700 placeholder:text-gray-400 focus:bg-white focus:text-gray-900 focus:ring-0 sm:text-sm"
+        className="block w-full rounded-[4px] border-solid border-2 py-1.5 px-3 pl-10 text-gray-700 placeholder:text-gray-400 focus:bg-white focus:text-gray-900 focus:ring-0 sm:text-sm"
       />
       
       {/* Search Icon */}
