@@ -9,7 +9,14 @@ import {
 } from "react-icons/pi";
 import Button from "./Button";
 
-const VaultDisplay = ({ service, username, password, Icon, onDelete, onEdit }) => {
+const VaultDisplay = ({
+  service,
+  username,
+  password,
+  Icon,
+  onDelete,
+  onEdit,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -28,63 +35,104 @@ const VaultDisplay = ({ service, username, password, Icon, onDelete, onEdit }) =
   const isEmpty = !service && !username && !password;
 
   return (
-    <div className="h-full flex flex-col justify-start items-center dark:text-alltext-dark text-alltext-light xl:text-[30px]">
+    <div className="h-full w-full max-w-3xl mx-auto p-6">
       {isEmpty ? (
-        // Render the logo when the VaultDisplay is empty
         <div className="flex justify-center items-center h-full">
-          <h1 className="mix-blend-overlay">
-  VaultGuard Password Locker
-</h1>
-
+          <h1 className="text-3xl dark:text-alltext-dark text-alltext-light opacity-60">
+            VaultGuard Password Locker
+          </h1>
         </div>
       ) : (
-        // Render the content if service, username, or password is present
         <>
-          <div className="flex items-center space-x-4">
-            {Icon && <Icon size={35} />} {/* Render the Icon if it's provided */}
-            <div>
-              <h2 className="text-[30px] dark:text-title-dark text-title-light">{service}</h2>
-              <p className="text-[25px] dark:text-alltext-dark text-alltext-light">{username}</p>
+          {/* Top Section with Service Info and Edit Button */}
+          <div className="flex justify-between items-center dark:bg-buttonbgc-dark bg-buttonbgc-light p-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light">
+            <div className="flex items-center space-x-4">
+              {Icon && <Icon size={45} className="dark:text-buttonti-dark text-buttonti-light" />}{" "}
+              {/* Icon */}
+              <div>
+                <h2 className="text-2xl dark:text-buttonti-dark text-buttonti-light">
+                  {service}
+                </h2>
+              </div>
             </div>
           </div>
-          <div className="mt-4">
-            <h3 className="font-[30px] dark:text-title-dark text-title-light">Password:</h3>
-            <p>{showPassword ? password : "••••••••••"}</p>
-          </div>
-          <div className="flex space-x-4 mt-4">
-            {/* Toggle Password Visibility */}
-            <Button
-              icon={showPassword ? PiEyeClosedDuotone : PiEyeDuotone}
-              label={showPassword ? "Hide" : "Show"}
-              onClick={togglePasswordVisibility}
-              iconSize={20}
-            />
 
-            {/* Copy Password */}
-            <Button
-              icon={PiCopyDuotone}
-              label="Copy"
-              onClick={copyToClipboard}
-              iconSize={20}
-            />
+          {/* Main Content Section */}
+          <div className="p-4 bg-white dark:bg-gray-800 rounded-b-[4px] space-y-4 backdrop-blur-xl">
+            <div className="border-b pb-2">
+              <h3 className="font-medium text-title-light dark:text-title-dark">
+                Service Name
+              </h3>
+              <p className="text-lg dark:text-alltext-dark text-alltext-light">{service}</p>
+            </div>
+            <div className="border-b pb-2">
+              <h3 className="font-medium text-title-light dark:text-title-dark">
+                Username
+              </h3>
+              <div className="flex justify-between items-center">
+                <p className="text-lg dark:text-alltext-dark text-alltext-light">{username}</p>
+                {/* Copy Icon Button */}
+                <button
+                  type="button"
+                  onClick={() => navigator.clipboard.writeText(username)}
+                  className="text-title-light dark:text-title-dark hover:text-highlight-light dark:hover:text-highlight-dark"
+                  aria-label="Copy username"
+                >
+                  <PiCopyDuotone className="text-[25px]" />
+                </button>
+              </div>
+            </div>
+            <div className="border-b pb-2">
+              <h3 className="font-medium text-title-light dark:text-title-dark">
+                Password
+              </h3>
+              <div className="flex justify-between items-center">
+                <p className="text-lg dark:text-alltext-dark text-alltext-light">
+                  {showPassword ? password : "••••••••••"}
+                </p>
+                {/* Visibility and Copy Icon Buttons */}
+                <div className="flex space-x-2">
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="text-title-light dark:text-title-dark hover:text-highlight-light dark:hover:text-highlight-dark"
+                    aria-label="Toggle password visibility"
+                  >
+                    {showPassword ? (
+                      <PiEyeClosedDuotone className="text-[25px]" />
+                    ) : (
+                      <PiEyeDuotone className="text-[25px]" />
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={copyToClipboard}
+                    className="text-title-light dark:text-title-dark hover:text-highlight-light dark:hover:text-highlight-dark"
+                    aria-label="Copy password"
+                  >
+                    <PiCopyDuotone className="text-[25px]" />
+                  </button>
+                </div>
+              </div>
+            </div>
 
-            {/* Edit Button */}
-            <Button
+            {/* Actions Section */}
+            <div className="flex justify-around space-x-4 mt-4">
+              <Button
               icon={PiPencilDuotone}
               label="Edit"
-              onClick={onEdit}
-              iconSize={20}
-            />
-
-            {/* Delete Button */}
-            <Button
+                type="button"
+                onClick={onEdit}
+                className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
+              />       
+              <Button
               icon={PiTrashDuotone}
-              label="Delete"
-              onClick={onDelete}
-              iconSize={20}
-            />
-
-          
+                type="button"
+                label="Delete"
+                onClick={onDelete}
+                className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
+              />
+            </div>
           </div>
         </>
       )}
@@ -97,8 +145,8 @@ VaultDisplay.propTypes = {
   username: PropTypes.string,
   password: PropTypes.string,
   Icon: PropTypes.elementType,
-  onDelete: PropTypes.func.isRequired, // Function to handle deleting the entry
-  onEdit: PropTypes.func.isRequired, // Function to handle editing the entry
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };
 
 export default VaultDisplay;
