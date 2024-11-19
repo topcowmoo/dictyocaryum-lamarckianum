@@ -23,6 +23,7 @@ router.route('/')
 // - DELETE: Delete a specific password entry by ID (protected by auth)
 router.route('/:id')
     .put(auth.authenticateToken, updatePassword) // Protect the PUT route with authentication
+    .patch(auth.authenticateToken, updatePassword) // Protect the PATCH route with authentication
     .delete(auth.authenticateToken, deletePassword); // Protect the DELETE route with authentication
 
 module.exports = router; // Export the router to use it in the main API setup

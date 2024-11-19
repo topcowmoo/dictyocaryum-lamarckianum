@@ -9,13 +9,16 @@ import {
 } from "react-icons/pi";
 import Button from "./Button";
 
+// Define apiURL
+const apiURL = import.meta.env.VITE_API_URL;
+
 const VaultDisplay = ({
   service,
   username,
   label,
   password,
   Icon,
-  onDelete,
+  entryId,
   onEdit,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +34,36 @@ const VaultDisplay = ({
       });
     }
   };
+
+  const handleDelete = async () => {
+    if (!entryId) {
+      console.error("entryId is missing");
+      return;
+    }
+  
+    try {
+      // Use PATCH method to update the category to "Deleted"
+      const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ category: "Deleted" }),
+      });
+  
+      if (response.ok) {
+        alert('Password entry moved to Deleted category successfully!');
+        // You may also want to update the state in the parent component to reflect the change
+      } else {
+        alert('Failed to move password entry to Deleted category. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error moving password entry to Deleted category:', error);
+      alert('An error occurred while trying to move the entry.');
+    }
+  };
+  
 
   // Check if the VaultDisplay is empty
   const isEmpty = !service && !username && !password;
@@ -142,7 +175,7 @@ const VaultDisplay = ({
                   icon={PiTrashDuotone}
                   type="button"
                   label="Delete"
-                  onClick={onDelete}
+                  onClick={handleDelete} // Use handleDelete instead of onDelete
                   size="md"
                   className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
                 />
@@ -161,6 +194,7 @@ VaultDisplay.propTypes = {
   username: PropTypes.string,
   password: PropTypes.string,
   Icon: PropTypes.elementType,
+  entryId: PropTypes.string, // PropType validation for entryId
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
 };

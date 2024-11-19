@@ -68,10 +68,26 @@ function Dashboard() {
   };
 
   // Handle entry deletion
-  const handleDelete = () => {
-    console.log("Entry deleted");
-    setSelectedEntry(null); // Clear the selection after deletion
+  const handleDelete = async (entryId) => {
+    try {
+      const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+  
+      if (response.ok) {
+        alert('Password entry deleted successfully!');
+        setEntries((prevEntries) => prevEntries.filter(entry => entry._id !== entryId));
+        setSelectedEntry(null); // Clear the selected entry
+      } else {
+        alert('Failed to delete password entry. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error deleting password entry:', error);
+      alert('An error occurred while trying to delete the entry.');
+    }
   };
+  
 
   // Handle entry editing
   const handleEdit = (updatedEntry) => {
@@ -128,7 +144,8 @@ function Dashboard() {
               label={selectedEntry?.label}
               password={selectedEntry?.password}
               Icon={selectedEntry?.Icon}
-              onDelete={handleDelete} // Pass delete handler
+              entryId={selectedEntry?._id}
+              onDelete={() => handleDelete(selectedEntry._id)} // Pass delete handler
               onEdit={handleEdit} // Pass edit handler
             />
           )}
