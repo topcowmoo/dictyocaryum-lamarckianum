@@ -26,6 +26,7 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
     setSelectedEntry(entry._id);
     onSelectEntry({
       ...entry,
+      label: entry.label,
       Icon: serviceIcons[entry.serviceName?.toLowerCase()] || serviceIcons.default,
     });
   };

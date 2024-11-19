@@ -64,11 +64,11 @@ router.post("/login", async (req, res) => {
 
 // Route to create a new password entry
 router.post('/', auth.authenticateToken, async (req, res) => {
-  const { username, password, category, serviceName } = req.body;
+  const { username, password, category, serviceName, label } = req.body;
 
   try {
     // Create and save a new password entry
-    const newPasswordEntry = new Password({ username, password, category, serviceName });
+    const newPasswordEntry = new Password({ username, password, category, serviceName, label });
     await newPasswordEntry.save();
 
     res.status(201).json({ message: "Password entry created successfully" });

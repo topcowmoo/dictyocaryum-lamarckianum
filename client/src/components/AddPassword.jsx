@@ -36,25 +36,17 @@ function AddPassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validate required fields
     if (!serviceName || !password) {
       alert("Service name and password are required.");
       return;
     }
-
     if (!category) {
       alert("Please select a category.");
       return;
     }
-
-    console.log("Data to be sent:", {
-      username,
-      password,
-      category,
-      serviceName,
-    });
-
+  
+    console.log("Data to be sent:", { username, password, category, serviceName, label }); // Ensure label is logged
+  
     try {
       const response = await fetch(`${apiURL}/api/locker`, {
         method: "POST",
@@ -62,21 +54,16 @@ function AddPassword() {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({
-          username,
-          password,
-          category,
-          serviceName,
-          label,
-        }),
+        body: JSON.stringify({ username, password, category, serviceName, label }), // Include label
       });
-
+  
       if (response.ok) {
         alert("Password entry added successfully!");
         setUsername("");
         setPassword("");
         setCategory("");
         setServiceName("");
+        setLabel(""); // Clear label after submission
       } else {
         alert("Failed to add password entry. Please try again.");
       }
@@ -85,7 +72,7 @@ function AddPassword() {
       alert("An error occurred. Please try again.");
     }
   };
-
+  
   const categoryItems = [
     { id: 1, title: "Cards" },
     { id: 2, title: "Entertainment" },

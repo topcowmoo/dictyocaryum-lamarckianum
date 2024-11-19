@@ -25,31 +25,24 @@ function Dashboard() {
   useEffect(() => {
     const fetchEntries = async () => {
       try {
-        // Constructing the API URL based on the selected category
-        const url = selectedCategory
-          ? `${apiURL}/api/locker?category=${selectedCategory}`
-          : `${apiURL}/api/locker`; // Fetch all entries if no category is selected
-
-        console.log("Fetching from URL:", url); // Logging the URL being fetched
-
-        // Sending a GET request to the API
-        const response = await fetch(url, {
+        const response = await fetch(`${apiURL}/api/locker`, {
           method: "GET",
-          credentials: "include", // Include cookies in the request
+          credentials: "include",
         });
-
         if (response.ok) {
           const data = await response.json();
-          setEntries(data); // Updating the entries state with fetched data
+          console.log("Fetched entries:", data); // Check if label is included in the data
+          setEntries(data);
         } else {
           console.error("Failed to fetch entries:", response.statusText);
-          setEntries([]); // Clear entries on error
+          setEntries([]);
         }
       } catch (error) {
         console.error("Error fetching entries:", error);
-        setEntries([]); // Clear entries on error
+        setEntries([]);
       }
     };
+    
 
     fetchEntries(); // Call the fetchEntries function
   }, [selectedCategory]); // Dependency array to trigger effect when selectedCategory changes
@@ -132,6 +125,7 @@ function Dashboard() {
             <VaultDisplay
               service={selectedEntry?.serviceName}
               username={selectedEntry?.username}
+              label={selectedEntry?.label}
               password={selectedEntry?.password}
               Icon={selectedEntry?.Icon}
               onDelete={handleDelete} // Pass delete handler
