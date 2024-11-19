@@ -27,6 +27,7 @@ import {
   SiWhatsapp, // WhatsApp icon
   SiX, // X (formerly Twitter) icon
   SiMicrosoft, // Microsoft icon
+  PiGlobeHemisphereWestDuotone, // Default icon
 } from "react-icons/si";
 
 // Creating an object to map service names to their respective icons
@@ -58,6 +59,7 @@ const serviceIcons = {
   whatsapp: SiWhatsapp, // Mapping "whatsapp" to the WhatsApp icon
   x: SiX, // Mapping "x" to the X (Twitter) icon
   microsoft: SiMicrosoft, // Mapping "microsoft" to the Microsoft icon
+  default: PiGlobeHemisphereWestDuotone, // Default icon
 };
 
 // Exporting the serviceIcons object for use in other parts of the application

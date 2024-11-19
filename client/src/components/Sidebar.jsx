@@ -41,7 +41,7 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
         {items.map((item) => (
           <div
             key={item.id}
-            className="flex items-center cursor-pointer p-2 transition dark:text-alltext-dark text-alltext-light hover:underline"
+            className="flex items-center cursor-pointer p-3 transition dark:text-alltext-dark text-alltext-light hover:underline"
             onClick={() => handleItemClick(item)}
           >
             <div className="flex items-center gap-2">
@@ -57,7 +57,7 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
               <span
                 className={`text-[18px] ${
                   selectedItemId === item.id
-                    ? "dark:text-highlight-dark text-highlight-light font-bold text-shadow-pop-top"
+                    ? "dark:text-highlight-dark text-highlight-light text-shadow-pop-top"
                     : ""
                 }`}
               >

@@ -1,9 +1,13 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import serviceIcons from "../utils/serviceIcons";
-import { PiGlobeHemisphereWestDuotone } from "react-icons/pi";
 
-const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries }) => {
+const VaultEntries = ({
+  onSelectEntry,
+  selectedCategory,
+  searchQuery,
+  entries,
+}) => {
   const [selectedEntry, setSelectedEntry] = useState(null); // Track the selected entry
 
   const safeEntries = entries || [];
@@ -17,20 +21,24 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
     const categoryMatch =
       selectedCategory === "All" ||
       (selectedCategory &&
-        entry.category?.toLowerCase().trim() === selectedCategory.toLowerCase().trim());
+        entry.category?.toLowerCase().trim() ===
+          selectedCategory.toLowerCase().trim());
 
     return categoryMatch;
   });
 
   const handleEntryClick = (entry) => {
     setSelectedEntry(entry._id); // Set the selected entry ID
-    onSelectEntry({ ...entry, Icon: serviceIcons[entry.serviceName?.toLowerCase()] || PiGlobeHemisphereWestDuotone });
+    onSelectEntry({
+      ...entry,
+      Icon: serviceIcons[entry.serviceName?.toLowerCase()],
+    });
   };
 
   return (
     <div className="p-4 space-y-4">
       {filteredEntries.map((entry) => {
-        const Icon = serviceIcons[entry.serviceName?.toLowerCase()] || PiGlobeHemisphereWestDuotone;
+        const Icon = serviceIcons[entry.serviceName?.toLowerCase()];
         const isSelected = selectedEntry === entry._id; // Check if the entry is selected
 
         return (
@@ -45,7 +53,9 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
           >
             <div
               className={`w-10 h-10 flex items-center justify-center mr-4 transition-colors duration-200 ${
-                isSelected ? "text-highlight-light dark:text-highlight-dark" : ""
+                isSelected
+                  ? "text-highlight-light dark:text-highlight-dark"
+                  : ""
               }`}
             >
               <Icon size={32} />
