@@ -59,7 +59,7 @@ const VaultDisplay = ({
             </div>
 
             {/* Main Content Section */}
-            <div className="p-4 bg-white dark:bg-gray-800 rounded-b-[4px] space-y-4">
+            <div className="p-4 bg-hefo-light dark:bg-sidebar-dark rounded-b-[4px] space-y-4">
               <div className="border-b pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Service Name

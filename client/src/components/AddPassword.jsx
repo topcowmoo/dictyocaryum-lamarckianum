@@ -45,79 +45,82 @@ function AddPassword() {
   }));
 
   return (
-    <div>
-      <h2 className="text-lg font-bold mb-4">Add New Entry</h2>
-      <form>
-        <div className="mb-4">
-          <label className="block mb-1 dark:text-title-dark text-title-light">Username</label>
-          <input type="text" className="w-full border border-gray-300 p-2 rounded-[4px]" />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="password" className="block mb-1 dark:text-title-dark text-title-light">
-            Password
-          </label>
-          {/* Positioned on top */}
-          <div className="relative flex items-center border border-gray-300 rounded-[4px]">
-            <input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 pr-16 rounded-[4px] focus:outline-none"
-            />
-
-            {/* Show/Hide Password Icon */}
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute right-8 flex items-center justify-center text-gray-500"
-              aria-label="Toggle password visibility"
-            >
-              {showPassword ? (
-                <PiEyeClosedDuotone className="text-[20px]" />
-              ) : (
-                <PiEyeDuotone className="text-[20px]" />
-              )}
-            </button>
-
-            {/* Copy Password Icon */}
-            <button
-              type="button"
-              onClick={toggleGeneratorModal}
-              className="absolute right-2 flex items-center justify-center text-gray-500"
-              aria-label="Open Password Generator"
-            >
-              <PiArrowsClockwiseDuotone className="text-[20px]" />
-            </button>
+    <div className="h-full w-full flex justify-center items-center">
+      <div className="w-full max-w-6xl h-[70vh] p-6 bg-hefo-light dark:bg-sidebar-dark rounded-lg shadow-lg">
+        <h2 className="text-3xl font-bold mb-6 dark:text-alltext-dark text-alltext-light">
+          Add New Entry
+        </h2>
+        <form>
+          <div className="mb-4">
+            <label className="block mb-1 dark:text-title-dark text-title-light">Username</label>
+            <input type="text" className="w-full border border-gray-300 p-2 rounded-[4px]" />
           </div>
-        </div>
 
-        {showGenerator && (
-          <Modal onClose={toggleGeneratorModal}>
-            <Generator onSelectPassword={handleSelectPassword} onClose={toggleGeneratorModal} />
-          </Modal>
-        )}
+          <div className="mb-4">
+            <label htmlFor="password" className="block mb-1 dark:text-title-dark text-title-light">
+              Password
+            </label>
+            <div className="relative flex items-center border border-gray-300 rounded-[4px]">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-2 pr-16 rounded-[4px] focus:outline-none"
+              />
 
-        <div className="mb-4">
-          <label className="block mb-1 dark:text-title-dark text-title-light">Service Name</label>
-          <Dropdown items={serviceItems} />
-        </div>
+              {/* Show/Hide Password Icon */}
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute right-8 flex items-center justify-center text-gray-500"
+                aria-label="Toggle password visibility"
+              >
+                {showPassword ? (
+                  <PiEyeClosedDuotone className="text-[20px]" />
+                ) : (
+                  <PiEyeDuotone className="text-[20px]" />
+                )}
+              </button>
 
-        <div className="mb-4">
-          <label className="block mb-1 dark:text-title-dark text-title-light">Category</label>
-          <Dropdown items={categoryItems} />
-        </div>
+              {/* Password Generator Icon */}
+              <button
+                type="button"
+                onClick={toggleGeneratorModal}
+                className="absolute right-2 flex items-center justify-center text-gray-500"
+                aria-label="Open Password Generator"
+              >
+                <PiArrowsClockwiseDuotone className="text-[20px]" />
+              </button>
+            </div>
+          </div>
 
-        <div className="flex flex-col gap-4">
-          <Button
-            icon={PiSealCheckDuotone}
-            type="submit"
-            label="Save"
-            className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
-          />
-        </div>
-      </form>
+          {showGenerator && (
+            <Modal onClose={toggleGeneratorModal}>
+              <Generator onSelectPassword={handleSelectPassword} onClose={toggleGeneratorModal} />
+            </Modal>
+          )}
+
+          <div className="mb-4">
+            <label className="block mb-1 dark:text-title-dark text-title-light">Service Name</label>
+            <Dropdown items={serviceItems} />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1 dark:text-title-dark text-title-light">Category</label>
+            <Dropdown items={categoryItems} />
+          </div>
+
+          <div className="flex justify-start space-x-4 mt-6">
+            <Button
+              icon={PiSealCheckDuotone}
+              type="submit"
+              label="Save"
+              className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+            />
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
