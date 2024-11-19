@@ -1,4 +1,5 @@
 // Importing various service icons from the "react-icons/si" package
+import { PiGlobeHemisphereWestDuotone } from "react-icons/pi";
 import {
   SiVisa, // Visa icon
   SiMastercard, // Mastercard icon
@@ -27,7 +28,6 @@ import {
   SiWhatsapp, // WhatsApp icon
   SiX, // X (formerly Twitter) icon
   SiMicrosoft, // Microsoft icon
-  PiGlobeHemisphereWestDuotone, // Default icon
 } from "react-icons/si";
 
 // Creating an object to map service names to their respective icons

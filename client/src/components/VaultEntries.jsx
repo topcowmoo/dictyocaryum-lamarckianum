@@ -2,12 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import serviceIcons from "../utils/serviceIcons";
 
-const VaultEntries = ({
-  onSelectEntry,
-  selectedCategory,
-  searchQuery,
-  entries,
-}) => {
+const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries }) => {
   const [selectedEntry, setSelectedEntry] = useState(null); // Track the selected entry
 
   const safeEntries = entries || [];
@@ -31,14 +26,14 @@ const VaultEntries = ({
     setSelectedEntry(entry._id); // Set the selected entry ID
     onSelectEntry({
       ...entry,
-      Icon: serviceIcons[entry.serviceName?.toLowerCase()],
+      Icon: serviceIcons[entry.serviceName?.toLowerCase()] || serviceIcons.default, // Use default icon if no match
     });
   };
 
   return (
     <div className="p-4 space-y-4">
       {filteredEntries.map((entry) => {
-        const Icon = serviceIcons[entry.serviceName?.toLowerCase()];
+        const Icon = serviceIcons[entry.serviceName?.toLowerCase()] || serviceIcons.default; // Use default icon if no match
         const isSelected = selectedEntry === entry._id; // Check if the entry is selected
 
         return (
@@ -53,9 +48,7 @@ const VaultEntries = ({
           >
             <div
               className={`w-10 h-10 flex items-center justify-center mr-4 transition-colors duration-200 ${
-                isSelected
-                  ? "text-highlight-light dark:text-highlight-dark"
-                  : ""
+                isSelected ? "text-highlight-light dark:text-highlight-dark" : ""
               }`}
             >
               <Icon size={32} />

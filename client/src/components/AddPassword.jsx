@@ -100,11 +100,6 @@ function AddPassword() {
         )}
 
         <div className="mb-4">
-          <label className="block mb-1 dark:text-title-dark text-title-light">Website Address</label>
-          <input type="text" className="w-full border border-gray-300 p-2 rounded-[4px]" />
-        </div>
-
-        <div className="mb-4">
           <label className="block mb-1 dark:text-title-dark text-title-light">Service Name</label>
           <Dropdown items={serviceItems} />
         </div>
