@@ -65,63 +65,15 @@ const seedPasswords = async (users) => {
   // Array of password objects, each linked to a user by `userId`
   const passwords = [
     {
-      userId: users[0]._id,
-      serviceName: "Google",
-      site: "https://www.google.com",
-      username: "user1@gmail.com",
-      password: "EncryptedPassword1211!!",
-      category: "Login",
-    },
-    {
-      userId: users[1]._id,
-      serviceName: "Chase",
-      site: "https://www.chasea.com",
-      username: "user1@chase.com",
-      password: "EncryptedPassword1211!!",
-      category: "Cards",
-    },
-    {
-      userId: users[2]._id,
-      serviceName: "Home WiFi",
-      site: "WiFi Network",
-      username: "WiFiUser",
-      password: "EncryptedPassword1211!!",
-      category: "Wi-Fi",
-    },
-    {
-      userId: users[0]._id,
-      serviceName: "Driver's License",
-      site: "DMV",
-      username: "user1_license",
-      password: "EncryptedPassword1211!!",
-      category: "Identification",
-    },
-    {
-      userId: users[2]._id,
-      serviceName: "Netflix",
-      site: "https://www.netflix.com",
-      username: "user1@gmail.com",
-      password: "EncryptedPassword1211!!",
-      category: "Entertainment",
-    },
-    {
-      userId: users[1]._id,
-      serviceName: "Visa",
-      site: "https://www.visa.com",
-      username: "unknown_user",
-      password: "EncryptedPassword1211!!",
-      category: "Cards",
-    },
-    {
-      userId: "672ba2a6e7ed520452e90d7d", // Hardcoded user ID as a string
+      userId: "673ce321330e4e60c31768dc", // Hardcoded user ID as a string
       serviceName: "Apple",
       site: "https://www.apple.com",
-      username: "user2@mail.com",
+      username: "user1@mail.com",
       password: "AAdncrypdadsftedPassword1211!!",
       category: "Login",
     },
     {
-      userId: "672ba2a6e7ed520452e90d7d", // Hardcoded user ID as a string
+      userId: "673ce321330e4e60c31768dd", // Hardcoded user ID as a string
       serviceName: "AmericanExpress",
       site: "https://www.americanexpress.com",
       username: "user2@mail.com",
@@ -129,7 +81,7 @@ const seedPasswords = async (users) => {
       category: "Cards",
     },
     {
-      userId: users[2]._id,
+      userId:"673ce321330e4e60c31768dd",
       serviceName: "Amazon",
       site: "www.amazon.com",
       username: "amazonlover",
@@ -137,20 +89,12 @@ const seedPasswords = async (users) => {
       category: "Entertainment",
     },
     {
-      userId: users[0]._id,
+      userId: "673ce321330e4e60c31768dc",
       serviceName: "Meta",
       site: "www.meta.com",
       username: "metametahohoho",
       password: "EndcryptedPadafasdfassword1211!!",
       category: "Entertainment",
-    },
-    {
-      userId: users[2]._id,
-      serviceName: "Comic Book Realm",
-      site: "www.cbr.com",
-      username: "batmanlover",
-      password: "EncryptedPadafasddfassword1211!!",
-      category: "Deleted",
     },
   ];
 

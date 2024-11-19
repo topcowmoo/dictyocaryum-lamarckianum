@@ -4,6 +4,7 @@ const Locker = require('../models/Locker'); // Import the Locker model
 exports.getAllPasswords = async (req, res) => {
   try {
     // Retrieve all Locker documents from the database
+    const userId = req.user.userId;
     const lockers = await Locker.find({});
     res.status(200).json(lockers); // Respond with the retrieved lockers
   } catch (err) {
