@@ -70,7 +70,7 @@ const seedPasswords = async (users) => {
       site: "https://www.google.com",
       username: "user1@gmail.com",
       password: "EncryptedPassword1211!!",
-      category: "login",
+      category: "Login",
     },
     {
       userId: users[1]._id,
@@ -78,7 +78,7 @@ const seedPasswords = async (users) => {
       site: "https://www.chasea.com",
       username: "user1@chase.com",
       password: "EncryptedPassword1211!!",
-      category: "cards",
+      category: "Cards",
     },
     {
       userId: users[2]._id,
@@ -86,7 +86,7 @@ const seedPasswords = async (users) => {
       site: "WiFi Network",
       username: "WiFiUser",
       password: "EncryptedPassword1211!!",
-      category: "wi-fi",
+      category: "Wi-Fi",
     },
     {
       userId: users[0]._id,
@@ -94,7 +94,7 @@ const seedPasswords = async (users) => {
       site: "DMV",
       username: "user1_license",
       password: "EncryptedPassword1211!!",
-      category: "identification",
+      category: "Identification",
     },
     {
       userId: users[2]._id,
@@ -102,7 +102,7 @@ const seedPasswords = async (users) => {
       site: "https://www.netflix.com",
       username: "user1@gmail.com",
       password: "EncryptedPassword1211!!",
-      category: "entertainment",
+      category: "Entertainment",
     },
     {
       userId: users[1]._id,
@@ -110,7 +110,7 @@ const seedPasswords = async (users) => {
       site: "https://www.visa.com",
       username: "unknown_user",
       password: "EncryptedPassword1211!!",
-      category: "cards",
+      category: "Cards",
     },
     {
       userId: "672ba2a6e7ed520452e90d7d", // Hardcoded user ID as a string
@@ -118,7 +118,7 @@ const seedPasswords = async (users) => {
       site: "https://www.apple.com",
       username: "user2@mail.com",
       password: "AAdncrypdadsftedPassword1211!!",
-      category: "login",
+      category: "Login",
     },
     {
       userId: "672ba2a6e7ed520452e90d7d", // Hardcoded user ID as a string
@@ -126,7 +126,7 @@ const seedPasswords = async (users) => {
       site: "https://www.americanexpress.com",
       username: "user2@mail.com",
       password: "AAdncrypdadfasdsftedPassword1211!!",
-      category: "cards",
+      category: "Cards",
     },
     {
       userId: users[2]._id,
@@ -134,7 +134,7 @@ const seedPasswords = async (users) => {
       site: "www.amazon.com",
       username: "amazonlover",
       password: "EncryptedPadafasdfassword1211!!",
-      category: "entertainment",
+      category: "Entertainment",
     },
     {
       userId: users[0]._id,
@@ -142,7 +142,7 @@ const seedPasswords = async (users) => {
       site: "www.meta.com",
       username: "metametahohoho",
       password: "EndcryptedPadafasdfassword1211!!",
-      category: "entertainment",
+      category: "Entertainment",
     },
     {
       userId: users[2]._id,
@@ -150,7 +150,7 @@ const seedPasswords = async (users) => {
       site: "www.cbr.com",
       username: "batmanlover",
       password: "EncryptedPadafasddfassword1211!!",
-      category: "deleted",
+      category: "Deleted",
     },
   ];
 

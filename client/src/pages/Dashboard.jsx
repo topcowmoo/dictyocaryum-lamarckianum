@@ -99,16 +99,17 @@ function Dashboard() {
   const filteredEntries = entries.filter((entry) => {
     const serviceName = entry.serviceName?.toLowerCase() || "";
     const query = searchQuery.toLowerCase();
-
-    // Check if the entry matches the search query and the selected category
+  
+    // Check if the entry matches the search query
     const matchesSearch = serviceName.includes(query);
-    const matchesCategory =
-      !selectedCategory ||
-      selectedCategory === "All" ||
-      (selectedCategory &&
-        entry.category?.toLowerCase().trim() === selectedCategory.toLowerCase().trim());
-
-    return matchesSearch && matchesCategory; // Return entries that match both criteria
+  
+    // Check if the entry matches the selected category
+    const matchesCategory = 
+      selectedCategory === "All" 
+        ? entry.category !== "Deleted" // Exclude "Deleted" category when "All" is selected
+        : selectedCategory === entry.category;
+  
+    return matchesSearch && matchesCategory;
   });
 
   return (
@@ -147,6 +148,8 @@ function Dashboard() {
               entryId={selectedEntry?._id}
               onDelete={() => handleDelete(selectedEntry._id)} // Pass delete handler
               onEdit={handleEdit} // Pass edit handler
+              setEntries={setEntries}
+              setSelectedEntry={setSelectedEntry}
             />
           )}
         </div>

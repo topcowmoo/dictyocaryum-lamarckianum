@@ -20,6 +20,8 @@ const VaultDisplay = ({
   Icon,
   entryId,
   onEdit,
+  setEntries,
+  setSelectedEntry,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -42,24 +44,28 @@ const VaultDisplay = ({
     }
   
     try {
-      // Use PATCH method to update the category to "Deleted"
+      // Make the PATCH request to update the category to "Deleted"
       const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
         method: 'PATCH',
-        credentials: 'include',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ category: "Deleted" }),
+        credentials: 'include',
+        body: JSON.stringify({ category: 'Deleted' }),
       });
   
       if (response.ok) {
-        alert('Password entry moved to Deleted category successfully!');
-        // You may also want to update the state in the parent component to reflect the change
+        alert('Password entry moved to Deleted category!');
+        // Remove the entry from the entries array in the state
+        setEntries((prevEntries) =>
+          prevEntries.filter((entry) => entry._id !== entryId)
+        );
+        setSelectedEntry(null); // Clear the selected entry
       } else {
-        alert('Failed to move password entry to Deleted category. Please try again.');
+        alert('Failed to move password entry. Please try again.');
       }
     } catch (error) {
-      console.error('Error moving password entry to Deleted category:', error);
+      console.error('Error moving password entry:', error);
       alert('An error occurred while trying to move the entry.');
     }
   };
@@ -197,6 +203,8 @@ VaultDisplay.propTypes = {
   entryId: PropTypes.string, // PropType validation for entryId
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
+  setEntries: PropTypes.func.isRequired,
+  setSelectedEntry: PropTypes.func.isRequired,
 };
 
 export default VaultDisplay;

@@ -34,7 +34,7 @@ const lockerSchema = new Schema({
     category: {
         type: String,  // String data type for the category
         enum: ["All", "Identification", "Cards", "Login", "Wi-Fi", "Entertainment", "Deleted"],  // Allowed values for the category
-        default: "all",  // Default category if none is provided
+        default: "All",  // Default category if none is provided
     },
     // label: Specifies a custom label for the locker entry
     label: {
