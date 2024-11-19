@@ -2,13 +2,15 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { PiCaretDown } from "react-icons/pi";
 
-function Dropdown({ items, placeholder = "Select an Option" }) {
+function Dropdown({ items, onSelect, placeholder = "Select an Option" }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(placeholder);
 
   const handleSelect = (item) => {
+    console.log("Selected item:", item); // Debugging: Log the selected item
     setSelectedItem(item.title);
     setIsOpen(false); // Close the dropdown after selecting
+    onSelect(item); // Call the onSelect prop to update the parent state
   };
 
   return (
@@ -19,8 +21,7 @@ function Dropdown({ items, placeholder = "Select an Option" }) {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{selectedItem}</span>
-        <PiCaretDown size={20} 
-        className="ml-2" />
+        <PiCaretDown size={20} className="ml-2" />
       </div>
 
       {/* Dropdown List */}
@@ -32,7 +33,7 @@ function Dropdown({ items, placeholder = "Select an Option" }) {
               className="flex items-center p-2 cursor-pointer hover:bg-gray-100"
               onClick={() => handleSelect(item)}
             >
-              <span className="mr-2">{item.icon}</span>
+              {item.icon && <span className="mr-2">{item.icon}</span>}
               <span>{item.title}</span>
             </div>
           ))}
@@ -50,6 +51,7 @@ Dropdown.propTypes = {
       icon: PropTypes.element,
     })
   ).isRequired,
+  onSelect: PropTypes.func.isRequired, // Ensure onSelect is required
   placeholder: PropTypes.string,
 };
 

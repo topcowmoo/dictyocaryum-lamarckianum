@@ -27,14 +27,14 @@ exports.verifyPassword = (password, hash, salt) => {
 // Middleware to authenticate a JWT token from the HTTP cookie
 // Verifies the token and attaches the decoded user info to the request object
 exports.authenticateToken = (req, res, next) => {
-  const token = req.cookies.authToken; // Retrieve the token from the cookies
-  if (!token) return res.status(401).send('Access denied. No token provided.'); // Respond with 401 if no token is provided
+  const token = req.cookies.authToken; // Or wherever your token is stored
+  if (!token) return res.status(401).send('Access denied. No token provided.');
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify the token using the secret
-    req.user = decoded; // Attach the decoded user information to the request object
-    next(); // Proceed to the next middleware or route handler
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // Attach the decoded user info (including userId) to the request
+    next();
   } catch (err) {
-    res.status(401).send('Invalid token'); // Respond with 401 if the token is invalid
+    res.status(401).send('Invalid token');
   }
 };

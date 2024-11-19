@@ -12,6 +12,7 @@ import Button from "./Button";
 const VaultDisplay = ({
   service,
   username,
+  label,
   password,
   Icon,
   onDelete,
@@ -36,8 +37,7 @@ const VaultDisplay = ({
 
   return (
     <div className="h-full w-full flex justify-center items-center">
-      {/* Increased container size */}
-      <div className="w-full max-w-6xl h-[70vh] p-6"> {/* Adjusted max width and height */}
+      <div className="w-full max-w-6xl h-[70vh] p-6">
         {isEmpty ? (
           <div className="flex justify-center items-center h-full">
             <h1 className="text-3xl dark:text-alltext-dark text-alltext-light opacity-60">
@@ -46,7 +46,7 @@ const VaultDisplay = ({
           </div>
         ) : (
           <>
-            {/* Top Section with Service Info and Edit Button */}
+            {/* Top Section */}
             <div className="flex justify-start items-center dark:bg-buttonbgc-dark bg-buttonbgc-light py-6 px-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light">
               <div className="flex items-center space-x-4">
                 {Icon && <Icon size={45} className="dark:text-buttonti-dark text-buttonti-light" />}
@@ -60,12 +60,23 @@ const VaultDisplay = ({
 
             {/* Main Content Section */}
             <div className="p-4 bg-hefo-light dark:bg-sidebar-dark rounded-b-[4px] space-y-4">
+              {/* Service Name */}
               <div className="border-b pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Service Name
                 </h3>
                 <p className="text-[16px] dark:text-alltext-dark text-alltext-light">{service}</p>
               </div>
+
+              {/* Label */}
+              <div className="border-b pb-2">
+                <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
+                  Label
+                </h3>
+                <p className="text-[16px] dark:text-alltext-dark text-alltext-light">{label}</p>
+              </div>
+
+              {/* Username */}
               <div className="border-b pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Username
@@ -82,6 +93,8 @@ const VaultDisplay = ({
                   </button>
                 </div>
               </div>
+
+              {/* Password */}
               <div className="border-b pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Password
@@ -115,7 +128,7 @@ const VaultDisplay = ({
                 </div>
               </div>
 
-              {/* Actions Section */}
+              {/* Actions */}
               <div className="flex justify-around space-x-4 mt-4 py-4">
                 <Button
                   icon={PiPencilDuotone}
@@ -144,6 +157,7 @@ const VaultDisplay = ({
 
 VaultDisplay.propTypes = {
   service: PropTypes.string,
+  label: PropTypes.string,
   username: PropTypes.string,
   password: PropTypes.string,
   Icon: PropTypes.elementType,

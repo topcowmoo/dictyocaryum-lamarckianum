@@ -128,6 +128,21 @@ exports.updateUser = async (req, res) => {
   }
 };
 
+xports.createPassword = async (req, res) => {
+  const { username, password, category, serviceName } = req.body;
+
+  try {
+    // Create and save a new password entry
+    const newPasswordEntry = new Password({ username, password, category, serviceName });
+    await newPasswordEntry.save();
+
+    res.status(201).json({ message: "Password entry created successfully" });
+  } catch (error) {
+    console.error("Error creating password entry:", error);
+    res.status(500).json({ message: "Error creating password entry", error });
+  }
+};
+
 // Reset Master Password
 exports.resetPassword = async (req, res) => {
   const { email, password } = req.body;

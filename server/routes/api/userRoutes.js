@@ -3,6 +3,7 @@ const auth = require("../../auth"); // Import the authentication middleware
 const User = require("../../models/User"); // Import the User model
 const router = express.Router(); // Create an Express router instance
 
+
 // Public Routes
 
 // Signup Route
@@ -58,6 +59,22 @@ router.post("/login", async (req, res) => {
     res.status(200).json({ message: "Login successful" }); // Respond with success message
   } catch (error) {
     res.status(500).json({ message: "Error during login", error }); // Respond with error message
+  }
+});
+
+// Route to create a new password entry
+router.post('/', auth.authenticateToken, async (req, res) => {
+  const { username, password, category, serviceName } = req.body;
+
+  try {
+    // Create and save a new password entry
+    const newPasswordEntry = new Password({ username, password, category, serviceName });
+    await newPasswordEntry.save();
+
+    res.status(201).json({ message: "Password entry created successfully" });
+  } catch (error) {
+    console.error("Error saving password entry:", error);
+    res.status(500).json({ message: "Error saving password entry", error });
   }
 });
 

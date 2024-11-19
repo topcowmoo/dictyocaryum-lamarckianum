@@ -13,21 +13,22 @@ exports.getAllPasswords = async (req, res) => {
 
 // Controller function to create a new password entry
 exports.createPassword = async (req, res) => {
+  const { serviceName, username, password, category } = req.body;
+
+  // Check if required fields are provided
+  if (!serviceName || !password) {
+    return res.status(400).json({ message: "Service name and password are required" });
+  }
+
   try {
-    // Extract data from the request body
-    const { userId, serviceName, username, password } = req.body;
-
-    // Validate required fields
-    if (!userId || !serviceName) {
-      return res.status(400).json({ message: 'userId and serviceName are required.' }); // Respond with a 400 status if validation fails
-    }
-
-    // Create a new Locker document and save it to the database
-    const newLocker = new Locker({ userId, serviceName, username, password });
-    await newLocker.save();
-    res.status(201).json(newLocker); // Respond with the newly created locker entry
-  } catch (err) {
-    res.status(500).json({ message: 'Error creating password entry' }); // Respond with a 500 status and error message
+    // Assume that req.user.userId is set by your auth middleware
+    const userId = req.user.userId;
+    const newLockerEntry = new Locker({ userId, serviceName, username, password, category });
+    await newLockerEntry.save();
+    res.status(201).json({ message: "Password entry created successfully" });
+  } catch (error) {
+    console.error("Error creating password entry:", error);
+    res.status(500).json({ message: "Error creating password entry", error });
   }
 };
 

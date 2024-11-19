@@ -82,7 +82,7 @@ function Profile() {
 
           {/* Card 2: Logout */}
           <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <h2 className="text-lg font-semibold dark:text-alltext-dark text-title-light mb-3">Sign Out</h2>
+            <h2 className="text-lg font-semibold dark:text-alltext-dark text-title-light mb-3">Logout</h2>
             <p className="text-sm dark:text-alltext-dark text-gray-600 mb-4">
               Log out of your account securely when you are done.
             </p>

@@ -3,7 +3,7 @@ import { useState } from "react";
 import serviceIcons from "../utils/serviceIcons";
 
 const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries }) => {
-  const [selectedEntry, setSelectedEntry] = useState(null); // Track the selected entry
+  const [selectedEntry, setSelectedEntry] = useState(null);
 
   const safeEntries = entries || [];
   const filteredEntries = safeEntries.filter((entry) => {
@@ -23,42 +23,41 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
   });
 
   const handleEntryClick = (entry) => {
-    setSelectedEntry(entry._id); // Set the selected entry ID
+    setSelectedEntry(entry._id);
     onSelectEntry({
       ...entry,
-      Icon: serviceIcons[entry.serviceName?.toLowerCase()] || serviceIcons.default, // Use default icon if no match
+      Icon: serviceIcons[entry.serviceName?.toLowerCase()] || serviceIcons.default,
     });
   };
 
   return (
     <div className="p-4 space-y-4">
       {filteredEntries.map((entry) => {
-        const Icon = serviceIcons[entry.serviceName?.toLowerCase()] || serviceIcons.default; // Use default icon if no match
-        const isSelected = selectedEntry === entry._id; // Check if the entry is selected
+        const Icon = serviceIcons[entry.serviceName?.toLowerCase()] || serviceIcons.default;
+        const isSelected = selectedEntry === entry._id;
 
         return (
           <div
             key={entry._id}
             onClick={() => handleEntryClick(entry)}
-            className={`flex items-center cursor-pointer p-3 transition ${
+            className={`flex flex-col items-start cursor-pointer p-3 transition ${
               isSelected
-                ? "dark:text-highlight-dark text-highlight-light font-bold" // Selected styles
+                ? "dark:text-highlight-dark text-highlight-light font-bold"
                 : "dark:text-alltext-dark text-alltext-light"
             } hover:underline`}
           >
-            <div
-              className={`w-10 h-10 flex items-center justify-center mr-4 transition-colors duration-200 ${
-                isSelected ? "text-highlight-light dark:text-highlight-dark" : ""
-              }`}
-            >
-              <Icon size={32} />
-            </div>
-            <div
-              className={`text-[18px] transition-colors duration-200 ${
-                isSelected ? "font-bold" : ""
-              }`}
-            >
-              {entry.serviceName || "Unnamed Service"}
+            <div className="flex items-center space-x-4">
+              <Icon size={32} className={`w-10 h-10 ${isSelected ? "text-highlight-light dark:text-highlight-dark" : ""}`} />
+              <div className="flex flex-col">
+                <span className={`text-[18px] ${isSelected ? "font-bold" : ""}`}>
+                  {entry.serviceName || "Unnamed Service"}
+                </span>
+                {entry.label && (
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {entry.label}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         );
@@ -66,6 +65,7 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
     </div>
   );
 };
+
 
 VaultEntries.propTypes = {
   onSelectEntry: PropTypes.func.isRequired,
