@@ -100,14 +100,18 @@ function Dashboard() {
     // Check if the entry matches the search query
     const matchesSearch = !query || serviceName.includes(query);
 
-    // Check if the entry matches the selected category
-    const matchesCategory = !selectedCategory || selectedCategory === "All"
-      ? entry.category !== "Deleted" // Exclude "Deleted" category when "All" or no category is selected
-      : selectedCategory === entry.category;
+   // Allow search to work even if no category is selected
+  if (matchesSearch) {
+    // If a category is selected and it's not "All", filter by the category
+    if (selectedCategory && selectedCategory !== "All") {
+      return entry.category === selectedCategory;
+    }
+    // Otherwise, include the entry in the search results
+    return true;
+  }
 
-    // Return true if both conditions are satisfied
-    return matchesSearch && matchesCategory;
-  });
+  return false;
+});
 
   return (
     <div className="h-full flex flex-col">
