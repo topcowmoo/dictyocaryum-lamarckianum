@@ -19,9 +19,9 @@ function Dashboard() {
   const [showAddPassword, setShowAddPassword] = useState(false);
 
   // Accessing searchQuery from the Outlet context
-  const { searchQuery } = useOutletContext();
+  const { searchQuery } = useOutletContext() || {}; // Ensure searchQuery is safely destructured
 
-  // Fetching entries from the API whenever the selectedCategory changes
+  // Fetching entries from the API
   useEffect(() => {
     const fetchEntries = async () => {
       try {
@@ -31,7 +31,7 @@ function Dashboard() {
         });
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched entries:", data); // Check if label is included in the data
+          console.log("Fetched entries:", data);
           setEntries(data);
         } else {
           console.error("Failed to fetch entries:", response.statusText);
@@ -42,16 +42,14 @@ function Dashboard() {
         setEntries([]);
       }
     };
-    
 
     fetchEntries(); // Call the fetchEntries function
-  }, [selectedCategory]); // Dependency array to trigger effect when selectedCategory changes
+  }, []); // Removed `selectedCategory` to fetch entries only once on mount
 
   // Handle category selection
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setSelectedEntry(null); // Clear the selected entry
-    setEntries([]); // Clear entries temporarily
     setShowAddPassword(false); // Hide the AddPassword form
   };
 
@@ -74,7 +72,7 @@ function Dashboard() {
         method: 'DELETE',
         credentials: 'include',
       });
-  
+
       if (response.ok) {
         alert('Password entry deleted successfully!');
         setEntries((prevEntries) => prevEntries.filter(entry => entry._id !== entryId));
@@ -87,7 +85,6 @@ function Dashboard() {
       alert('An error occurred while trying to delete the entry.');
     }
   };
-  
 
   // Handle entry editing
   const handleEdit = (updatedEntry) => {
@@ -98,17 +95,17 @@ function Dashboard() {
   // Filtering entries based on the search query and selected category
   const filteredEntries = entries.filter((entry) => {
     const serviceName = entry.serviceName?.toLowerCase() || "";
-    const query = searchQuery.toLowerCase();
-  
+    const query = searchQuery?.toLowerCase() || "";
+
     // Check if the entry matches the search query
-    const matchesSearch = serviceName.includes(query);
-  
+    const matchesSearch = !query || serviceName.includes(query);
+
     // Check if the entry matches the selected category
-    const matchesCategory = 
-      selectedCategory === "All" 
-        ? entry.category !== "Deleted" // Exclude "Deleted" category when "All" is selected
-        : selectedCategory === entry.category;
-  
+    const matchesCategory = !selectedCategory || selectedCategory === "All"
+      ? entry.category !== "Deleted" // Exclude "Deleted" category when "All" or no category is selected
+      : selectedCategory === entry.category;
+
+    // Return true if both conditions are satisfied
     return matchesSearch && matchesCategory;
   });
 
@@ -123,8 +120,8 @@ function Dashboard() {
 
         {/* Vault Entries Section */}
         <div className="dark:bg-vault-dark bg-vault-light p-4 h-full overflow-y-auto">
-          {/* Show VaultEntries component when a category is selected or a search query exists */}
-          {(selectedCategory || searchQuery) && !showAddPassword && (
+          {/* Show VaultEntries component when there are filtered entries */}
+          {filteredEntries.length > 0 && !showAddPassword && (
             <VaultEntries
               entries={filteredEntries}
               selectedCategory={selectedCategory}
