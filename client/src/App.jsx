@@ -4,6 +4,7 @@ import { useLocation, Outlet } from 'react-router-dom'; // useLocation to get th
 import Header from './components/Header'; // Header component
 import Footer from './components/Footer'; // Footer component
 import { DarkModeProvider } from './context/DarkModeContext'; // Dark mode context provider
+import { AuthProvider } from './context/AuthContext'; // Auth context provider
 
 // Array of routes that do not display the Header and Footer
 const authRoutes = ['/login-page', '/signup-page', '/reset-master-password', '/profile'];
@@ -15,6 +16,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState(""); // State to manage the search query
 
   return (
+    <AuthProvider>
     <DarkModeProvider> {/* Providing the dark mode context to the entire app */}
       <div className="h-screen flex flex-col transition-colors duration-300"> {/* Main container with full height, flex layout, and smooth color transition */}
         {isAuthPage ? (
@@ -30,6 +32,7 @@ function App() {
         )}
       </div>
     </DarkModeProvider>
+    </AuthProvider>
   );
 }
 

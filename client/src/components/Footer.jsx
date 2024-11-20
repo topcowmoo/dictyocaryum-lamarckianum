@@ -1,9 +1,13 @@
 import { PiUserCircleDuotone } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 function Footer() {
-  const currentYear = new Date().getFullYear();
+  const { user } = useContext(AuthContext); // Access user from AuthContext
+  console.log("Current user in footer:", user); // Debugging: log current user
   const navigate = useNavigate();
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer
@@ -13,20 +17,22 @@ function Footer() {
       {/* Icon Section */}
       <div
         className="cursor-pointer flex items-center"
-        onClick={() => navigate('/profile')}
+        onClick={() => navigate("/profile")}
       >
         <PiUserCircleDuotone className="text-[40px] dark:text-title-dark text-title-light dark:hover:text-highlight-dark hover:text-highlight-light" />
-        <span className="ml-2"></span>
+        {user && (
+          <span className="ml-2 dark:text-title-dark text-title-light text-[12px] md:text-[14px]">
+            {user.email || "Anonymous"}
+          </span>
+        )}
       </div>
 
-      {/* Right Section: Name and Year */}
+      {/* Right Section */}
       <div className="flex items-center dark:text-alltext-dark text-alltext-light absolute right-5">
         <a
           href="https://github.com/topcowmoo"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Visit Salvatore Mammoliti's GitHub"
-          title="Visit Salvatore Mammoliti's GitHub"
           className="hover:underline dark:hover:text-highlight-dark hover:text-highlight-light"
         >
           Salvatore Mammoliti

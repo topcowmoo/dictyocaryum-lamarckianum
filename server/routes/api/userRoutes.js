@@ -137,8 +137,31 @@ router.post("/change-password", auth.authenticateToken, async (req, res) => {
 
 // Verify Token Route
 // Verifies if the user is authenticated
+// Verify Token Route
+router.get("/auth/verify", auth.authenticateToken, async (req, res) => {
+  try {
+    // Find the user by their ID (assuming `req.user.userId` is set by the authentication middleware)
+    const user = await User.findById(req.user.userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    // Return the user object
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error("Error verifying user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+// User Status Route
+// Retrieves the status of the authenticated user
 router.get("/auth/verify", auth.authenticateToken, (req, res) => {
-  res.status(200).json({ message: "Authenticated" }); // Respond with success if authenticated
+  if (req.user) {
+  res.status(200).json({ user: req.user });
+  } else {
+    res.status(401).json({ error: "Not Authenticated" });
+  }
 });
 
 // User Profile Route
