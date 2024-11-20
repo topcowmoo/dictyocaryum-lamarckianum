@@ -1,5 +1,5 @@
 // Importing necessary hooks and components
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useOutletContext } from "react-router-dom"; // For accessing context from the Outlet
 import Sidebar from "../components/Sidebar"; // Sidebar component for category selection
 import VaultEntries from "../components/VaultEntries"; // Component to display entries
@@ -21,6 +21,8 @@ function Dashboard() {
   // Accessing searchQuery from the Outlet context
   const { searchQuery } = useOutletContext() || {}; // Ensure searchQuery is safely destructured
 
+  const addEntryButtonRef = useRef(null);
+
   // Fetching entries from the API
   useEffect(() => {
     const fetchEntries = async () => {
@@ -31,114 +33,104 @@ function Dashboard() {
         });
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched entries:", data);
           setEntries(data);
         } else {
-          console.error("Failed to fetch entries:", response.statusText);
-          setEntries([]);
+          console.error("Failed to fetch entries");
         }
       } catch (error) {
         console.error("Error fetching entries:", error);
-        setEntries([]);
       }
     };
 
-    fetchEntries(); // Call the fetchEntries function
-  }, []); // Removed `selectedCategory` to fetch entries only once on mount
+    fetchEntries();
+  }, []);
 
-  // Handle category selection
+  // Handlers
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setSelectedEntry(null); // Clear the selected entry
-    setShowAddPassword(false); // Hide the AddPassword form
+    setSelectedEntry(null);
+    setShowAddPassword(false);
   };
 
-  // Handle entry selection
   const handleEntrySelect = (entry) => {
-    setSelectedEntry(entry); // Set the selected entry
-    setShowAddPassword(false); // Hide the AddPassword form
+    setSelectedEntry(entry);
+    setShowAddPassword(false);
   };
 
-  // Show the AddPassword form to add a new entry
   const handleAddNewEntry = () => {
     setShowAddPassword(true);
-    setSelectedEntry(null); // Clear the selected entry
   };
 
-  // Handle entry deletion
-  const handleDelete = async (entryId) => {
-    try {
-      const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        alert('Password entry deleted successfully!');
-        setEntries((prevEntries) => prevEntries.filter(entry => entry._id !== entryId));
-        setSelectedEntry(null); // Clear the selected entry
-      } else {
-        alert('Failed to delete password entry. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error deleting password entry:', error);
-      alert('An error occurred while trying to delete the entry.');
+  const handleCloseAddPassword = () => {
+    setShowAddPassword(false);
+    if (addEntryButtonRef.current) {
+      addEntryButtonRef.current.blur();
     }
   };
 
-  // Handle entry editing
-  const handleEdit = (updatedEntry) => {
-    console.log("Entry updated:", updatedEntry);
-    setSelectedEntry(updatedEntry); // Update the selected entry
+  const handleDelete = async (entryId) => {
+    try {
+      const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        setEntries((prevEntries) =>
+          prevEntries.filter((entry) => entry._id !== entryId)
+        );
+        setSelectedEntry(null);
+      } else {
+        alert("Failed to delete entry");
+      }
+    } catch (error) {
+      console.error("Error deleting entry:", error);
+    }
   };
 
-  // Filtering entries based on the search query and selected category
+  const handleEdit = (updatedEntry) => {
+    setSelectedEntry(updatedEntry);
+  };
+
   const filteredEntries = entries.filter((entry) => {
     const serviceName = entry.serviceName?.toLowerCase() || "";
     const query = searchQuery?.toLowerCase() || "";
 
-    // Check if the entry matches the search query
-    const matchesSearch = !query || serviceName.includes(query);
-
-   // Allow search to work even if no category is selected
-  if (matchesSearch) {
-    // If a category is selected and it's not "All", filter by the category
-    if (selectedCategory && selectedCategory !== "All") {
-      return entry.category === selectedCategory;
+    if (!query || serviceName.includes(query)) {
+      if (selectedCategory && selectedCategory !== "All") {
+        return entry.category === selectedCategory;
+      }
+      return true;
     }
-    // Otherwise, include the entry in the search results
-    return true;
-  }
 
-  return false;
-});
+    return false;
+  });
 
   return (
     <div className="h-full flex flex-col">
-      {/* Main content area */}
       <div className="h-full grid grid-cols-[300px_1fr_2fr]">
-        {/* Sidebar for category selection */}
-        <div className="p-4 h-full flex flex-col justify-start gap-4 dark:bg-sidebar-dark bg-sidebar-light">
-          <Sidebar onSelectCategory={handleCategorySelect} onAddNewEntry={handleAddNewEntry} />
-        </div>
+        {/* Sidebar */}
+        <Sidebar
+          onSelectCategory={handleCategorySelect}
+          onAddNewEntry={handleAddNewEntry}
+        />
 
         {/* Vault Entries Section */}
         <div className="dark:bg-vault-dark bg-vault-light p-4 h-full overflow-y-auto">
-          {/* Show VaultEntries component when there are filtered entries */}
           {filteredEntries.length > 0 && !showAddPassword && (
             <VaultEntries
               entries={filteredEntries}
               selectedCategory={selectedCategory}
               onSelectEntry={handleEntrySelect}
-              searchQuery={searchQuery} // Pass the searchQuery to VaultEntries
+              searchQuery={searchQuery}
             />
           )}
         </div>
 
-        {/* Vault Display Section */}
+        {/* Vault Display or Add Password Section */}
         <div className="dark:bg-display-dark bg-display-light p-4 h-full overflow-y-auto">
           {showAddPassword ? (
-            <AddPassword /> // Show AddPassword form if adding a new entry
+            <AddPassword onClose={handleCloseAddPassword} />
           ) : (
             <VaultDisplay
               service={selectedEntry?.serviceName}
@@ -147,8 +139,8 @@ function Dashboard() {
               password={selectedEntry?.password}
               Icon={selectedEntry?.Icon}
               entryId={selectedEntry?._id}
-              onDelete={() => handleDelete(selectedEntry._id)} // Pass delete handler
-              onEdit={handleEdit} // Pass edit handler
+              onDelete={() => handleDelete(selectedEntry._id)}
+              onEdit={handleEdit}
               setEntries={setEntries}
               setSelectedEntry={setSelectedEntry}
             />
@@ -159,4 +151,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard; // Exporting the Dashboard component
+export default Dashboard;

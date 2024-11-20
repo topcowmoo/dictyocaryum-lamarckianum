@@ -5,6 +5,7 @@ import {
   PiEyeClosedDuotone,
   PiSealCheckDuotone,
   PiArrowsClockwiseDuotone,
+  PiXCircleDuotone,
 } from 'react-icons/pi';
 import Button from "./Button.jsx";
 import Modal from "./Modal.jsx";
@@ -12,7 +13,7 @@ import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
 import serviceIcons from '../utils/serviceIcons';
 
-function EditEntry({ entryId, onSubmit }) {
+function EditEntry({ entryId, onSubmit, onClose }) {
   // Initialize the form fields as blank
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -189,6 +190,13 @@ function EditEntry({ entryId, onSubmit }) {
               label="Save"
               className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
             />
+
+<Button
+              icon={PiXCircleDuotone}
+              onClick={onClose} // Close the modal by setting isVisible to false
+              label="Close"
+              className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+            />
           </div>
         </form>
       </div>
@@ -206,6 +214,7 @@ EditEntry.propTypes = {
     label: PropTypes.string,
   }),
   onSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
 };
 
 export default EditEntry;

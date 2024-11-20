@@ -76,7 +76,7 @@ function Profile() {
               iconSize={20}
               label="Change Password"
               onClick={handleChangePassword}
-              className="dark:text-alltext-dark text-alltext-light w-full text-sm"
+              className="dark:text-alltext-dark text-alltext-light w-2/5 text-sm"
             />
           </div>
 
@@ -91,12 +91,12 @@ function Profile() {
               iconSize={20}
               label="Logout"
               onClick={handleLogout}
-              className="dark:text-alltext-dark text-alltext-light w-full text-sm"
+              className="dark:text-alltext-dark text-alltext-light w-2/5 text-sm"
             />
           </div>
 
           {/* Card 3: Go Back */}
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <div className="p-4 bg-orange-400 rounded-lg shadow-md">
             <h2 className="text-lg font-semibold dark:text-alltext-dark text-title-light mb-3">Back to Dashboard</h2>
             <p className="text-sm dark:text-alltext-dark text-gray-600 mb-4">
               Return to your main dashboard and view your information.
@@ -106,7 +106,7 @@ function Profile() {
               iconSize={20}
               label="Go Back"
               onClick={() => navigate("/dashboard")}
-              className="dark:text-alltext-dark text-alltext-light w-full text-sm"
+              className="dark:text-alltext-dark text-alltext-light bg-blue-700 w-2/5 text-sm"
             />
           </div>
         </div>

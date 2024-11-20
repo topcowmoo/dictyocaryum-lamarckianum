@@ -1,9 +1,11 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import {
   PiEyeDuotone,
   PiEyeClosedDuotone,
   PiArrowsClockwiseDuotone,
   PiSealCheckDuotone,
+  PiXCircleDuotone,
 } from "react-icons/pi";
 import Button from "./Button.jsx";
 import Modal from "./Modal.jsx";
@@ -11,7 +13,7 @@ import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
 import serviceIcons from "../utils/serviceIcons.js";
 
-function AddPassword() {
+function AddPassword({ onClose }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [category, setCategory] = useState("");
@@ -44,9 +46,7 @@ function AddPassword() {
       alert("Please select a category.");
       return;
     }
-  
-    console.log("Data to be sent:", { username, password, category, serviceName, label }); // Ensure label is logged
-  
+
     try {
       const response = await fetch(`${apiURL}/api/locker`, {
         method: "POST",
@@ -54,16 +54,22 @@ function AddPassword() {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ username, password, category, serviceName, label }), // Include label
+        body: JSON.stringify({
+          username,
+          password,
+          category,
+          serviceName,
+          label,
+        }),
       });
-  
+
       if (response.ok) {
         alert("Password entry added successfully!");
         setUsername("");
         setPassword("");
         setCategory("");
         setServiceName("");
-        setLabel(""); // Clear label after submission
+        setLabel("");
       } else {
         alert("Failed to add password entry. Please try again.");
       }
@@ -72,7 +78,7 @@ function AddPassword() {
       alert("An error occurred. Please try again.");
     }
   };
-  
+
   const categoryItems = [
     { id: 1, title: "Cards" },
     { id: 2, title: "Entertainment" },
@@ -88,9 +94,6 @@ function AddPassword() {
       icon: <Icon size={20} />,
     })
   );
-
-  console.log("Current category:", category);
-  console.log("Current service name:", serviceName);
 
   return (
     <div className="h-full w-full flex justify-center items-center">
@@ -198,11 +201,22 @@ function AddPassword() {
               label="Save"
               className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
             />
+
+            <Button
+              icon={PiXCircleDuotone}
+              onClick={onClose} // Close the modal by setting isVisible to false
+              label="Close"
+              className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+            />
           </div>
         </form>
       </div>
     </div>
   );
 }
+
+AddPassword.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
 
 export default AddPassword;
