@@ -50,6 +50,8 @@ function Dashboard() {
     setSelectedCategory(category);
     setSelectedEntry(null);
     setShowAddPassword(false);
+
+    setEntries((prevEntries) => [...prevEntries]);
   };
 
   const handleEntrySelect = (entry) => {
@@ -95,15 +97,20 @@ function Dashboard() {
   const filteredEntries = entries.filter((entry) => {
     const serviceName = entry.serviceName?.toLowerCase() || "";
     const query = searchQuery?.toLowerCase() || "";
-
-    if (!query || serviceName.includes(query)) {
-      if (selectedCategory && selectedCategory !== "All") {
-        return entry.category === selectedCategory;
-      }
-      return true;
+  
+    // Check if the entry matches the search query
+    const matchesSearch = !query || serviceName.includes(query);
+  
+    // Include entry only if it matches the selected category
+    if (selectedCategory === "Deleted") {
+      return matchesSearch && entry.category === "Deleted";
     }
-
-    return false;
+  
+    if (selectedCategory === "All") {
+      return matchesSearch && entry.category !== "Deleted";
+    }
+  
+    return matchesSearch && entry.category === selectedCategory;
   });
 
   return (

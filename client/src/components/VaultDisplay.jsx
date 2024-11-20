@@ -48,10 +48,10 @@ const VaultDisplay = ({
       // Make the PATCH request to update the category to "Deleted"
       const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
         method: "PATCH",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify({ category: "Deleted" }),
       });
 
@@ -59,7 +59,9 @@ const VaultDisplay = ({
         alert("Password entry moved to Deleted category!");
         // Remove the entry from the entries array in the state
         setEntries((prevEntries) =>
-          prevEntries.filter((entry) => entry._id !== entryId)
+          prevEntries.map((entry) =>
+            entry._id === entryId ? { ...entry, category: 'Deleted' } : entry
+          )
         );
         setSelectedEntry(null); // Clear the selected entry
       } else {
