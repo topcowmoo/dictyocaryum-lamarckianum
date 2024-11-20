@@ -13,7 +13,7 @@ import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
 import serviceIcons from '../utils/serviceIcons';
 
-function EditEntry({ entryId, onSubmit, onClose }) {
+function EditEntry({ entryId, onSubmit, onClose = () => {} }) {
   // Initialize the form fields as blank
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -39,26 +39,36 @@ function EditEntry({ entryId, onSubmit, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!serviceName || !password || !category) {
       alert("Service name, password, and category are required.");
       return;
     }
-
+  
     try {
       const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
-        method: "PUT", // Use PUT or PATCH for updating
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
         body: JSON.stringify({ username, password, category, serviceName, label }),
       });
-
+  
       if (response.ok) {
         const updatedEntry = await response.json();
-        onSubmit(updatedEntry); // Call onSubmit to update the state in the parent component
+        onSubmit(updatedEntry); // Notify the parent about the update
         alert("Password entry updated successfully!");
+        
+        // Reset form fields after submission
+        setUsername("");
+        setPassword("");
+        setCategory("");
+        setLabel("");
+        setServiceName("");
+  
+        // Close the form (optional, as the parent manages this)
+        onClose();
       } else {
         alert("Failed to update password entry. Please try again.");
       }

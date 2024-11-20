@@ -1,4 +1,3 @@
-// Importing necessary hooks and components
 import { useState, useEffect, useRef } from "react";
 import { useOutletContext } from "react-router-dom"; // For accessing context from the Outlet
 import Sidebar from "../components/Sidebar"; // Sidebar component for category selection
@@ -6,21 +5,14 @@ import VaultEntries from "../components/VaultEntries"; // Component to display e
 import VaultDisplay from "../components/VaultDisplay"; // Component to display selected entry details
 import AddPassword from "../components/AddPassword"; // Form component to add a new password entry
 
-// Logging environment variables to check if VITE_API_URL is set correctly
-console.log("Environment Variables:", import.meta.env); 
 const apiURL = import.meta.env.VITE_API_URL;
-console.log("apiURL:", apiURL); // Logs the API URL (e.g., http://localhost:8001)
 
 function Dashboard() {
-  // State variables to manage selected category, selected entry, entries list, and form visibility
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [entries, setEntries] = useState([]);
   const [showAddPassword, setShowAddPassword] = useState(false);
-
-  // Accessing searchQuery from the Outlet context
   const { searchQuery } = useOutletContext() || {}; // Ensure searchQuery is safely destructured
-
   const addEntryButtonRef = useRef(null);
 
   // Fetching entries from the API
@@ -45,13 +37,29 @@ function Dashboard() {
     fetchEntries();
   }, []);
 
+  // Filter entries based on category and searchQuery
+  const filteredEntries = entries.filter((entry) => {
+    const serviceName = entry.serviceName?.toLowerCase() || "";
+    const query = searchQuery?.toLowerCase() || "";
+
+    const matchesSearch = !query || serviceName.includes(query);
+
+    if (selectedCategory === "Deleted") {
+      return matchesSearch && entry.category === "Deleted";
+    }
+
+    if (selectedCategory === "All") {
+      return matchesSearch && entry.category !== "Deleted";
+    }
+
+    return matchesSearch && entry.category === selectedCategory;
+  });
+
   // Handlers
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setSelectedEntry(null);
     setShowAddPassword(false);
-
-    setEntries((prevEntries) => [...prevEntries]);
   };
 
   const handleEntrySelect = (entry) => {
@@ -90,28 +98,18 @@ function Dashboard() {
     }
   };
 
-  const handleEdit = (updatedEntry) => {
-    setSelectedEntry(updatedEntry);
+  const handleEditSubmit = (updatedEntry) => {
+    setEntries((prevEntries) =>
+      prevEntries.map((entry) =>
+        entry._id === updatedEntry._id ? updatedEntry : entry
+      )
+    );
+    setSelectedEntry(null); // Close EditEntry form
   };
 
-  const filteredEntries = entries.filter((entry) => {
-    const serviceName = entry.serviceName?.toLowerCase() || "";
-    const query = searchQuery?.toLowerCase() || "";
-  
-    // Check if the entry matches the search query
-    const matchesSearch = !query || serviceName.includes(query);
-  
-    // Include entry only if it matches the selected category
-    if (selectedCategory === "Deleted") {
-      return matchesSearch && entry.category === "Deleted";
-    }
-  
-    if (selectedCategory === "All") {
-      return matchesSearch && entry.category !== "Deleted";
-    }
-  
-    return matchesSearch && entry.category === selectedCategory;
-  });
+  const handleCloseEditEntry = () => {
+    setSelectedEntry(null); // Close EditEntry form
+  };
 
   return (
     <div className="h-full flex flex-col">
@@ -147,9 +145,10 @@ function Dashboard() {
               Icon={selectedEntry?.Icon}
               entryId={selectedEntry?._id}
               onDelete={() => handleDelete(selectedEntry._id)}
-              onEdit={handleEdit}
+              onEdit={handleEditSubmit}
               setEntries={setEntries}
               setSelectedEntry={setSelectedEntry}
+              onClose={handleCloseEditEntry}
             />
           )}
         </div>

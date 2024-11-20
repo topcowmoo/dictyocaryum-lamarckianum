@@ -10,7 +10,6 @@ import {
 import Button from "./Button";
 import EditEntry from "./EditEntry";
 
-// Define apiURL
 const apiURL = import.meta.env.VITE_API_URL;
 
 const VaultDisplay = ({
@@ -26,9 +25,7 @@ const VaultDisplay = ({
   const [showPassword, setShowPassword] = useState(false);
   const [isEditing, setIsEditing] = useState(false); // State to track editing mode
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-  };
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   const copyToClipboard = () => {
     if (password) {
@@ -45,7 +42,6 @@ const VaultDisplay = ({
     }
 
     try {
-      // Make the PATCH request to update the category to "Deleted"
       const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
         method: "PATCH",
         credentials: "include",
@@ -57,10 +53,9 @@ const VaultDisplay = ({
 
       if (response.ok) {
         alert("Password entry moved to Deleted category!");
-        // Remove the entry from the entries array in the state
         setEntries((prevEntries) =>
           prevEntries.map((entry) =>
-            entry._id === entryId ? { ...entry, category: 'Deleted' } : entry
+            entry._id === entryId ? { ...entry, category: "Deleted" } : entry
           )
         );
         setSelectedEntry(null); // Clear the selected entry
@@ -73,22 +68,24 @@ const VaultDisplay = ({
     }
   };
 
-  const handleEditClick = () => {
-    setIsEditing(true); // Enable editing mode
-  };
-
   const handleEditSubmit = (updatedEntry) => {
-    // Update the state with the edited entry
     setEntries((prevEntries) =>
       prevEntries.map((entry) =>
         entry._id === updatedEntry._id ? updatedEntry : entry
       )
     );
-    setSelectedEntry(updatedEntry);
+    setSelectedEntry(updatedEntry); // Update the selected entry
     setIsEditing(false); // Exit editing mode
   };
 
-  // Check if the VaultDisplay is empty
+  const handleEditClick = () => {
+    setIsEditing(true); // Enable editing mode
+  };
+
+  const handleEditClose = () => {
+    setIsEditing(false); // Exit editing mode when form is closed
+  };
+
   const isEmpty = !service && !username && !password;
 
   return (
@@ -101,12 +98,11 @@ const VaultDisplay = ({
             </h1>
           </div>
         ) : isEditing ? (
-          // Render EditEntry component when in editing mode
           <EditEntry
             entryId={entryId}
             initialData={{ service, username, label, password }}
             onSubmit={handleEditSubmit}
-            onCancel={() => setIsEditing(false)}
+            onClose={handleEditClose}
           />
         ) : (
           <>
@@ -209,7 +205,7 @@ const VaultDisplay = ({
                   icon={PiPencilDuotone}
                   label="Edit"
                   type="button"
-                  onClick={handleEditClick} // Use handleEditClick to enable editing mode
+                  onClick={handleEditClick}
                   size="md"
                   className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
                 />
@@ -237,7 +233,6 @@ VaultDisplay.propTypes = {
   password: PropTypes.string,
   Icon: PropTypes.elementType,
   entryId: PropTypes.string,
-  onEdit: PropTypes.func.isRequired,
   setEntries: PropTypes.func.isRequired,
   setSelectedEntry: PropTypes.func.isRequired,
 };
