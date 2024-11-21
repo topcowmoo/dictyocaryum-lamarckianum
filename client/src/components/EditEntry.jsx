@@ -1,25 +1,24 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from "react";
+import PropTypes from "prop-types";
 import {
   PiEyeDuotone,
   PiEyeClosedDuotone,
-  PiSealCheckDuotone,
   PiArrowsClockwiseDuotone,
+  PiSealCheckDuotone,
   PiXCircleDuotone,
-} from 'react-icons/pi';
+} from "react-icons/pi";
 import Button from "./Button.jsx";
 import Modal from "./Modal.jsx";
 import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
-import serviceIcons from '../utils/serviceIcons';
+import serviceIcons from "../utils/serviceIcons";
 
-function EditEntry({ entryId, onSubmit, onClose = () => {} }) {
-  // Initialize the form fields as blank
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [category, setCategory] = useState("");
-  const [label, setLabel] = useState("");
-  const [serviceName, setServiceName] = useState("");
+function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
+  const [username, setUsername] = useState(initialData?.username || "");
+  const [password, setPassword] = useState(initialData?.password || "");
+  const [category, setCategory] = useState(initialData?.category || "");
+  const [label, setLabel] = useState(initialData?.label || "");
+  const [serviceName, setServiceName] = useState(initialData?.serviceName || "");
   const [showPassword, setShowPassword] = useState(false);
   const [showGenerator, setShowGenerator] = useState(false);
 
@@ -33,18 +32,23 @@ function EditEntry({ entryId, onSubmit, onClose = () => {} }) {
     setShowGenerator((prev) => !prev);
   };
 
+  const closeGeneratorModal = () => {
+    setShowGenerator(false);
+  };
+
   const handleSelectPassword = (generatedPassword) => {
-    setPassword(generatedPassword);
+    setPassword(generatedPassword); // Update password field with generated password
+    closeGeneratorModal(); // Close the generator modal
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!serviceName || !password || !category) {
       alert("Service name, password, and category are required.");
       return;
     }
-  
+
     try {
       const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
         method: "PUT",
@@ -54,21 +58,12 @@ function EditEntry({ entryId, onSubmit, onClose = () => {} }) {
         credentials: "include",
         body: JSON.stringify({ username, password, category, serviceName, label }),
       });
-  
+
       if (response.ok) {
         const updatedEntry = await response.json();
         onSubmit(updatedEntry); // Notify the parent about the update
         alert("Password entry updated successfully!");
-        
-        // Reset form fields after submission
-        setUsername("");
-        setPassword("");
-        setCategory("");
-        setLabel("");
-        setServiceName("");
-  
-        // Close the form (optional, as the parent manages this)
-        onClose();
+        onClose(); // Close the modal
       } else {
         alert("Failed to update password entry. Please try again.");
       }
@@ -86,13 +81,11 @@ function EditEntry({ entryId, onSubmit, onClose = () => {} }) {
     { id: 5, title: "Identification" },
   ];
 
-  const serviceItems = Object.entries(serviceIcons).map(
-    ([key, Icon], index) => ({
-      id: index + 1,
-      title: key.charAt(0).toUpperCase() + key.slice(1),
-      icon: <Icon size={20} />,
-    })
-  );
+  const serviceItems = Object.entries(serviceIcons).map(([key, Icon], index) => ({
+    id: index + 1,
+    title: key.charAt(0).toUpperCase() + key.slice(1),
+    icon: <Icon size={20} />,
+  }));
 
   return (
     <div className="h-full w-full flex justify-center items-center">
@@ -167,8 +160,8 @@ function EditEntry({ entryId, onSubmit, onClose = () => {} }) {
           {showGenerator && (
             <Modal onClose={toggleGeneratorModal}>
               <Generator
-                onSelectPassword={handleSelectPassword}
-                onClose={toggleGeneratorModal}
+                onSelectedPassword={handleSelectPassword} // Pass selected password
+                onClose={closeGeneratorModal} // Handle modal closure
               />
             </Modal>
           )}
@@ -200,10 +193,9 @@ function EditEntry({ entryId, onSubmit, onClose = () => {} }) {
               label="Save"
               className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
             />
-
-<Button
+            <Button
               icon={PiXCircleDuotone}
-              onClick={onClose} // Close the modal by setting isVisible to false
+              onClick={onClose}
               label="Close"
               className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
             />
