@@ -1,8 +1,7 @@
-// Importing necessary hooks, context, and components
 import { useState, useContext } from "react";
-import { DarkModeContext } from "../context/DarkModeContext"; // Context for dark mode
-import { useNavigate, Link } from "react-router-dom"; // For navigation and linking between routes
-import Button from "../components/Button"; // Custom Button component
+import { DarkModeContext } from "../context/DarkModeContext";
+import { useNavigate, Link } from "react-router-dom";
+import Button from "../components/Button";
 import {
   PiSealCheckDuotone,
   PiCheckCircleDuotone,
@@ -11,20 +10,15 @@ import {
   PiEyeClosedDuotone,
   PiSunDuotone,
   PiMoonDuotone,
-} from "react-icons/pi"; // Importing icons from react-icons
+} from "react-icons/pi";
 
 function ResetMasterPassword() {
-  // Accessing dark mode context and state
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
-
-  // State for managing form input and validation
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // Toggles password visibility
-  const [error, setError] = useState(null); // Error message state
-  const navigate = useNavigate(); // Hook for navigation
-
-  // State for tracking password requirement checks
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const [requirements, setRequirements] = useState({
     minLength: false,
     hasUppercase: false,
@@ -33,17 +27,13 @@ function ResetMasterPassword() {
     hasSpecialChar: false,
   });
 
-  // Handle changes in the email input and sanitize input
   const handleEmailChange = (e) => {
-    setEmail(e.target.value.trim().replace(/[<>"'`]/g, "")); // Sanitize to prevent XSS attacks
+    setEmail(e.target.value.trim().replace(/[<>"'`]/g, ""));
   };
 
-  // Handle changes in the password input and validate requirements
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
-
-    // Check if the password meets various requirements
     setRequirements({
       minLength: value.length >= 14,
       hasUppercase: /[A-Z]/.test(value),
@@ -53,25 +43,21 @@ function ResetMasterPassword() {
     });
   };
 
-  // Handle form submission to reset the password
   const handleReset = async (e) => {
     e.preventDefault();
     try {
-      // Send a POST request to the reset password endpoint
       const response = await fetch("/api/user/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
-      // Handle errors from the response
       if (!response.ok) {
         const { message } = await response.json();
         setError(message || "Error resetting password. Please try again.");
         return;
       }
 
-      // Clear the form and navigate to the login page on success
       setEmail("");
       setPassword("");
       navigate("/login-page");
@@ -81,45 +67,40 @@ function ResetMasterPassword() {
     }
   };
 
-  // Toggle the visibility of the password
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
   return (
-    <div className="relative flex min-h-screen">
+    <div className="relative flex flex-col md:flex-row min-h-screen">
       {/* Dark Mode Toggle */}
-      <div className="absolute top-4 left-4 cursor-pointer">
+      <div className="absolute top-4 left-4 cursor-pointer dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light">
         {isDarkMode ? (
-          <PiSunDuotone size={30} onClick={toggleDarkMode} className="dark:text-highlight-dark" />
+          <PiSunDuotone className="text-[23px] md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} />
         ) : (
-          <PiMoonDuotone size={30} onClick={toggleDarkMode} className="text-highlight-light" />
+          <PiMoonDuotone className="text-[23px] md:text-[26px] lg:text-[30px] 2xl:text-[45px]" onClick={toggleDarkMode} />
         )}
       </div>
 
-      {/* Reset Password Section */}
-      <div className="w-full flex flex-col items-center bg-hefo-light dark:bg-hefo-dark p-16">
-        <div className="sm:w-full sm:max-w-sm">
-          {/* App Logo */}
+      {/* Left Section: Reset Password Form */}
+      <div className="w-full md:w-1/2 flex flex-col items-center justify-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 xl:p-20">
+        <div className="w-full max-w-md xl:max-w-lg">
           <img
             src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
             alt="App logo"
-            className="mx-auto h-36 w-auto"
+            className="mx-auto h-16 md:h-24 xl:h-28 2xl:h-32 w-auto"
           />
-          {/* Page Title */}
-          <h1 className="mt-10 text-center text-2xl font-bold tracking-tight leading-9 dark:text-title-dark text-title-light">
+          <h1 className="mt-6 text-center text-[21px] md:text-3xl xl:text-[27px] 2xl:text-[31px]">
             VaultGuard Password Locker
           </h1>
-          <h2 className="mt-2 text-center text-lg font-medium dark:text-alltext-dark text-alltext-light">
-            Reset Master Password
-          </h2>
         </div>
-
         <div className="mt-10 sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleReset}>
-            {/* Email Input */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium dark:text-title-dark text-title-light">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium dark:text-title-dark text-title-light"
+              >
                 Email
               </label>
               <input
@@ -128,13 +109,14 @@ function ResetMasterPassword() {
                 value={email}
                 onChange={handleEmailChange}
                 required
-                className="mt-2 block w-full rounded-[4px] border-0 py-1.5 shadow-xl sm:text-sm"
+                className="mt-1 p-2 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base xl:text-[18px] 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
               />
             </div>
-
-            {/* Password Input */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium dark:text-title-dark text-title-light">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium dark:text-title-dark text-title-light"
+              >
                 New Master Password
               </label>
               <div className="relative">
@@ -144,25 +126,25 @@ function ResetMasterPassword() {
                   value={password}
                   onChange={handlePasswordChange}
                   required
-                  className="mt-2 block w-full rounded-[4px] border-0 py-1.5 shadow-xl sm:text-sm"
+                  className="mt-1 p-2 pr-10 block w-full rounded-[4px] shadow-2xl sm:text-sm md:text-base xl:text-[18px] 2xl:text-[20px] dark:text-alltext-light text-alltext-light"
                 />
-                {/* Toggle Password Visibility Button */}
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-3 flex items-center"
+                 className="absolute inset-y-0 right-3 flex items-center dark:text-alltext-light text-alltext-light"
                   aria-label="Toggle password visibility"
                 >
                   {showPassword ? <PiEyeClosedDuotone size={20} /> : <PiEyeDuotone size={20} />}
                 </button>
               </div>
-
-              {/* Password Requirements List */}
               <div className="mt-4 space-y-1">
                 {Object.entries(requirements).map(([key, met]) => (
                   <div key={key} className="flex items-center">
                     {met ? (
-                      <PiCheckCircleDuotone size={20} className="text-highlight-light dark:text-highlight-dark" />
+                      <PiCheckCircleDuotone
+                        size={20}
+                        className="text-highlight-light dark:text-highlight-dark"
+                      />
                     ) : (
                       <PiXCircleDuotone size={20} className="text-red-500" />
                     )}
@@ -173,11 +155,7 @@ function ResetMasterPassword() {
                 ))}
               </div>
             </div>
-
-            {/* Error Message */}
             {error && <p className="text-red-500 text-sm">{error}</p>}
-
-            {/* Reset Button */}
             <div className="flex justify-center">
               <Button
                 icon={PiSealCheckDuotone}
@@ -187,8 +165,6 @@ function ResetMasterPassword() {
               />
             </div>
           </form>
-
-          {/* Link to Login Page */}
           <p className="mt-6 text-center text-sm dark:text-alltext-dark text-alltext-light">
             Remember your password?{" "}
             <Link to="/login-page" className="underline dark:text-highlight-dark text-highlight-light">
@@ -197,11 +173,20 @@ function ResetMasterPassword() {
           </p>
         </div>
       </div>
+
+      {/* Right Section: Image */}
+      <div className="hidden md:block md:w-1/2 h-full">
+        <img
+          src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/pexels-francis-desjardins-1613813-3314113.webp"
+          alt="Reset password illustration"
+          className="h-full w-full object-cover"
+        />
+      </div>
     </div>
   );
 }
 
-// Helper function to get the text for each password requirement
+// Helper function for password requirement text
 const getRequirementText = (key) => {
   switch (key) {
     case "minLength":
