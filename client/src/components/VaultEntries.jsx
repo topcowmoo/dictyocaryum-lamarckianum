@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import serviceIcons from "../utils/serviceIcons";
+import { serviceIcons, serviceNames } from "../utils/serviceIcons";
 
 const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries }) => {
   const [selectedEntry, setSelectedEntry] = useState(null);
 
   const safeEntries = entries || [];
   const filteredEntries = safeEntries.filter((entry) => {
-    const serviceName = entry.serviceName || "";
-
+    const serviceName = entry.serviceName?.toLowerCase() || "";
+    
     if (searchQuery) {
-      return serviceName.toLowerCase().includes(searchQuery.toLowerCase());
+      return serviceName.includes(searchQuery.toLowerCase());
     }
 
     const categoryMatch =
@@ -34,7 +34,9 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
   return (
     <div className="p-4 space-y-4">
       {filteredEntries.map((entry, index) => {
+        // Use the service name and icon mappings
         const Icon = serviceIcons[entry.serviceName?.toLowerCase()] || serviceIcons.default;
+        const displayName = serviceNames[entry.serviceName?.toLowerCase()] || "Unnamed Service";
         const isSelected = selectedEntry === entry._id;
 
         return (
@@ -48,11 +50,17 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
             } hover:underline`}
           >
             <div className="flex items-center space-x-4">
-              <Icon size={32} className={`w-10 h-10 ${isSelected ? "text-highlight-light dark:text-highlight-dark" : ""}`} />
+              {/* Display Icon */}
+              <Icon
+                size={32}
+                className={`w-10 h-10 ${isSelected ? "text-highlight-light dark:text-highlight-dark" : ""}`}
+              />
               <div className="flex flex-col">
+                {/* Display Name */}
                 <span className={`text-[18px] ${isSelected ? "font-bold" : ""}`}>
-                  {entry.serviceName || "Unnamed Service"}
+                  {displayName}
                 </span>
+                {/* Display Label */}
                 {entry.label && (
                   <span className="text-sm text-gray-500 dark:text-gray-400">
                     {entry.label}
@@ -66,7 +74,6 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
     </div>
   );
 };
-
 
 VaultEntries.propTypes = {
   onSelectEntry: PropTypes.func.isRequired,

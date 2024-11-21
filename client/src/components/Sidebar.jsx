@@ -35,9 +35,9 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
   };
 
   return (
-    <div className="flex flex-col justify-between h-full">
+    <div className="flex flex-col justify-between h-full dark:bg-sidebar-dark bg-sidebar-light">
       {/* Sidebar Items */}
-      <div className="flex flex-col gap-7">
+      <div className="flex flex-col gap-7 dark:bg-sidebar-dark bg-sidebar-light">
         {items.map((item) => (
           <div
             key={item.id}
@@ -70,10 +70,10 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
 
       {/* Add New Entry Item at the Bottom */}
       <div
-        className="flex items-center cursor-pointer p-2 mt-auto transition dark:text-alltext-dark text-alltext-light hover:underline"
+        className="flex items-center cursor-pointer p-2 mt-auto transition dark:text-alltext-dark text-alltext-light hover:underline "
         onClick={handleAddNewEntry}
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 ">
           <span
             className={`${
               selectedItemId === "new"

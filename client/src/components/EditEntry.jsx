@@ -11,7 +11,7 @@ import Button from "./Button.jsx";
 import Modal from "./Modal.jsx";
 import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
-import serviceIcons from "../utils/serviceIcons";
+import { serviceIcons, serviceNames } from "../utils/serviceIcons.js";
 
 function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
   const [username, setUsername] = useState(initialData?.username || "");
@@ -81,11 +81,14 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
     { id: 5, title: "Identification" },
   ];
 
-  const serviceItems = Object.entries(serviceIcons).map(([key, Icon], index) => ({
-    id: index + 1,
-    title: key.charAt(0).toUpperCase() + key.slice(1),
-    icon: <Icon size={20} />,
-  }));
+  const serviceItems = Object.entries(serviceNames).map(([key, name], index) => {
+    const Icon = serviceIcons[key] || serviceIcons.default; // Retrieve the correct icon or default
+    return {
+      id: index + 1,
+      title: name,
+      icon: <Icon size={20} />, // Use the dynamic icon component properly
+    };
+  });
 
   return (
     <div className="h-full w-full flex justify-center items-center">

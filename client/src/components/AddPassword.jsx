@@ -11,7 +11,7 @@ import Button from "./Button.jsx";
 import Modal from "./Modal.jsx";
 import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
-import serviceIcons from "../utils/serviceIcons.js";
+import { serviceIcons, serviceNames } from "../utils/serviceIcons.js";
 
 function AddPassword({ onClose, onAddEntry }) {
   const [username, setUsername] = useState("");
@@ -66,7 +66,6 @@ function AddPassword({ onClose, onAddEntry }) {
 
       if (response.ok) {
         const newEntry = await response.json();
-        alert("Password entry added successfully!");
         onAddEntry(newEntry); // Call parent callback
         setUsername("");
         setPassword("");
@@ -91,13 +90,14 @@ function AddPassword({ onClose, onAddEntry }) {
     { id: 5, title: "Identification" },
   ];
 
-  const serviceItems = Object.entries(serviceIcons).map(
-    ([key, Icon], index) => ({
+  const serviceItems = Object.entries(serviceNames).map(([key, name], index) => {
+    const Icon = serviceIcons[key] || serviceIcons.default; // Retrieve the correct icon or default
+    return {
       id: index + 1,
-      title: key.charAt(0).toUpperCase() + key.slice(1),
-      icon: <Icon size={20} />,
-    })
-  );
+      title: name,
+      icon: <Icon size={20} />, // Use the dynamic icon component properly
+    };
+  });
 
   return (
     <div className="h-full w-full flex justify-center items-center">
@@ -208,7 +208,7 @@ function AddPassword({ onClose, onAddEntry }) {
 
             <Button
               icon={PiXCircleDuotone}
-              onClick={onClose} // Close the modal by setting isVisible to false
+              onClick={onClose}
               label="Close"
               className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
             />
