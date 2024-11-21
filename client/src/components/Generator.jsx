@@ -170,7 +170,7 @@ function Generator({ onSelectedPassword, onClose }) {
 }
 
 Generator.propTypes = {
-  onSelectedPassword: PropTypes.func.isRequired,
+  onSelectedPassword: PropTypes.func,
   onClose: PropTypes.func.isRequired,
 };
 

@@ -33,13 +33,13 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
 
   return (
     <div className="p-4 space-y-4">
-      {filteredEntries.map((entry) => {
+      {filteredEntries.map((entry, index) => {
         const Icon = serviceIcons[entry.serviceName?.toLowerCase()] || serviceIcons.default;
         const isSelected = selectedEntry === entry._id;
 
         return (
           <div
-            key={entry._id}
+            key={entry._id || index}
             onClick={() => handleEntryClick(entry)}
             className={`flex flex-col items-start cursor-pointer p-3 transition ${
               isSelected

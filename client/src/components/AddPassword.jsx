@@ -13,7 +13,7 @@ import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
 import serviceIcons from "../utils/serviceIcons.js";
 
-function AddPassword({ onClose }) {
+function AddPassword({ onClose, onAddEntry }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [category, setCategory] = useState("");
@@ -32,8 +32,13 @@ function AddPassword({ onClose }) {
     setShowGenerator((prev) => !prev);
   };
 
+  const closeGeneratorModal = () => {
+    setShowGenerator(false);
+  };
+
   const handleSelectPassword = (generatedPassword) => {
     setPassword(generatedPassword);
+    closeGeneratorModal();
   };
 
   const handleSubmit = async (e) => {
@@ -64,12 +69,20 @@ function AddPassword({ onClose }) {
       });
 
       if (response.ok) {
-        alert("Password entry added successfully!");
+      const newEntry = await response.json(); // Define `newEntry` from the API response
+      alert("Password entry added successfully!");
+
+      onAddEntry(newEntry); // Call the parent component's callback to update state
+
+
+        onAddEntry(newEntry);
         setUsername("");
         setPassword("");
         setCategory("");
         setServiceName("");
         setLabel("");
+
+        onClose();
       } else {
         alert("Failed to add password entry. Please try again.");
       }
@@ -168,8 +181,8 @@ function AddPassword({ onClose }) {
           {showGenerator && (
             <Modal onClose={toggleGeneratorModal}>
               <Generator
-                onSelectPassword={handleSelectPassword}
-                onClose={toggleGeneratorModal}
+                onSelectedPassword={handleSelectPassword}
+                onClose={closeGeneratorModal}
               />
             </Modal>
           )}
@@ -217,6 +230,8 @@ function AddPassword({ onClose }) {
 
 AddPassword.propTypes = {
   onClose: PropTypes.func.isRequired,
+  onSelectedPassword: PropTypes.func,
+  onAddEntry: PropTypes.func.isRequired,
 };
 
 export default AddPassword;

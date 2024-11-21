@@ -39,22 +39,25 @@ function Dashboard() {
 
   // Filter entries based on category and searchQuery
   const filteredEntries = entries.filter((entry) => {
+    if (!entry) return false; // Skip undefined or null entries
+  
     const serviceName = entry.serviceName?.toLowerCase() || "";
     const query = searchQuery?.toLowerCase() || "";
-
+  
     const matchesSearch = !query || serviceName.includes(query);
-
+  
     if (selectedCategory === "Deleted") {
       return matchesSearch && entry.category === "Deleted";
     }
-
+  
     if (selectedCategory === "All") {
       return matchesSearch && entry.category !== "Deleted";
     }
-
+  
     return matchesSearch && entry.category === selectedCategory;
   });
 
+  
   // Handlers
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
@@ -67,7 +70,8 @@ function Dashboard() {
     setShowAddPassword(false);
   };
 
-  const handleAddNewEntry = () => {
+  const handleAddNewEntry = (newEntry) => {
+    setEntries((prevEntries) => [newEntry, ...prevEntries]);
     setShowAddPassword(true);
   };
 
@@ -135,7 +139,8 @@ function Dashboard() {
         {/* Vault Display or Add Password Section */}
         <div className="dark:bg-display-dark bg-display-light p-4 h-full overflow-y-auto">
           {showAddPassword ? (
-            <AddPassword onClose={handleCloseAddPassword} />
+            <AddPassword onClose={handleCloseAddPassword}
+            onAddEntry={handleAddNewEntry} />
           ) : (
             <VaultDisplay
               service={selectedEntry?.serviceName}
