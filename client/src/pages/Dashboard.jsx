@@ -8,7 +8,7 @@ import AddPassword from "../components/AddPassword"; // Form component to add a 
 const apiURL = import.meta.env.VITE_API_URL;
 
 function Dashboard() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("All"); // Default to "All" entries
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [entries, setEntries] = useState([]);
   const [showAddPassword, setShowAddPassword] = useState(false);
@@ -40,24 +40,26 @@ function Dashboard() {
   // Filter entries based on category and searchQuery
   const filteredEntries = entries.filter((entry) => {
     if (!entry) return false; // Skip undefined or null entries
-  
+
     const serviceName = entry.serviceName?.toLowerCase() || "";
     const query = searchQuery?.toLowerCase() || "";
-  
+
     const matchesSearch = !query || serviceName.includes(query);
-  
-    if (selectedCategory === "Deleted") {
-      return matchesSearch && entry.category === "Deleted";
-    }
-  
+
+    // If "All" is selected, show all entries except "Deleted"
     if (selectedCategory === "All") {
       return matchesSearch && entry.category !== "Deleted";
     }
-  
+
+    // If "Deleted" is selected, show only deleted entries
+    if (selectedCategory === "Deleted") {
+      return matchesSearch && entry.category === "Deleted";
+    }
+
+    // Otherwise, filter by the selected category
     return matchesSearch && entry.category === selectedCategory;
   });
 
-  
   // Handlers
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
@@ -70,9 +72,23 @@ function Dashboard() {
     setShowAddPassword(false);
   };
 
-  const handleAddNewEntry = (newEntry) => {
+  const handleAddNewEntry = async (newEntry) => {
     setEntries((prevEntries) => [newEntry, ...prevEntries]);
-    setShowAddPassword(true);
+
+    // Fetch updated entries from the API to ensure all data is correct
+    try {
+      const response = await fetch(`${apiURL}/api/locker`, {
+        method: "GET",
+        credentials: "include",
+      });
+      if (response.ok) {
+        const updatedEntries = await response.json();
+        setEntries(updatedEntries); // Replace with the updated entries
+      }
+    } catch (error) {
+      console.error("Error fetching updated entries:", error);
+    }
+    setShowAddPassword(false);
   };
 
   const handleCloseAddPassword = () => {
@@ -121,7 +137,7 @@ function Dashboard() {
         {/* Sidebar */}
         <Sidebar
           onSelectCategory={handleCategorySelect}
-          onAddNewEntry={handleAddNewEntry}
+          onAddNewEntry={() => setShowAddPassword(true)}
         />
 
         {/* Vault Entries Section */}
@@ -139,8 +155,10 @@ function Dashboard() {
         {/* Vault Display or Add Password Section */}
         <div className="dark:bg-display-dark bg-display-light p-4 h-full overflow-y-auto">
           {showAddPassword ? (
-            <AddPassword onClose={handleCloseAddPassword}
-            onAddEntry={handleAddNewEntry} />
+            <AddPassword
+              onClose={handleCloseAddPassword}
+              onAddEntry={handleAddNewEntry}
+            />
           ) : (
             <VaultDisplay
               service={selectedEntry?.serviceName}

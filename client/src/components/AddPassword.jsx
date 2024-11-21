@@ -47,10 +47,6 @@ function AddPassword({ onClose, onAddEntry }) {
       alert("Service name and password are required.");
       return;
     }
-    if (!category) {
-      alert("Please select a category.");
-      return;
-    }
 
     try {
       const response = await fetch(`${apiURL}/api/locker`, {
@@ -69,20 +65,15 @@ function AddPassword({ onClose, onAddEntry }) {
       });
 
       if (response.ok) {
-      const newEntry = await response.json(); // Define `newEntry` from the API response
-      alert("Password entry added successfully!");
-
-      onAddEntry(newEntry); // Call the parent component's callback to update state
-
-
-        onAddEntry(newEntry);
+        const newEntry = await response.json();
+        alert("Password entry added successfully!");
+        onAddEntry(newEntry); // Call parent callback
         setUsername("");
         setPassword("");
         setCategory("");
         setServiceName("");
         setLabel("");
-
-        onClose();
+        onClose(); // Close form
       } else {
         alert("Failed to add password entry. Please try again.");
       }
@@ -230,7 +221,6 @@ function AddPassword({ onClose, onAddEntry }) {
 
 AddPassword.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onSelectedPassword: PropTypes.func,
   onAddEntry: PropTypes.func.isRequired,
 };
 
