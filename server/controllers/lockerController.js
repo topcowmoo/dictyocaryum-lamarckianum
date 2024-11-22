@@ -3,11 +3,16 @@ const Locker = require('../models/Locker'); // Import the Locker model
 // Controller function to get all password entries
 exports.getAllPasswords = async (req, res) => {
   try {
-    // Retrieve all Locker documents from the database
+    // Retrieve the userId from the authenticated user
     const userId = req.user.userId;
-    const lockers = await Locker.find({});
-    res.status(200).json(lockers); // Respond with the retrieved lockers
+
+    // Filter lockers by userId to retrieve only the current user's entries
+    const lockers = await Locker.find({ userId });
+
+    // Respond with the retrieved lockers
+    res.status(200).json(lockers);
   } catch (err) {
+    console.error("Error fetching lockers:", err);
     res.status(500).json({ message: 'Error fetching lockers' }); // Respond with a 500 status and error message
   }
 };
