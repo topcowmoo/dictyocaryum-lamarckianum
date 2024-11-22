@@ -43,8 +43,8 @@ function AddPassword({ onClose, onAddEntry }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!serviceName || !password) {
-      alert("Service name and password are required.");
+    if (!label || !username || !password || !category || !serviceName) {
+      alert("All fields are required: Service Name, Label, Username, Password, and Category.");
       return;
     }
 
