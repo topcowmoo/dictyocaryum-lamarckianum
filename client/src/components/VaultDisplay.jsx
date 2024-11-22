@@ -29,10 +29,9 @@ const VaultDisplay = ({
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const displayServiceName =
-    serviceNames[service?.toLowerCase()] || "Unnamed Service"; // Map service names
-
-    
+  // Map service names and fall back to "Unnamed Service"
+  const normalizedKey = service?.toLowerCase().replace(/\s+/g, "") || "default";
+  const displayServiceName = serviceNames[normalizedKey] || "Unnamed Service";
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
@@ -66,8 +65,8 @@ const VaultDisplay = ({
             entry._id === entryId ? { ...entry, category: "Deleted" } : entry
           )
         );
-        setSelectedEntry(null); // Clear the selected entry
-        setShowDeleteModal(false); // Close the modal
+        setSelectedEntry(null);
+        setShowDeleteModal(false);
       } else {
         alert("Failed to move password entry. Please try again.");
       }
@@ -83,21 +82,14 @@ const VaultDisplay = ({
         entry._id === updatedEntry._id ? updatedEntry : entry
       )
     );
-    setSelectedEntry(updatedEntry); // Update the selected entry
-    setIsEditing(false); // Exit editing mode
+    setSelectedEntry(updatedEntry);
+    setIsEditing(false);
   };
 
-  const handleEditClick = () => {
-    setIsEditing(true); // Enable editing mode
-  };
-
-  const handleEditClose = () => {
-    setIsEditing(false); // Exit editing mode when form is closed
-  };
+  const handleEditClick = () => setIsEditing(true);
+  const handleEditClose = () => setIsEditing(false);
 
   const isEmpty = !service && !username && !password;
-
- 
 
   return (
     <div className="h-full w-full flex justify-center items-center">
@@ -117,7 +109,6 @@ const VaultDisplay = ({
           />
         ) : (
           <>
-            {/* Top Section */}
             <div className="flex justify-start items-center dark:bg-buttonbgc-dark bg-buttonbgc-light py-6 px-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light">
               <div className="flex items-center space-x-4">
                 {Icon && (
@@ -127,28 +118,21 @@ const VaultDisplay = ({
                   />
                 )}
                 <div>
-                  {/* Use displayServiceName */}
                   <h2 className="text-[34px] dark:text-buttonti-dark text-buttonti-light">
                     {displayServiceName}
                   </h2>
                 </div>
               </div>
             </div>
-
-            {/* Main Content Section */}
             <div className="p-4 bg-hefo-light dark:bg-sidebar-dark rounded-b-[4px] space-y-4">
-              {/* Service Name */}
               <div className="border-b pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Service Name
                 </h3>
-                {/* Use displayServiceName */}
                 <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
                   {displayServiceName}
                 </p>
               </div>
-
-              {/* Label */}
               <div className="border-b pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Label
@@ -157,8 +141,6 @@ const VaultDisplay = ({
                   {label}
                 </p>
               </div>
-
-              {/* Username */}
               <div className="border-b pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Username
@@ -177,8 +159,6 @@ const VaultDisplay = ({
                   </button>
                 </div>
               </div>
-
-              {/* Password */}
               <div className="border-b pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Password
@@ -211,8 +191,6 @@ const VaultDisplay = ({
                   </div>
                 </div>
               </div>
-
-              {/* Actions */}
               <div className="flex justify-around space-x-4 mt-4 py-4">
                 <Button
                   icon={PiPencilDuotone}
@@ -226,7 +204,7 @@ const VaultDisplay = ({
                   icon={PiTrashDuotone}
                   type="button"
                   label="Delete"
-                  onClick={() => setShowDeleteModal(true)} // Open delete confirmation modal
+                  onClick={() => setShowDeleteModal(true)}
                   size="md"
                   className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
                 />
@@ -234,8 +212,6 @@ const VaultDisplay = ({
             </div>
           </>
         )}
-
-        {/* Delete Confirmation Modal */}
         {showDeleteModal && (
           <Modal onClose={() => setShowDeleteModal(false)} showCloseButton={false}>
             <div className="p-9 text-center">

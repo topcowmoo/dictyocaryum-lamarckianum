@@ -22,21 +22,29 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
     return categoryMatch;
   });
 
+  const normalizeKey = (serviceName) => {
+    if (!serviceName) return "default";
+    const key = serviceName.toLowerCase().replace(/\s+/g, ""); // Remove spaces
+    if (key === "amazonprimevideo") return "prime"; // Explicitly map to 'prime'
+    return key;
+  };
+
   const handleEntryClick = (entry) => {
     setSelectedEntry(entry._id);
+    const normalizedKey = normalizeKey(entry.serviceName);
     onSelectEntry({
       ...entry,
       label: entry.label,
-      Icon: serviceIcons[entry.serviceName?.toLowerCase()] || serviceIcons.default,
+      Icon: serviceIcons[normalizedKey] || serviceIcons.default,
     });
   };
 
   return (
     <div className="p-4 space-y-4">
       {filteredEntries.map((entry, index) => {
-        // Use the service name and icon mappings
-        const Icon = serviceIcons[entry.serviceName?.toLowerCase()] || serviceIcons.default;
-        const displayName = serviceNames[entry.serviceName?.toLowerCase()] || "Unnamed Service";
+        const normalizedKey = normalizeKey(entry.serviceName);
+        const Icon = serviceIcons[normalizedKey] || serviceIcons.default;
+        const displayName = serviceNames[normalizedKey] || "Unnamed Service";
         const isSelected = selectedEntry === entry._id;
 
         const customSizes = {
@@ -44,7 +52,12 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
           ebay: 43,
           bankofamerica: 45,
           default: 42,
-        }
+        };
+
+        console.log("Raw Service Name:", entry.serviceName);
+        console.log("Normalized Key:", normalizedKey);
+        console.log("Resolved Icon:", Icon);
+        console.log("Resolved Name:", displayName);
 
         return (
           <div
@@ -57,30 +70,30 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
             } hover:underline`}
           >
             <div
-  className={`flex items-center ${
-    customSizes[entry.serviceName?.toLowerCase()] > 42 ? "space-x-5" : "space-x-6"
-  }`}
->
-  {/* Display Icon */}
-  <Icon
-    size={customSizes[entry.serviceName?.toLowerCase()] || customSizes.default}
-    className={`${
-      isSelected ? "text-highlight-light dark:text-highlight-dark" : ""
-    }`}
-  />
-  <div className="flex flex-col">
-    {/* Display Name */}
-    <span className={`text-[18px] ${isSelected ? "font-bold" : ""}`}>
-      {displayName}
-    </span>
-    {/* Display Label */}
-    {entry.label && (
-      <span className="text-sm text-gray-500 dark:text-gray-400">
-        {entry.label}
-      </span>
-    )}
-  </div>
-</div>
+              className={`flex items-center ${
+                customSizes[normalizedKey] > 42 ? "space-x-5" : "space-x-6"
+              }`}
+            >
+              {/* Display Icon */}
+              <Icon
+                size={customSizes[normalizedKey] || customSizes.default}
+                className={`${
+                  isSelected ? "text-highlight-light dark:text-highlight-dark" : ""
+                }`}
+              />
+              <div className="flex flex-col">
+                {/* Display Name */}
+                <span className={`text-[18px] ${isSelected ? "font-bold" : ""}`}>
+                  {displayName}
+                </span>
+                {/* Display Label */}
+                {entry.label && (
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {entry.label}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
         );
       })}
