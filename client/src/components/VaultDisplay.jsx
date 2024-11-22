@@ -6,9 +6,11 @@ import {
   PiEyeClosedDuotone,
   PiPencilDuotone,
   PiTrashDuotone,
+  PiXCircleDuotone,
 } from "react-icons/pi";
 import Button from "./Button";
 import EditEntry from "./EditEntry";
+import Modal from "./Modal";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -23,7 +25,8 @@ const VaultDisplay = ({
   setSelectedEntry,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [isEditing, setIsEditing] = useState(false); // State to track editing mode
+  const [isEditing, setIsEditing] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // State for delete confirmation modal
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
@@ -52,13 +55,13 @@ const VaultDisplay = ({
       });
 
       if (response.ok) {
-        alert("Password entry moved to Deleted category!");
         setEntries((prevEntries) =>
           prevEntries.map((entry) =>
             entry._id === entryId ? { ...entry, category: "Deleted" } : entry
           )
         );
         setSelectedEntry(null); // Clear the selected entry
+        setShowDeleteModal(false); // Close the modal
       } else {
         alert("Failed to move password entry. Please try again.");
       }
@@ -213,7 +216,7 @@ const VaultDisplay = ({
                   icon={PiTrashDuotone}
                   type="button"
                   label="Delete"
-                  onClick={handleDelete}
+                  onClick={() => setShowDeleteModal(true)} // Open delete confirmation modal
                   size="md"
                   className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
                 />
@@ -221,6 +224,34 @@ const VaultDisplay = ({
             </div>
           </>
         )}
+
+        {/* Delete Confirmation Modal */}
+        {showDeleteModal && (
+  <Modal onClose={() => setShowDeleteModal(false)} showCloseButton={false}>
+    <div className="p-9 text-center">
+      <h2 className="text-lg mb-9 dark:text-alltext-dark text-alltext-light">
+        Are you sure you want to delete this entry?
+      </h2>
+      <div className="flex justify-center space-x-5">
+
+      <Button
+        icon={PiTrashDuotone}
+          label="Confirm"
+          onClick={handleDelete}
+          className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
+        />
+        <Button
+        icon={PiXCircleDuotone}
+          label="Cancel"
+          onClick={() => setShowDeleteModal(false)}
+          className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
+        />
+        
+      </div>
+    </div>
+  </Modal>
+)}
+
       </div>
     </div>
   );
