@@ -11,6 +11,7 @@ import {
 import Button from "./Button";
 import EditEntry from "./EditEntry";
 import Modal from "./Modal";
+import { serviceNames } from "../utils/serviceIcons";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -26,7 +27,12 @@ const VaultDisplay = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false); // State for delete confirmation modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const displayServiceName =
+    serviceNames[service?.toLowerCase()] || "Unnamed Service"; // Map service names
+
+    
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
@@ -91,6 +97,8 @@ const VaultDisplay = ({
 
   const isEmpty = !service && !username && !password;
 
+ 
+
   return (
     <div className="h-full w-full flex justify-center items-center">
       <div className="w-full max-w-6xl h-[70vh] p-6">
@@ -114,13 +122,14 @@ const VaultDisplay = ({
               <div className="flex items-center space-x-4">
                 {Icon && (
                   <Icon
-                    size={45}
+                    size={42}
                     className="dark:text-buttonti-dark text-buttonti-light"
                   />
                 )}
                 <div>
+                  {/* Use displayServiceName */}
                   <h2 className="text-[34px] dark:text-buttonti-dark text-buttonti-light">
-                    {service}
+                    {displayServiceName}
                   </h2>
                 </div>
               </div>
@@ -133,8 +142,9 @@ const VaultDisplay = ({
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Service Name
                 </h3>
+                {/* Use displayServiceName */}
                 <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
-                  {service}
+                  {displayServiceName}
                 </p>
               </div>
 
@@ -227,31 +237,28 @@ const VaultDisplay = ({
 
         {/* Delete Confirmation Modal */}
         {showDeleteModal && (
-  <Modal onClose={() => setShowDeleteModal(false)} showCloseButton={false}>
-    <div className="p-9 text-center">
-      <h2 className="text-lg mb-9 dark:text-alltext-dark text-alltext-light">
-        Are you sure you want to delete this entry?
-      </h2>
-      <div className="flex justify-center space-x-5">
-
-      <Button
-        icon={PiTrashDuotone}
-          label="Confirm"
-          onClick={handleDelete}
-          className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
-        />
-        <Button
-        icon={PiXCircleDuotone}
-          label="Cancel"
-          onClick={() => setShowDeleteModal(false)}
-          className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
-        />
-        
-      </div>
-    </div>
-  </Modal>
-)}
-
+          <Modal onClose={() => setShowDeleteModal(false)} showCloseButton={false}>
+            <div className="p-9 text-center">
+              <h2 className="text-lg mb-9 dark:text-alltext-dark text-alltext-light">
+                Are you sure you want to delete this entry?
+              </h2>
+              <div className="flex justify-center space-x-5">
+                <Button
+                  icon={PiTrashDuotone}
+                  label="Confirm"
+                  onClick={handleDelete}
+                  className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
+                />
+                <Button
+                  icon={PiXCircleDuotone}
+                  label="Cancel"
+                  onClick={() => setShowDeleteModal(false)}
+                  className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
+                />
+              </div>
+            </div>
+          </Modal>
+        )}
       </div>
     </div>
   );

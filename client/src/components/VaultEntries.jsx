@@ -39,35 +39,48 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
         const displayName = serviceNames[entry.serviceName?.toLowerCase()] || "Unnamed Service";
         const isSelected = selectedEntry === entry._id;
 
+        const customSizes = {
+          zoom: 43,
+          ebay: 43,
+          bankofamerica: 45,
+          default: 42,
+        }
+
         return (
           <div
             key={entry._id || index}
             onClick={() => handleEntryClick(entry)}
             className={`flex flex-col items-start cursor-pointer p-3 transition ${
               isSelected
-                ? "dark:text-highlight-dark text-highlight-light font-bold"
+                ? "dark:text-highlight-dark text-highlight-light"
                 : "dark:text-alltext-dark text-alltext-light"
             } hover:underline`}
           >
-            <div className="flex items-center space-x-4">
-              {/* Display Icon */}
-              <Icon
-                size={32}
-                className={`w-10 h-10 ${isSelected ? "text-highlight-light dark:text-highlight-dark" : ""}`}
-              />
-              <div className="flex flex-col">
-                {/* Display Name */}
-                <span className={`text-[18px] ${isSelected ? "font-bold" : ""}`}>
-                  {displayName}
-                </span>
-                {/* Display Label */}
-                {entry.label && (
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
-                    {entry.label}
-                  </span>
-                )}
-              </div>
-            </div>
+            <div
+  className={`flex items-center ${
+    customSizes[entry.serviceName?.toLowerCase()] > 42 ? "space-x-5" : "space-x-6"
+  }`}
+>
+  {/* Display Icon */}
+  <Icon
+    size={customSizes[entry.serviceName?.toLowerCase()] || customSizes.default}
+    className={`${
+      isSelected ? "text-highlight-light dark:text-highlight-dark" : ""
+    }`}
+  />
+  <div className="flex flex-col">
+    {/* Display Name */}
+    <span className={`text-[18px] ${isSelected ? "font-bold" : ""}`}>
+      {displayName}
+    </span>
+    {/* Display Label */}
+    {entry.label && (
+      <span className="text-sm text-gray-500 dark:text-gray-400">
+        {entry.label}
+      </span>
+    )}
+  </div>
+</div>
           </div>
         );
       })}
