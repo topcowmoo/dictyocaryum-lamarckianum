@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import Button from "./Button";
-import { PiCopyDuotone, PiArrowsClockwiseDuotone, PiSealCheckDuotone, } from "react-icons/pi";
+import { PiCopyDuotone, PiArrowsClockwiseDuotone, PiSealCheckDuotone, PiXCircleDuotone } from "react-icons/pi";
 
 // Helper function to generate a secure password
-function generatePassword(length, includeUppercase, includeLowercase, includeNumbers, includeSymbols, minNumbers, minSpecial) {
+function generatePassword(
+  length,
+  includeUppercase,
+  includeLowercase,
+  includeNumbers,
+  includeSymbols,
+  minNumbers = 0,
+  minSpecial = 0
+) {
   const charset = {
     lowercase: "abcdefghijklmnopqrstuvwxyz",
     uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -33,52 +41,58 @@ function generatePassword(length, includeUppercase, includeLowercase, includeNum
   }
 
   while (password.length < length) {
-    const randomByte = crypto.getRandomValues(new Uint8Array(1))[0];
-    password += allCharacters[randomByte % allCharacters.length];
+    const randomIndex = Math.floor(Math.random() * allCharacters.length);
+    password += allCharacters[randomIndex];
   }
 
-  return password.split('').sort(() => 0.5 - Math.random()).join('');
+  return password
+    .split("")
+    .sort(() => 0.5 - Math.random())
+    .join("");
 }
 
 function Generator({ onSelectedPassword, onClose }) {
   const [password, setPassword] = useState("");
   const [length, setLength] = useState(14);
-  const [minNumbers, setMinNumbers] = useState(1);
-  const [minSpecial, setMinSpecial] = useState(1);
   const [includeUppercase, setIncludeUppercase] = useState(true);
   const [includeLowercase, setIncludeLowercase] = useState(true);
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSymbols, setIncludeSymbols] = useState(true);
 
-  const handleGenerate = () => {
+  const handleGenerate = useCallback(() => {
     const newPassword = generatePassword(
       length,
       includeUppercase,
       includeLowercase,
       includeNumbers,
       includeSymbols,
-      includeNumbers ? minNumbers : 0,
-      includeSymbols ? minSpecial : 0
+      includeNumbers,
+      includeSymbols
     );
     setPassword(newPassword);
-  };
+  }, [length, includeUppercase, includeLowercase, includeNumbers, includeSymbols]);
 
   const handleUsePassword = () => {
     onSelectedPassword(password);
     onClose();
   };
 
+  // Generate password when the component is mounted
+  useEffect(() => {
+    handleGenerate();
+  }, [handleGenerate]);
+
   return (
-    <div className="password-generator p-4 rounded-[4px] dark:bg-vault-dark bg-vault-light dark:text-vault-light text-vault-dark">
-      <h1 className="text-xl text-center mb-4">Password Generator</h1>
+    <div className="password-generator w-[80vw] max-w-[600px] h-auto max-h-[80vh] p-8 rounded-lg bg-hefo-light dark:bg-sidebar-dark">
+      <h1 className="text-2xl font-bold text-center mb-6 dark:text-alltext-dark text-alltext-light">Password Generator</h1>
 
       {/* Password Length Slider */}
-      <div className="flex justify-between mb-4 items-center">
-        <span>Length</span>
+      <div className="flex justify-between mb-4 items-center dark:text-alltext-dark text-alltext-light">
+        <span>Length:</span>
         <input
           type="range"
           min="14"
-          max="60"
+          max="35"
           value={length}
           onChange={(e) => setLength(Number(e.target.value))}
           className="w-3/4"
@@ -88,17 +102,17 @@ function Generator({ onSelectedPassword, onClose }) {
 
       {/* Character Set Checkboxes */}
       <div className="mb-4">
-        <label className="flex items-center mb-2">
+        <label className="flex items-center mb-2 dark:text-alltext-dark text-alltext-light">
           <input
             type="checkbox"
             checked={includeUppercase}
             onChange={() => setIncludeUppercase(!includeUppercase)}
-            className="mr-2"
+            className="mr-2 "
           />
           A-Z (Uppercase)
         </label>
 
-        <label className="flex items-center mb-2">
+        <label className="flex items-center mb-2 dark:text-alltext-dark text-alltext-light">
           <input
             type="checkbox"
             checked={includeLowercase}
@@ -108,7 +122,7 @@ function Generator({ onSelectedPassword, onClose }) {
           a-z (Lowercase)
         </label>
 
-        <label className="flex items-center mb-2">
+        <label className="flex items-center mb-2 dark:text-alltext-dark text-alltext-light">
           <input
             type="checkbox"
             checked={includeNumbers}
@@ -118,7 +132,7 @@ function Generator({ onSelectedPassword, onClose }) {
           0-9 (Numbers)
         </label>
 
-        <label className="flex items-center mb-2">
+        <label className="flex items-center mb-2 dark:text-alltext-dark text-alltext-light">
           <input
             type="checkbox"
             checked={includeSymbols}
@@ -129,41 +143,42 @@ function Generator({ onSelectedPassword, onClose }) {
         </label>
       </div>
 
-      {/* Minimum Numbers and Special Characters */}
-      <div className="flex justify-between mb-4 items-center">
-        <span>Minimum numbers</span>
-        <input
-          type="number"
-          value={minNumbers}
-          onChange={(e) => setMinNumbers(Number(e.target.value))}
-          min="1"
-          disabled={!includeNumbers}
-          className="w-16 p-1 border rounded-[4px]"
-        />
-      </div>
-
-      <div className="flex justify-between mb-4 items-center">
-        <span>Minimum special characters</span>
-        <input
-          type="number"
-          value={minSpecial}
-          onChange={(e) => setMinSpecial(Number(e.target.value))}
-          min="1"
-          disabled={!includeSymbols}
-          className="w-16 p-1 border rounded-[4px]"
-        />
-      </div>
-
       {/* Generated Password */}
-      <div className="mb-4 p-2 bg-white rounded-[4px] shadow">
-        <h3 className="text-center text-xl">{password}</h3>
-      </div>
+      <div className="mb-4 p-6 bg-white rounded-[4px] shadow-xl flex items-center justify-between w-full max-w-[600px]">
+  {/* Generated Password */}
+  <h3 className="text-xl text-center truncate w-[80%]">{password}</h3>
 
-      {/* Generate and Copy Buttons */}
-      <div className="flex justify-center gap-4">
-        <Button onClick={handleGenerate} label="Refresh" icon={PiArrowsClockwiseDuotone} />
-        <Button onClick={() => navigator.clipboard.writeText(password)} label="Copy" icon={PiCopyDuotone} />
-        <Button onClick={handleUsePassword} label="Use Password" icon={PiSealCheckDuotone} />
+  {/* Icons */}
+  <div className="flex items-center gap-1">
+    <PiArrowsClockwiseDuotone
+      onClick={handleGenerate}
+      className="cursor-pointer text-red-400 hover:text-highlight-light"
+      size={20}
+    />
+    <PiCopyDuotone
+      onClick={() => navigator.clipboard.writeText(password)}
+      className="cursor-pointer text-yellow-700 hover:text-highlight-light"
+      size={20}
+    />
+  </div>
+</div>
+
+
+      {/* Use Password Button */}
+      <div className="flex justify-around mt-4">
+        <Button
+          onClick={handleUsePassword}
+          label="Use Password"
+          icon={PiSealCheckDuotone}
+          size="lg"
+        />
+
+<Button
+              icon={PiXCircleDuotone}
+              onClick={onClose}
+              label="Close"
+              size="lg"
+            />
       </div>
     </div>
   );
