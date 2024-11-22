@@ -144,7 +144,7 @@ function Generator({ onSelectedPassword, onClose }) {
       </div>
 
       {/* Generated Password */}
-      <div className="mb-4 p-6 bg-white rounded-[4px] shadow-xl flex items-center justify-between w-full max-w-[600px]">
+      <div className="mb-4 p-6 bg-title-dark rounded-[4px] shadow-xl flex items-center justify-between w-full max-w-[600px]">
   {/* Generated Password */}
   <h3 className="text-xl text-center truncate w-[80%]">{password}</h3>
 

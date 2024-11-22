@@ -92,7 +92,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
 
   return (
     <div className="h-full w-full flex justify-center items-center">
-      <div className="w-full max-w-6xl h-[70vh] p-6 bg-hefo-light dark:bg-sidebar-dark rounded-lg shadow-lg">
+      <div className="w-full max-w-6xl h-[70vh] p-6 bg-hefo-light dark:bg-hefo-dark rounded-lg shadow-lg">
         <h2 className="text-3xl font-bold mb-6 dark:text-alltext-dark text-alltext-light">
           Edit Entry
         </h2>
