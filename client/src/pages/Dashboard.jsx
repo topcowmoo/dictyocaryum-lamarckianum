@@ -1,21 +1,18 @@
-import { useState, useEffect, useRef } from "react";
-import { useOutletContext } from "react-router-dom"; // For accessing context from the Outlet
-import Sidebar from "../components/Sidebar"; // Sidebar component for category selection
-import VaultEntries from "../components/VaultEntries"; // Component to display entries
-import VaultDisplay from "../components/VaultDisplay"; // Component to display selected entry details
-import AddPassword from "../components/AddPassword"; // Form component to add a new password entry
+import { useState, useEffect } from "react";
+import Sidebar from "../components/Sidebar";
+import VaultEntries from "../components/VaultEntries";
+import VaultDisplay from "../components/VaultDisplay";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
 function Dashboard() {
-  const [selectedCategory, setSelectedCategory] = useState("All"); // Default to "All" entries
+  const [currentView, setCurrentView] = useState("sidebar"); // Tracks current view for small screens
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [entries, setEntries] = useState([]);
-  const [showAddPassword, setShowAddPassword] = useState(false);
-  const { searchQuery } = useOutletContext() || {}; // Ensure searchQuery is safely destructured
-  const addEntryButtonRef = useRef(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  // Fetching entries from the API
+  // Fetch entries from API
   useEffect(() => {
     const fetchEntries = async () => {
       try {
@@ -37,142 +34,152 @@ function Dashboard() {
     fetchEntries();
   }, []);
 
-  // Filter entries based on category and searchQuery
+  // Detect screen size for responsiveness
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 640); // Tailwind's `sm` breakpoint is 640px
+    };
+
+    handleResize(); // Set initial value
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Filter entries based on category
   const filteredEntries = entries.filter((entry) => {
-    if (!entry) return false; // Skip undefined or null entries
+    if (!entry) return false;
 
-    const serviceName = entry.serviceName?.toLowerCase() || "";
-    const query = searchQuery?.toLowerCase() || "";
-
-    const matchesSearch = !query || serviceName.includes(query);
-
-    // If "All" is selected, show all entries except "Deleted"
     if (selectedCategory === "All") {
-      return matchesSearch && entry.category !== "Deleted";
+      return entry.category !== "Deleted";
     }
 
-    // If "Deleted" is selected, show only deleted entries
     if (selectedCategory === "Deleted") {
-      return matchesSearch && entry.category === "Deleted";
+      return entry.category === "Deleted";
     }
 
-    // Otherwise, filter by the selected category
-    return matchesSearch && entry.category === selectedCategory;
+    return entry.category === selectedCategory;
   });
 
-  // Handlers
+  // Handlers for small screens
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setSelectedEntry(null);
-    setShowAddPassword(false);
+    setCurrentView("entries");
   };
 
   const handleEntrySelect = (entry) => {
     setSelectedEntry(entry);
-    setShowAddPassword(false);
+    setCurrentView("modal");
   };
 
-  const handleAddNewEntry = async (newEntry) => {
-    setEntries((prevEntries) => [newEntry, ...prevEntries]);
-
-    // Fetch updated entries from the API to ensure all data is correct
-    try {
-      const response = await fetch(`${apiURL}/api/locker`, {
-        method: "GET",
-        credentials: "include",
-      });
-      if (response.ok) {
-        const updatedEntries = await response.json();
-        setEntries(updatedEntries); // Replace with the updated entries
-      }
-    } catch (error) {
-      console.error("Error fetching updated entries:", error);
-    }
-    setShowAddPassword(false);
-  };
-
-  const handleCloseAddPassword = () => {
-    setShowAddPassword(false);
-    if (addEntryButtonRef.current) {
-      addEntryButtonRef.current.blur();
+  const handleBack = () => {
+    if (currentView === "modal") {
+      setCurrentView("entries");
+    } else if (currentView === "entries") {
+      setCurrentView("sidebar");
     }
   };
 
-  const handleDelete = async (entryId) => {
-    try {
-      const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+  // Layout for small screens
+  if (isSmallScreen) {
+    return (
+      <div className="h-screen w-full bg-gray-100">
+        {/* Sidebar View */}
+        {currentView === "sidebar" && (
+          <div className="h-full">
+            <Sidebar
+              onSelectCategory={handleCategorySelect}
+              className="h-full"
+            />
+          </div>
+        )}
 
-      if (response.ok) {
-        setEntries((prevEntries) =>
-          prevEntries.filter((entry) => entry._id !== entryId)
-        );
-        setSelectedEntry(null);
-      } else {
-        alert("Failed to delete entry");
-      }
-    } catch (error) {
-      console.error("Error deleting entry:", error);
-    }
-  };
+        {/* Entries View */}
+        {currentView === "entries" && (
+          <div className="h-full">
+            <button
+              className="p-2 text-gray-600 hover:text-gray-900"
+              onClick={handleBack}
+            >
+              Back
+            </button>
+            <VaultEntries
+              entries={filteredEntries}
+              selectedCategory={selectedCategory}
+              onSelectEntry={handleEntrySelect}
+            />
+          </div>
+        )}
 
-  const handleEditSubmit = (updatedEntry) => {
-    setEntries((prevEntries) =>
-      prevEntries.map((entry) =>
-        entry._id === updatedEntry._id ? updatedEntry : entry
-      )
+        {/* Modal View */}
+        {currentView === "modal" && (
+          <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white p-6 w-11/12 max-w-md rounded-lg shadow-lg">
+              <button
+                className="p-2 text-gray-600 hover:text-gray-900 mb-4"
+                onClick={handleBack}
+              >
+                Close
+              </button>
+              {selectedEntry && (
+                <VaultDisplay
+                  service={selectedEntry?.serviceName}
+                  username={selectedEntry?.username}
+                  label={selectedEntry?.label}
+                  password={selectedEntry?.password}
+                  Icon={selectedEntry?.Icon}
+                />
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     );
-    setSelectedEntry(null); // Close EditEntry form
-  };
+  }
 
-  const handleCloseEditEntry = () => {
-    setSelectedEntry(null); // Close EditEntry form
-  };
-
+  // Original layout for larger screens
   return (
     <div className="h-full flex flex-col">
       <div className="h-full grid grid-cols-[300px_1fr_2fr]">
         {/* Sidebar */}
         <Sidebar
-          onSelectCategory={handleCategorySelect}
-          onAddNewEntry={() => setShowAddPassword(true)}
+          onSelectCategory={setSelectedCategory}
+          onAddNewEntry={() => setSelectedEntry(null)}
         />
 
         {/* Vault Entries Section */}
         <div className="dark:bg-vault-dark bg-vault-light p-4 h-full overflow-y-auto">
-          {filteredEntries.length > 0 && !showAddPassword && (
+          {filteredEntries.length > 0 && (
             <VaultEntries
               entries={filteredEntries}
               selectedCategory={selectedCategory}
-              onSelectEntry={handleEntrySelect}
-              searchQuery={searchQuery}
+              onSelectEntry={setSelectedEntry}
             />
           )}
         </div>
 
-        {/* Vault Display or Add Password Section */}
+        {/* Vault Display Section */}
         <div className="dark:bg-display-dark bg-display-light p-4 h-full overflow-y-auto">
-          {showAddPassword ? (
-            <AddPassword
-              onClose={handleCloseAddPassword}
-              onAddEntry={handleAddNewEntry}
-            />
-          ) : (
+          {selectedEntry ? (
             <VaultDisplay
               service={selectedEntry?.serviceName}
               username={selectedEntry?.username}
               label={selectedEntry?.label}
               password={selectedEntry?.password}
               Icon={selectedEntry?.Icon}
-              entryId={selectedEntry?._id}
-              onDelete={() => handleDelete(selectedEntry._id)}
-              onEdit={handleEditSubmit}
-              setEntries={setEntries}
-              setSelectedEntry={setSelectedEntry}
-              onClose={handleCloseEditEntry}
+              onDelete={(id) =>
+                setEntries((prev) => prev.filter((entry) => entry._id !== id))
+              }
+              onEdit={(updatedEntry) =>
+                setEntries((prev) =>
+                  prev.map((entry) =>
+                    entry._id === updatedEntry._id ? updatedEntry : entry
+                  )
+                )
+              }
             />
+          ) : (
+            <div>Select an entry to view its details</div>
           )}
         </div>
       </div>
