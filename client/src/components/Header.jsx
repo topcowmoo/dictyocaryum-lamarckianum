@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../context/DarkModeContext";
 import PropTypes from "prop-types";
 import { useContext } from "react";
@@ -6,7 +5,6 @@ import SearchBar from "./SearchBar";
 import { PiSunDuotone, PiMoonDuotone } from "react-icons/pi";
 
 function Header({ setSearchQuery }) {
-  const navigate = useNavigate();
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
@@ -14,9 +12,7 @@ function Header({ setSearchQuery }) {
       {/* Left Section: Logo */}
       <div className="flex items-center">
         <button
-          onClick={() => navigate("/")}
-          className="flex-shrink-0 cursor-pointer focus:outline-none"
-          aria-label="Navigate to Home"
+          className="flex-shrink-0 focus:outline-none"
         >
           <img
             src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
