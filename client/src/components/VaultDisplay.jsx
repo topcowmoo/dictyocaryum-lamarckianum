@@ -214,7 +214,7 @@ const VaultDisplay = ({
         )}
         {showDeleteModal && (
           <Modal onClose={() => setShowDeleteModal(false)} showCloseButton={false}>
-            <div className="p-9 text-center">
+            <div className="p-9 text-center bg-hefo-light dark:bg-hefo-dark rounded-[4px]">
               <h2 className="text-lg mb-9 dark:text-alltext-dark text-alltext-light">
                 Are you sure you want to delete this entry?
               </h2>

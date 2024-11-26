@@ -54,11 +54,6 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
           default: 42,
         };
 
-        console.log("Raw Service Name:", entry.serviceName);
-        console.log("Normalized Key:", normalizedKey);
-        console.log("Resolved Icon:", Icon);
-        console.log("Resolved Name:", displayName);
-
         return (
           <div
             key={entry._id || index}
@@ -83,12 +78,12 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
               />
               <div className="flex flex-col">
                 {/* Display Name */}
-                <span className={`text-[18px] ${isSelected ? "font-bold" : ""}`}>
+                <span className={`text-[18px] ${isSelected ? "" : ""}`}>
                   {displayName}
                 </span>
                 {/* Display Label */}
                 {entry.label && (
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    <span className={`text-[15px] dark:text-buttonbgc-dark ${isSelected ? "" : ""}`}>
                     {entry.label}
                   </span>
                 )}

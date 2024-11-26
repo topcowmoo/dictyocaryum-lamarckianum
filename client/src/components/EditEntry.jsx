@@ -189,7 +189,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
             />
           </div>
 
-          <div className="flex justify-start space-x-4 mt-6">
+          <div className="flex justify-around space-x-4 mt-6">
             <Button
               icon={PiSealCheckDuotone}
               type="submit"
