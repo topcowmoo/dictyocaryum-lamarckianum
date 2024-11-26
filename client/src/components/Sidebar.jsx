@@ -30,77 +30,67 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
   };
 
   const handleAddNewEntry = () => {
-    setSelectedItemId("new"); // Unique identifier for "Add New Entry"
-    onAddNewEntry(); // Call the parent handler
+    setSelectedItemId("new");
+    onAddNewEntry();
   };
 
   return (
-    <div className="flex flex-col justify-between h-full dark:bg-sidebar-dark bg-sidebar-light">
-      {/* Sidebar Items */}
-      <div className="flex flex-col gap-7 dark:bg-sidebar-dark bg-sidebar-light">
+    <div className="flex flex-col dark:bg-sidebar-dark bg-sidebar-light p-4">
+      {/* Sidebar Items in Two Columns */}
+      <div className="grid grid-cols-2 gap-4 mt-3">
         {items.map((item) => (
           <div
             key={item.id}
-            className="flex items-center cursor-pointer p-3 transition dark:text-alltext-dark text-alltext-light hover:underline"
+            className={`relative flex items-center space-x-2 p-4 rounded-[4px] border-2 transition cursor-pointer ${
+              selectedItemId === item.id
+                ? "bg-hefo-light dark:bg-hefo-dark border-buttonti-dark dark:border-buttonti-light shadow-md shadow-buttonbgc-light dark:shadow-buttonbgc-dark transform translate-y-[-2px] "
+                : "border-buttonti-dark dark:border-buttonti-light hover:bg-hefo-light dark:hover:bg-hefo-dark"
+            }`}
             onClick={() => handleItemClick(item)}
           >
-            <div className="flex items-center gap-2">
-              <span
-                className={`${
-                  selectedItemId === item.id
-                    ? "dark:text-highlight-dark text-highlight-light font-bold"
-                    : ""
-                }`}
-              >
-                {item.icon}
-              </span>
-              <span
-                className={`text-[18px] ${
-                  selectedItemId === item.id
-                    ? "dark:text-highlight-dark text-highlight-light text-shadow-pop-top"
-                    : ""
+            <div className="shrink-0 text-highlight-light dark:text-highlight-dark">{item.icon}</div>
+            <div className="flex-grow">
+              <p
+                className={`text-sm font-medium text-alltext-light dark:text-alltext-dark ${
+                  selectedItemId === item.id ? "font-bold" : ""
                 }`}
               >
                 {item.title}
-              </span>
+              </p>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Add New Entry Item at the Bottom */}
-      <div
-        className="flex items-center cursor-pointer p-2 mt-auto transition dark:text-alltext-dark text-alltext-light hover:underline "
-        onClick={handleAddNewEntry}
-      >
-        <div className="flex items-center gap-2 ">
-          <span
-            className={`${
-              selectedItemId === "new"
-                ? "dark:text-highlight-dark text-highlight-light font-bold"
-                : ""
-            }`}
-          >
-            <PiPlusCircleDuotone size={28} />
-          </span>
-          <span
-            className={`text-[18px] ${
-              selectedItemId === "new"
-                ? "dark:text-highlight-dark text-highlight-light font-bold text-shadow-pop-top"
-                : ""
-            }`}
-          >
-            Add New Entry
-          </span>
-        </div>
-      </div>
-    </div>
+      {/* Add New Entry */}
+<div
+  className={`flex justify-center items-center space-x-2 p-4 mt-6 rounded-[4px] border-2 transition cursor-pointer ${
+    selectedItemId === "new"
+      ? "bg-hefo-light dark:bg-hefo-dark border-buttonti-dark dark:border-buttonti-light shadow-md shadow-buttonbgc-light dark:shadow-buttonbgc-dark transform translate-y-[-2px]"
+      : "border-buttonti-dark dark:border-buttonti-light hover:bg-hefo-light dark:hover:bg-hefo-dark"
+  }`}
+  onClick={handleAddNewEntry}
+>
+  <div className="shrink-0 text-highlight-light dark:text-highlight-dark">
+    <PiPlusCircleDuotone size={28} />
+  </div>
+  <div>
+    <p
+      className={`text-sm text-alltext-light dark:text-alltext-dark ${
+        selectedItemId === "new" ? "font-bold" : ""
+      }`}
+    >
+      Add New Entry
+    </p>
+  </div>
+</div>
+</div>
   );
 }
 
 Sidebar.propTypes = {
   onSelectCategory: PropTypes.func.isRequired,
-  onAddNewEntry: PropTypes.func.isRequired, // New prop
+  onAddNewEntry: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

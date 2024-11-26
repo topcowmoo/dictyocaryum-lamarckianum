@@ -133,7 +133,7 @@ function Dashboard() {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="h-full grid grid-cols-[300px_1fr_2fr]">
+      <div className="h-full grid grid-cols-[380px_1fr_2fr]">
         {/* Sidebar */}
         <Sidebar
           onSelectCategory={handleCategorySelect}
