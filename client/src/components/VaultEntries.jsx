@@ -60,9 +60,9 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
             onClick={() => handleEntryClick(entry)}
             className={`flex flex-col items-start cursor-pointer p-3 transition ${
               isSelected
-                ? "dark:text-highlight-dark text-highlight-light"
+                ? "dark:text-title-dark text-highlight-light"
                 : "dark:text-alltext-dark text-alltext-light"
-            } hover:underline`}
+            }`}
           >
             <div
               className={`flex items-center ${

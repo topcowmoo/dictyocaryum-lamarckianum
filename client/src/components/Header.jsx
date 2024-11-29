@@ -30,7 +30,7 @@ function Header({ setSearchQuery }) {
       {/* Right Section: Dark/Light Mode Toggle */}
       <div className="flex justify-end items-center">
         {isDarkMode ? (
-          <PiSunDuotone size={30} onClick={toggleDarkMode} className="dark:text-title-dark text-title-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
+          <PiSunDuotone size={30} onClick={toggleDarkMode} className="dark:text-alltext-dark text-title-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
         ) : (
           <PiMoonDuotone size={30} onClick={toggleDarkMode} className="dark:text-title-dark text-title-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
         )}

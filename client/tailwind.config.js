@@ -13,36 +13,36 @@ export default {
       },
       colors: { // Custom color palette for different components
         hefo: {
-          light: "#F7F9F9", // Light color for header/footer
-          dark: "#39434a", // Dark color for header/footer
+          light: "#2d545e", // Light color for header/footer
+          dark: "#3c424e", // Dark color for header/footer
         },
         sidebar: {
-          light: "#e1e1e1", // Light color for sidebar background
+          light: "#F8FCFB", // Light color for sidebar background
           dark: "#2f343d", // Dark color for sidebar background
         },
         vault: {
-          light: "#d5d5d5", // Light color for vault background
-          dark: "#1F242E", // Dark color for vault background
+          light: "#e1b382", // Light color for vault background
+          dark: "#24272e", // Dark color for vault background
         },
         display: {
-          light: "#c4c4c4", // Light color for display area
+          light: "#c89666", // Light color for display area
           dark: "#15181e", // Dark color for display area
         },
         title: {
           light: "#242F36", // Light color for titles
-          dark: "#DBE2EF", // Dark color for titles
+          dark: "#DCE6F9", // Dark color for titles
         },
         alltext: {
           light: "#191919", // Light color for general text
-          dark: "#F7F9F9", // Dark color for general text
+          dark: "#ffffff", // Dark color for general text
         },
         highlight: {
-          light: "#420283", // Light color for text highlights
-          dark: "#FEECFE", // Dark color for text highlights
+          light: "#8A0000", // Light color for text highlights
+          dark: "#EFC471", // Dark color for text highlights
         },
         buttonbgc: {
           light: "#1F242E", // Light color for button background
-          dark: "#DBE2EF", // Dark color for button background
+          dark: "#ffffff", // Dark color for button background
         },
         buttonti: {
           light: "#F6F6F6", // Light color for button text

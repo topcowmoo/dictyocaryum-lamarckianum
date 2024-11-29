@@ -96,7 +96,7 @@ const VaultDisplay = ({
       <div className="w-full max-w-6xl h-[70vh] p-6">
         {isEmpty ? (
           <div className="flex justify-center items-center h-full">
-            <h1 className="text-3xl dark:text-alltext-dark text-alltext-light opacity-60">
+            <h1 className="text-3xl dark:text-alltext-dark text-alltext-light">
               VaultGuard Password Locker
             </h1>
           </div>
@@ -109,22 +109,22 @@ const VaultDisplay = ({
           />
         ) : (
           <>
-            <div className="flex justify-start items-center dark:bg-buttonbgc-dark bg-buttonbgc-light py-6 px-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light">
+            <div className="flex justify-start items-center dark:bg-vault-dark bg-buttonbgc-light py-6 px-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light">
               <div className="flex items-center space-x-4">
                 {Icon && (
                   <Icon
                     size={42}
-                    className="dark:text-buttonti-dark text-buttonti-light"
+                    className="dark:text-highlight-dark text-buttonti-light"
                   />
                 )}
                 <div>
-                  <h2 className="text-[34px] dark:text-buttonti-dark text-buttonti-light">
+                  <h2 className="text-[34px] dark:text-title-dark text-red-100">
                     {displayServiceName}
                   </h2>
                 </div>
               </div>
             </div>
-            <div className="p-4 bg-hefo-light dark:bg-hefo-dark rounded-b-[4px] space-y-4">
+            <div className="p-4 bg-white dark:bg-sidebar-dark rounded-b-[4px] space-y-4">
               <div className="border-b pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Service Name
