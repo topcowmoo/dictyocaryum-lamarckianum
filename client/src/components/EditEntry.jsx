@@ -93,7 +93,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
   return (
     <div className="h-full w-full flex justify-center items-center">
       <div className="w-full max-w-6xl h-[70vh] p-6 bg-hefo-light dark:bg-hefo-dark rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold mb-6 dark:text-alltext-dark text-alltext-light">
+        <h2 className="text-3xl font-bold mb-6 dark:text-title-dark text-alltext-light">
           Edit Entry
         </h2>
         <form onSubmit={handleSubmit}>
@@ -140,7 +140,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute right-8 flex items-center justify-center text-gray-500"
+                className="absolute right-8 flex items-center justify-center dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
                 aria-label="Toggle password visibility"
               >
                 {showPassword ? (
@@ -152,7 +152,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
               <button
                 type="button"
                 onClick={toggleGeneratorModal}
-                className="absolute right-2 flex items-center justify-center text-gray-500"
+                className="absolute right-2 flex items-center justify-center dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
                 aria-label="Open Password Generator"
               >
                 <PiArrowsClockwiseDuotone className="text-[20px]" />
