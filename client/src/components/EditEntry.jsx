@@ -93,7 +93,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
   return (
     <div className="h-full w-full flex justify-center items-center">
       <div className="w-full max-w-6xl h-[70vh] p-6 bg-sidebar-light dark:bg-hefo-dark rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold mb-6 dark:text-title-dark text-title-light">
+        <h2 className="text-3xl mb-6 dark:text-title-dark text-title-light">
           Edit Entry
         </h2>
         <form onSubmit={handleSubmit}>

@@ -84,7 +84,7 @@ function Generator({ onSelectedPassword, onClose }) {
 
   return (
     <div className="password-generator w-[80vw] max-w-[600px] h-auto max-h-[80vh] p-8 rounded-lg bg-hefo-light dark:bg-sidebar-dark">
-      <h1 className="text-2xl font-bold text-center mb-6 dark:text-alltext-dark text-alltext-light">Password Generator</h1>
+      <h1 className="text-2xl text-center mb-6 dark:text-alltext-dark text-alltext-light">Password Generator</h1>
 
       {/* Password Length Slider */}
       <div className="flex justify-between mb-4 items-center dark:text-alltext-dark text-alltext-light">

@@ -52,7 +52,7 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
             <div className="flex-grow">
               <p
                 className={`text-sm font-medium text-alltext-light dark:text-alltext-dark ${
-                  selectedItemId === item.id ? "font-bold" : ""
+                  selectedItemId === item.id ? "font-bold" : "font-normal"
                 }`}
               >
                 {item.title}
@@ -77,7 +77,7 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
   <div>
     <p
       className={`text-sm text-alltext-light dark:text-alltext-dark ${
-        selectedItemId === "new" ? "font-bold" : ""
+        selectedItemId === "new" ? "font-bold" : "font-normal"
       }`}
     >
       Add New Entry
