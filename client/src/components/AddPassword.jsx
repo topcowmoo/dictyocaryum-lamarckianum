@@ -149,22 +149,22 @@ function AddPassword({ onClose, onAddEntry }) {
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute right-8 flex items-center justify-center text-gray-500"
+                className="absolute right-10 flex items-center justify-center dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
                 aria-label="Toggle password visibility"
               >
                 {showPassword ? (
-                  <PiEyeClosedDuotone className="text-[20px]" />
+                  <PiEyeClosedDuotone className="text-[25px]" />
                 ) : (
-                  <PiEyeDuotone className="text-[20px]" />
+                  <PiEyeDuotone className="text-[25px]" />
                 )}
               </button>
               <button
                 type="button"
                 onClick={toggleGeneratorModal}
-                className="absolute right-2 flex items-center justify-center text-gray-500"
+                className="absolute right-2 flex items-center justify-center dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
                 aria-label="Open Password Generator"
               >
-                <PiArrowsClockwiseDuotone className="text-[20px]" />
+                <PiArrowsClockwiseDuotone className="text-[25px]" />
               </button>
             </div>
           </div>

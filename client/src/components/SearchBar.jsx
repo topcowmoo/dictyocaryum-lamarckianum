@@ -25,12 +25,13 @@ function SearchBar({ onSearchChange }) {
         placeholder="Search..."
         value={searchValue}
         onChange={handleSearchChange} // Update search on every keystroke
-        className="block w-full rounded-[4px] border-solid border-2 py-1.5 px-3 pl-10 text-gray-700 placeholder:text-gray-400 focus:bg-white focus:text-gray-900 focus:ring-0 sm:text-sm"
+        className="block w-full rounded-[4px] border-solid border-2 border-highlight-light dark:border-highlight-dark py-1.5 px-3 pl-10 text-alltext-light placeholder:text-gray-400 focus:bg-white focus:text-gray-900 focus:ring-0 focus:outline-none sm:text-sm"
+
       />
       
       {/* Search Icon */}
       <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-        <PiMagnifyingGlassDuotone size={20} className="dark:text-title-light text-title-light" />
+        <PiMagnifyingGlassDuotone size={20} className="dark:text-alltext-light text-alltext-light" />
       </div>
 
       {/* Clear Search Button */}
@@ -40,7 +41,7 @@ function SearchBar({ onSearchChange }) {
           onClick={handleClear}
           className="absolute inset-y-0 right-3 flex items-center"
         >
-          <PiEraserFill size={20} className="dark:text-title-light text-title-light" />
+          <PiEraserFill size={20} className="dark:text-alltext-light text-alltext-light" />
         </button>
       )}
     </div>

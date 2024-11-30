@@ -60,7 +60,7 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
             onClick={() => handleEntryClick(entry)}
             className={`flex flex-col items-start cursor-pointer p-3 transition ${
               isSelected
-                ? "dark:text-title-dark text-highlight-light"
+                ? "dark:text-title-dark text-title-light"
                 : "dark:text-alltext-dark text-alltext-light"
             }`}
           >
@@ -83,7 +83,7 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
                 </span>
                 {/* Display Label */}
                 {entry.label && (
-                    <span className={`text-[15px] dark:text-buttonbgc-dark ${isSelected ? "" : ""}`}>
+                    <span className={`text-[15px] dark:text-buttonbgc-dark text-alltext-light ${isSelected ? "" : ""}`}>
                     {entry.label}
                   </span>
                 )}

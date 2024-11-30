@@ -96,7 +96,7 @@ const VaultDisplay = ({
       <div className="w-full max-w-6xl h-[70vh] p-6">
         {isEmpty ? (
           <div className="flex justify-center items-center h-full">
-            <h1 className="text-3xl dark:text-alltext-dark text-alltext-light">
+            <h1 className="text-3xl dark:text-alltext-dark text-alltext-light opacity-40">
               VaultGuard Password Locker
             </h1>
           </div>
@@ -109,23 +109,23 @@ const VaultDisplay = ({
           />
         ) : (
           <>
-            <div className="flex justify-start items-center dark:bg-vault-dark bg-buttonbgc-light py-6 px-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light">
+            <div className="flex justify-start items-center dark:bg-vault-dark bg-hefo-light py-6 px-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light">
               <div className="flex items-center space-x-4">
                 {Icon && (
                   <Icon
                     size={42}
-                    className="dark:text-highlight-dark text-buttonti-light"
+                    className="dark:text-highlight-dark text-highlight-light"
                   />
                 )}
                 <div>
-                  <h2 className="text-[34px] dark:text-title-dark text-red-100">
+                  <h2 className="text-[34px] dark:text-title-dark text-title-light">
                     {displayServiceName}
                   </h2>
                 </div>
               </div>
             </div>
-            <div className="p-4 bg-white dark:bg-sidebar-dark rounded-b-[4px] space-y-4">
-              <div className="border-b pb-2">
+            <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-b-[4px] space-y-4">
+              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Service Name
                 </h3>
@@ -133,7 +133,7 @@ const VaultDisplay = ({
                   {displayServiceName}
                 </p>
               </div>
-              <div className="border-b pb-2">
+              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Label
                 </h3>
@@ -141,7 +141,7 @@ const VaultDisplay = ({
                   {label}
                 </p>
               </div>
-              <div className="border-b pb-2">
+              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Username
                 </h3>
@@ -152,14 +152,14 @@ const VaultDisplay = ({
                   <button
                     type="button"
                     onClick={() => navigator.clipboard.writeText(username)}
-                    className="text-title-light dark:text-title-dark hover:text-highlight-light dark:hover:text-highlight-dark"
+                    className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
                     aria-label="Copy username"
                   >
                     <PiCopyDuotone className="text-[25px]" />
                   </button>
                 </div>
               </div>
-              <div className="border-b pb-2">
+              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
                   Password
                 </h3>
@@ -171,7 +171,7 @@ const VaultDisplay = ({
                     <button
                       type="button"
                       onClick={togglePasswordVisibility}
-                      className="text-title-light dark:text-title-dark hover:text-highlight-light dark:hover:text-highlight-dark"
+                      className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
                       aria-label="Toggle password visibility"
                     >
                       {showPassword ? (
@@ -183,7 +183,7 @@ const VaultDisplay = ({
                     <button
                       type="button"
                       onClick={copyToClipboard}
-                      className="text-title-light dark:text-title-dark hover:text-highlight-light dark:hover:text-highlight-dark"
+                      className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
                       aria-label="Copy password"
                     >
                       <PiCopyDuotone className="text-[25px]" />
