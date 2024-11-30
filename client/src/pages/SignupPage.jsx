@@ -118,7 +118,7 @@ function SignupPage() {
       </div>
 
       {/* Right Form Section */}
-      <div className="w-full h-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 2xl:min-h-screen justify-start">
+      <div className="w-full h-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-sidebar-light dark:bg-sidebar-dark p-8 md:p-16 2xl:min-h-screen justify-start">
         <div className="w-full max-w-2xl">
           {/* App Logo */}
           <img
@@ -128,7 +128,7 @@ function SignupPage() {
           />
 
           {/* Page Title and Subtitle */}
-          <h1 className="mt-14 mb-10 text-center text-[20px] md:text-3xl xl:text-[27px] 2xl:text-[44px]">VaultGuard Password Locker</h1>
+          <h1 className="dark:text-title-dark text-title-light mt-14 mb-10 text-center text-[20px] md:text-3xl xl:text-[27px] 2xl:text-[44px]">VaultGuard Password Locker</h1>
           <h2 className="mt-2 text-center text-[18px] md:text-xl xl:text-[21px] 2xl:text-[25px]">Create a new account</h2>
         </div>
 
@@ -163,7 +163,7 @@ function SignupPage() {
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-3 flex items-center dark:text-alltext-light text-alltext-light"
+                className="absolute inset-y-0 right-3 flex items-center dark:text-alltext-light text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light"
               >
                 {showPassword ? <PiEyeClosedDuotone className="md:text-[18px] lg:text-[20px] 2xl:text-[24px]" /> : <PiEyeDuotone className="md:text-[18px] lg:text-[20px] 2xl:text-[24px]" />}
               </button>
@@ -173,7 +173,12 @@ function SignupPage() {
             <div className="mt-4 space-y-1">
               {Object.entries(requirements).map(([key, met]) => (
                 <div key={key} className="flex items-center mt-11 lg:gap-2">
-                  {met ? <PiCheckCircleDuotone className="text-highlight-light dark:text-highlight-dark text-[18px]" /> : <PiXCircleDuotone className="text-[18px] text-red-500" />}
+                  {met ? (
+  <PiCheckCircleDuotone className="text-highlight-light dark:text-highlight-dark text-[24px]" />
+) : (
+  <PiXCircleDuotone className="text-[24px] text-alltext-light dark:text-alltext-dark" />
+)}
+
                   <span className="ml-2 text-[13px] md:text-[11px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px]">{getRequirementText(key)}</span>
                 </div>
               ))}

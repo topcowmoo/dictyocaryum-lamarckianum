@@ -44,9 +44,9 @@ function Profile() {
       {/* Dark Mode Toggle Icon in the Top-Left Corner */}
       <div className="absolute top-4 left-4 cursor-pointer">
         {isDarkMode ? (
-          <PiSunDuotone size={30} onClick={toggleDarkMode} className="dark:text-alltext-dark" /> // Sun icon for toggling to light mode
+          <PiSunDuotone size={30} onClick={toggleDarkMode} className="dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" /> // Sun icon for toggling to light mode
         ) : (
-          <PiMoonDuotone size={30} onClick={toggleDarkMode} className="text-alltext-light" /> // Moon icon for toggling to dark mode
+          <PiMoonDuotone size={30} onClick={toggleDarkMode} className="dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" /> // Moon icon for toggling to dark mode
         )}
       </div>
 
@@ -66,9 +66,9 @@ function Profile() {
         {/* Card Container */}
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 w-full max-w-lg">
           {/* Card 1: Change Password */}
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <h2 className="text-lg font-semibold dark:text-alltext-dark text-title-light mb-3">Change Your Password</h2>
-            <p className="text-sm dark:text-alltext-dark text-gray-600 mb-4">
+          <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl">
+            <h2 className="text-lg font-semibold dark:text-title-dark text-title-light mb-3">Change Your Password</h2>
+            <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
               Update your master password to keep your account secure.
             </p>
             <Button
@@ -81,9 +81,9 @@ function Profile() {
           </div>
 
           {/* Card 2: Logout */}
-          <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <h2 className="text-lg font-semibold dark:text-alltext-dark text-title-light mb-3">Logout</h2>
-            <p className="text-sm dark:text-alltext-dark text-gray-600 mb-4">
+          <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl">
+            <h2 className="text-lg font-semibold dark:text-title-dark text-title-light mb-3">Logout</h2>
+            <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
               Log out of your account securely when you are done.
             </p>
             <Button
@@ -96,9 +96,9 @@ function Profile() {
           </div>
 
           {/* Card 3: Go Back */}
-          <div className="p-4 bg-orange-400 rounded-lg shadow-md">
-            <h2 className="text-lg font-semibold dark:text-alltext-dark text-title-light mb-3">Back to Dashboard</h2>
-            <p className="text-sm dark:text-alltext-dark text-gray-600 mb-4">
+          <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl">
+            <h2 className="text-lg font-semibold dark:text-title-dark text-title-light mb-3">Back to Dashboard</h2>
+            <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
               Return to your main dashboard and view your information.
             </p>
             <Button
@@ -106,7 +106,7 @@ function Profile() {
               iconSize={20}
               label="Go Back"
               onClick={() => navigate("/dashboard")}
-              className="dark:text-alltext-dark text-alltext-light bg-blue-700 w-2/5 text-sm"
+              className="dark:text-alltext-dark text-alltext-light w-2/5 text-sm"
             />
           </div>
         </div>

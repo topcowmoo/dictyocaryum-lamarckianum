@@ -68,7 +68,7 @@ function LoginPage() {
       </div>
 
       {/* Left Section with Login Form */}
-      <div className="w-full h-full md:w-1/2 flex flex-col items-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 xl:p-20 2xl:min-h-screen justify-center">
+      <div className="w-full h-full md:w-1/2 flex flex-col items-center bg-sidebar-light dark:bg-sidebar-dark p-8 md:p-16 xl:p-20 2xl:min-h-screen justify-center">
         <div className="w-full max-w-md xl:max-w-lg">
           {/* App Logo */}
           <img
@@ -76,10 +76,10 @@ function LoginPage() {
             alt="App logo"
             className="mx-auto h-16 md:h-24 xl:h-28 2xl:h-32 w-auto"
           />
-          <h1 className="mt-6 text-center text-[21px] md:text-3xl xl:text-[27px] 2xl:text-[31px]">
+          <h1 className="mt-6 text-center text-[21px] md:text-3xl xl:text-[27px] 2xl:text-[31px] dark:text-title-dark text-title-light">
             VaultGuard Password Locker
           </h1>
-          <h2 className="mt-4 text-center text-[18px] md:text-xl xl:text-[21px] 2xl:text-[25px]">
+          <h2 className="mt-4 text-center text-[18px] md:text-xl xl:text-[21px] 2xl:text-[25px] dark:text-alltext-dark text-alltext-light">
             Login to your account
           </h2>
         </div>
@@ -88,7 +88,7 @@ function LoginPage() {
         <form className="space-y-4 mt-6 w-full max-w-md xl:max-w-lg" onSubmit={handleLogin}>
           {/* Email Input */}
           <div>
-            <label htmlFor="email" className="block text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">
+            <label htmlFor="email" className="block text-sm md:text-base xl:text-[18px] 2xl:text-[20px] dark:text-alltext-dark text-alltext-light ">
               Email
             </label>
             <input
@@ -103,7 +103,7 @@ function LoginPage() {
 
           {/* Password Input */}
           <div>
-            <label htmlFor="password" className="block text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">
+            <label htmlFor="password" className="block text-sm md:text-base xl:text-[18px] 2xl:text-[20px] dark:text-alltext-dark text-alltext-light">
               Master Password
             </label>
             <div className="relative">
@@ -119,7 +119,7 @@ function LoginPage() {
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-3 flex items-center dark:text-alltext-light text-alltext-light"
+                className="absolute inset-y-0 right-3 flex items-center dark:text-alltext-light text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
               >
                 {showPassword ? (
                   <PiEyeClosedDuotone className="md:text-[18px] lg:text-[20px] 2xl:text-[24px]" />
@@ -152,7 +152,7 @@ function LoginPage() {
         </form>
 
         {/* Links for Resetting Password and Signing Up */}
-        <p className="mt-6 text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px]">
+        <p className="mt-6 text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px] dark:text-alltext-dark text-alltext-light">
           Forgot master password?{" "}
           <Link
             to="/reset-master-password"
@@ -162,7 +162,7 @@ function LoginPage() {
           </Link>
         </p>
 
-        <p className="mt-6 text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px]">
+        <p className="mt-6 text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px] dark:text-alltext-dark text-alltext-light">
           Don&apos;t have an account?{" "}
           <Link
             to="/signup-page"
