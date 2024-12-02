@@ -101,122 +101,131 @@ function AddPassword({ onClose, onAddEntry }) {
 
   return (
     <div className="h-full w-full flex justify-center items-center">
-      <div className="w-full max-w-6xl h-[70vh] p-6 bg-hefo-light dark:bg-hefo-dark rounded-[4px] shadow-lg">
-        <h2 className="text-3xl mb-6 dark:text-alltext-dark text-alltext-light">
-          Add New Entry
-        </h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block mb-1 dark:text-title-dark text-title-light">
-              Label
-            </label>
-            <input
-              type="text"
-              value={label}
-              onChange={(e) => setLabel(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded-[4px]"
-              placeholder="e.g., Personal, Work, Family Account"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-1 dark:text-title-dark text-title-light">
-              Username
-            </label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded-[4px]"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block mb-1 dark:text-title-dark text-title-light"
-            >
-              Password
-            </label>
-            <div className="relative flex items-center border border-gray-300 rounded-[4px]">
+      <div className="w-full max-w-6xl rounded-[4px] shadow-lg">
+        {/* Header Section */}
+        <div className="dark:bg-sidebar-dark bg-sidebar-light h-[70px] px-6 flex items-center rounded-t-[4px]">
+          <h2 className="text-xl font-semibold dark:text-title-dark text-title-light">
+            Add New Entry
+          </h2>
+        </div>
+  
+        {/* Main Form Section */}
+        <div className="p-6 bg-hefo-light dark:bg-hefo-dark rounded-b-[4px]">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="block mb-1 dark:text-title-dark text-title-light">
+                Label
+              </label>
               <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-2 pr-16 rounded-[4px] focus:outline-none"
+                type="text"
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
+                className="w-full border border-gray-300 p-2 rounded-[4px]"
+                placeholder="e.g., Personal, Work, Family Account"
               />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="absolute right-10 flex items-center justify-center dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
-                aria-label="Toggle password visibility"
-              >
-                {showPassword ? (
-                  <PiEyeClosedDuotone className="text-[25px]" />
-                ) : (
-                  <PiEyeDuotone className="text-[25px]" />
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={toggleGeneratorModal}
-                className="absolute right-2 flex items-center justify-center dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
-                aria-label="Open Password Generator"
-              >
-                <PiArrowsClockwiseDuotone className="text-[25px]" />
-              </button>
             </div>
-          </div>
-
-          {showGenerator && (
-            <Modal onClose={toggleGeneratorModal} showCloseButton={false}>
-              <Generator
-                onSelectedPassword={handleSelectPassword}
-                onClose={closeGeneratorModal}
+  
+            <div className="mb-4">
+              <label className="block mb-1 dark:text-title-dark text-title-light">
+                Username
+              </label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full border border-gray-300 p-2 rounded-[4px]"
               />
-            </Modal>
-          )}
-
-          <div className="mb-4">
-            <label className="block mb-1 dark:text-title-dark text-title-light">
-              Service Name
-            </label>
-            <Dropdown
-              items={serviceItems}
-              onSelect={(item) => setServiceName(item.title)}
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-1 dark:text-title-dark text-title-light">
-              Category
-            </label>
-            <Dropdown
-              items={categoryItems}
-              onSelect={(item) => setCategory(item.title)}
-            />
-          </div>
-
-          <div className="flex justify-start space-x-4 mt-6">
-            <Button
-              icon={PiSealCheckDuotone}
-              type="submit"
-              label="Save"
-              className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
-            />
-
-            <Button
-              icon={PiXCircleDuotone}
-              onClick={onClose}
-              label="Close"
-              className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
-            />
-          </div>
-        </form>
+            </div>
+  
+            <div className="mb-4">
+              <label
+                htmlFor="password"
+                className="block mb-1 dark:text-title-dark text-title-light"
+              >
+                Password
+              </label>
+              <div className="relative flex items-center border border-gray-300 rounded-[4px]">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full p-2 pr-16 rounded-[4px] focus:outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-10 flex items-center justify-center dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
+                  aria-label="Toggle password visibility"
+                >
+                  {showPassword ? (
+                    <PiEyeClosedDuotone className="text-[25px]" />
+                  ) : (
+                    <PiEyeDuotone className="text-[25px]" />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={toggleGeneratorModal}
+                  className="absolute right-2 flex items-center justify-center dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
+                  aria-label="Open Password Generator"
+                >
+                  <PiArrowsClockwiseDuotone className="text-[25px]" />
+                </button>
+              </div>
+            </div>
+  
+            {showGenerator && (
+              <Modal onClose={toggleGeneratorModal} showCloseButton={false}>
+                <Generator
+                  onSelectedPassword={handleSelectPassword}
+                  onClose={closeGeneratorModal}
+                />
+              </Modal>
+            )}
+  
+            <div className="mb-4">
+              <label className="block mb-1 dark:text-title-dark text-title-light">
+                Service Name
+              </label>
+              <Dropdown
+                items={serviceItems}
+                onSelect={(item) => setServiceName(item.title)}
+              />
+            </div>
+  
+            <div className="mb-4">
+              <label className="block mb-1 dark:text-title-dark text-title-light">
+                Category
+              </label>
+              <Dropdown
+                items={categoryItems}
+                onSelect={(item) => setCategory(item.title)}
+              />
+            </div>
+  
+            <div className="flex justify-start space-x-4 mt-6">
+              <Button
+                icon={PiSealCheckDuotone}
+                type="submit"
+                label="Save"
+                className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+              />
+  
+              <Button
+                icon={PiXCircleDuotone}
+                onClick={onClose}
+                label="Close"
+                className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+              />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
+  
+  
 }
 
 AddPassword.propTypes = {

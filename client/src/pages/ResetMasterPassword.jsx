@@ -83,7 +83,7 @@ function ResetMasterPassword() {
       </div>
 
       {/* Left Section: Reset Password Form */}
-      <div className="w-full md:w-1/2 flex flex-col items-center justify-center dark:text-alltext-dark text-alltext-light bg-hefo-light dark:bg-hefo-dark p-8 md:p-16 xl:p-20">
+      <div className="w-full md:w-1/2 flex flex-col items-center justify-center dark:text-title-dark text-title-light bg-sidebar-light dark:bg-sidebar-dark p-8 md:p-16 xl:p-20">
         <div className="w-full max-w-md xl:max-w-lg">
           <img
             src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
@@ -99,7 +99,7 @@ function ResetMasterPassword() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium dark:text-title-dark text-title-light"
+                className="block text-sm font-medium dark:text-alltext-dark text-alltext-light"
               >
                 Email
               </label>
@@ -115,7 +115,7 @@ function ResetMasterPassword() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium dark:text-title-dark text-title-light"
+                className="block text-sm font-medium dark:text-alltext-dark text-alltext-light"
               >
                 New Master Password
               </label>
@@ -142,11 +142,11 @@ function ResetMasterPassword() {
                   <div key={key} className="flex items-center">
                     {met ? (
                       <PiCheckCircleDuotone
-                        size={20}
+                        size={24}
                         className="text-highlight-light dark:text-highlight-dark"
                       />
                     ) : (
-                      <PiXCircleDuotone size={20} className="text-red-500" />
+                      <PiXCircleDuotone size={24} className=" text-alltext-light dark:text-alltext-dark" />
                     )}
                     <span className="ml-2 text-sm dark:text-alltext-dark text-alltext-light">
                       {getRequirementText(key)}
