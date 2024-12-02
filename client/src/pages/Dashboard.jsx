@@ -3,7 +3,7 @@ import { useOutletContext } from "react-router-dom"; // For accessing context fr
 import Sidebar from "../components/Sidebar"; // Sidebar component for category selection
 import VaultEntries from "../components/VaultEntries"; // Component to display entries
 import VaultDisplay from "../components/VaultDisplay"; // Component to display selected entry details
-import AddPassword from "../components/AddPassword"; // Form component to add a new password entry
+import AddEntry from "../components/AddEntry"; // Form component to add a new password entry
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -11,7 +11,7 @@ function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState("All"); // Default to "All" entries
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [entries, setEntries] = useState([]);
-  const [showAddPassword, setShowAddPassword] = useState(false);
+  const [showAddEntry, setShowAddEntry] = useState(false);
   const { searchQuery } = useOutletContext() || {}; // Ensure searchQuery is safely destructured
   const addEntryButtonRef = useRef(null);
 
@@ -64,12 +64,12 @@ function Dashboard() {
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setSelectedEntry(null);
-    setShowAddPassword(false);
+    setShowAddEntry(false);
   };
 
   const handleEntrySelect = (entry) => {
     setSelectedEntry(entry);
-    setShowAddPassword(false);
+    setShowAddEntry(false);
   };
 
   const handleAddNewEntry = async (newEntry) => {
@@ -88,11 +88,11 @@ function Dashboard() {
     } catch (error) {
       console.error("Error fetching updated entries:", error);
     }
-    setShowAddPassword(false);
+    setShowAddEntry(false);
   };
 
-  const handleCloseAddPassword = () => {
-    setShowAddPassword(false);
+  const handleCloseAddEntry = () => {
+    setShowAddEntry(false);
     if (addEntryButtonRef.current) {
       addEntryButtonRef.current.blur();
     }
@@ -137,12 +137,12 @@ function Dashboard() {
         {/* Sidebar */}
         <Sidebar
           onSelectCategory={handleCategorySelect}
-          onAddNewEntry={() => setShowAddPassword(true)}
+          onAddNewEntry={() => setShowAddEntry(true)}
         />
 
         {/* Vault Entries Section */}
         <div className="dark:bg-vault-dark bg-vault-light p-4 h-full overflow-y-auto">
-          {filteredEntries.length > 0 && !showAddPassword && (
+          {filteredEntries.length > 0 && !showAddEntry && (
             <VaultEntries
               entries={filteredEntries}
               selectedCategory={selectedCategory}
@@ -153,10 +153,10 @@ function Dashboard() {
         </div>
 
         {/* Vault Display or Add Password Section */}
-        <div className="dark:bg-display-dark bg-display-light p-4 h-full overflow-y-auto">
-          {showAddPassword ? (
-            <AddPassword
-              onClose={handleCloseAddPassword}
+        <div className="dark:bg-display-dark bg-display-light p-5 h-full overflow-y-auto">
+          {showAddEntry ? (
+            <AddEntry
+              onClose={handleCloseAddEntry}
               onAddEntry={handleAddNewEntry}
             />
           ) : (

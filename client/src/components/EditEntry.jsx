@@ -91,12 +91,17 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
   });
 
   return (
-    <div className="h-full w-full flex justify-center items-center">
-      <div className="w-full max-w-6xl h-[70vh] p-6 bg-sidebar-light dark:bg-hefo-dark rounded-lg shadow-lg">
-        <h2 className="text-3xl mb-6 dark:text-title-dark text-title-light">
+    <div className="h-full w-full flex flex-col">
+      {/* Header Section */}
+      <div className="dark:bg-vault-dark bg-vault-light py-6 px-4 flex items-center rounded-t-[4px]">
+        <h2 className="text-[34px] dark:text-title-dark text-title-light">
           Edit Entry
         </h2>
-        <form onSubmit={handleSubmit}>
+      </div>
+
+      {/* Main Form Section */}
+      <div className="flex-1 p-6 bg-sidebar-light dark:bg-sidebar-dark rounded-b-[4px] overflow-y-auto">
+        <form onSubmit={handleSubmit} className="h-full flex flex-col">
           <div className="mb-4">
             <label className="block mb-1 dark:text-title-dark text-title-light">
               Label
@@ -105,7 +110,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
               type="text"
               value={label}
               onChange={(e) => setLabel(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded-[4px]"
+              className="w-full border border-gray-300 p-2 rounded-md"
               placeholder="e.g., Personal, Work, Family Account"
             />
           </div>
@@ -118,7 +123,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded-[4px]"
+              className="w-full border border-gray-300 p-2 rounded-md"
             />
           </div>
 
@@ -129,18 +134,18 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
             >
               Password
             </label>
-            <div className="relative flex items-center border border-gray-300 rounded-[4px]">
+            <div className="relative flex items-center border border-gray-300 rounded-md">
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-2 pr-16 rounded-[4px] focus:outline-none"
+                className="w-full p-2 pr-16 rounded-md focus:outline-none"
               />
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute right-10  flex items-center justify-center dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
+                className="absolute right-10 flex items-center justify-center dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
                 aria-label="Toggle password visibility"
               >
                 {showPassword ? (
@@ -189,18 +194,19 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
             />
           </div>
 
-          <div className="flex justify-around space-x-4 mt-6">
+          <div className="flex justify-around space-x-4 py-4">
             <Button
               icon={PiSealCheckDuotone}
               type="submit"
               label="Save"
-              className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+              className="px-4 py-2 rounded-md dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
             />
+
             <Button
               icon={PiXCircleDuotone}
               onClick={onClose}
               label="Close"
-              className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+              className="px-4 py-2 rounded-md dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
             />
           </div>
         </form>
@@ -208,6 +214,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
     </div>
   );
 }
+
 
 EditEntry.propTypes = {
   entryId: PropTypes.string.isRequired,

@@ -92,8 +92,8 @@ const VaultDisplay = ({
   const isEmpty = !service && !username && !password;
 
   return (
-    <div className="h-full w-full flex justify-center items-center">
-      <div className="w-full max-w-6xl h-[70vh] p-6">
+    <div className="h-full w-full flex">
+      <div className="w-full h-full flex flex-col">
         {isEmpty ? (
           <div className="flex justify-center items-center h-full">
             <h1 className="text-3xl dark:text-alltext-dark text-alltext-light opacity-40">
@@ -109,146 +109,149 @@ const VaultDisplay = ({
           />
         ) : (
           <>
-            <div className="flex justify-start items-center dark:bg-vault-dark bg-hefo-light py-6 px-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light">
+            <div className="flex items-center dark:bg-vault-dark bg-vault-light py-6 px-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light shadow-lg">
               <div className="flex items-center space-x-4">
                 {Icon && (
-                  <Icon
-                    size={42}
-                    className="dark:text-highlight-dark text-highlight-light"
-                  />
-                )}
-                <div>
-                  <h2 className="text-[34px] dark:text-title-dark text-title-light">
-                    {displayServiceName}
-                  </h2>
-                </div>
-              </div>
-            </div>
-            <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-b-[4px] space-y-4">
-              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
-                <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
-                  Service Name
-                </h3>
-                <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
-                  {displayServiceName}
-                </p>
-              </div>
-              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
-                <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
-                  Label
-                </h3>
-                <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
-                  {label}
-                </p>
-              </div>
-              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
-                <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
-                  Username
-                </h3>
-                <div className="flex justify-between items-center">
-                  <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
-                    {username}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => navigator.clipboard.writeText(username)}
-                    className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
-                    aria-label="Copy username"
-                  >
-                    <PiCopyDuotone className="text-[25px]" />
-                  </button>
-                </div>
-              </div>
-              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
-                <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
-                  Password
-                </h3>
-                <div className="flex justify-between items-center">
-                  <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
-                    {showPassword ? password : "••••••••••"}
-                  </p>
-                  <div className="flex space-x-2">
-                    <button
-                      type="button"
-                      onClick={togglePasswordVisibility}
-                      className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
-                      aria-label="Toggle password visibility"
-                    >
-                      {showPassword ? (
-                        <PiEyeClosedDuotone className="text-[25px]" />
-                      ) : (
-                        <PiEyeDuotone className="text-[25px]" />
-                      )}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={copyToClipboard}
-                      className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
-                      aria-label="Copy password"
-                    >
-                      <PiCopyDuotone className="text-[25px]" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-around space-x-4 mt-4 py-4">
-                <Button
-                  icon={PiPencilDuotone}
-                  label="Edit"
-                  type="button"
-                  onClick={handleEditClick}
-                  size="md"
-                  className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
-                />
-                <Button
-                  icon={PiTrashDuotone}
-                  type="button"
-                  label="Delete"
-                  onClick={() => setShowDeleteModal(true)}
-                  size="md"
-                  className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
-                />
-              </div>
-            </div>
-          </>
-        )}
-        {showDeleteModal && (
-          <Modal onClose={() => setShowDeleteModal(false)} showCloseButton={false}>
-            <div className="p-9 text-center bg-hefo-light dark:bg-hefo-dark rounded-[4px]">
-              <h2 className="text-lg mb-9 dark:text-alltext-dark text-alltext-light">
-                Are you sure you want to delete this entry?
-              </h2>
-              <div className="flex justify-center space-x-5">
-                <Button
-                  icon={PiTrashDuotone}
-                  label="Confirm"
-                  onClick={handleDelete}
-                  className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
-                />
-                <Button
-                  icon={PiXCircleDuotone}
-                  label="Cancel"
-                  onClick={() => setShowDeleteModal(false)}
-                  className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
-                />
-              </div>
-            </div>
-          </Modal>
-        )}
-      </div>
-    </div>
-  );
-};
-
-VaultDisplay.propTypes = {
-  service: PropTypes.string,
-  label: PropTypes.string,
-  username: PropTypes.string,
-  password: PropTypes.string,
-  Icon: PropTypes.elementType,
-  entryId: PropTypes.string,
-  setEntries: PropTypes.func.isRequired,
-  setSelectedEntry: PropTypes.func.isRequired,
-};
-
-export default VaultDisplay;
+                                    <Icon
+                                    size={42}
+                                    className="dark:text-highlight-dark text-highlight-light"
+                                  />
+                                )}
+                                <div>
+                                  <h2 className="text-[34px] dark:text-title-dark text-title-light">
+                                    {displayServiceName}
+                                  </h2>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex-1 p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-b-[4px] space-y-4 overflow-y-auto">
+                              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
+                                <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
+                                  Service Name
+                                </h3>
+                                <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
+                                  {displayServiceName}
+                                </p>
+                              </div>
+                              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
+                                <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
+                                  Label
+                                </h3>
+                                <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
+                                  {label}
+                                </p>
+                              </div>
+                              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
+                                <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
+                                  Username
+                                </h3>
+                                <div className="flex justify-between items-center">
+                                  <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
+                                    {username}
+                                  </p>
+                                  <button
+                                    type="button"
+                                    onClick={() => navigator.clipboard.writeText(username)}
+                                    className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
+                                    aria-label="Copy username"
+                                  >
+                                    <PiCopyDuotone className="text-[25px]" />
+                                  </button>
+                                </div>
+                              </div>
+                              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
+                                <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
+                                  Password
+                                </h3>
+                                <div className="flex justify-between items-center">
+                                  <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
+                                    {showPassword ? password : "••••••••••"}
+                                  </p>
+                                  <div className="flex space-x-2">
+                                    <button
+                                      type="button"
+                                      onClick={togglePasswordVisibility}
+                                      className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
+                                      aria-label="Toggle password visibility"
+                                    >
+                                      {showPassword ? (
+                                        <PiEyeClosedDuotone className="text-[25px]" />
+                                      ) : (
+                                        <PiEyeDuotone className="text-[25px]" />
+                                      )}
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={copyToClipboard}
+                                      className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
+                                      aria-label="Copy password"
+                                    >
+                                      <PiCopyDuotone className="text-[25px]" />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex justify-around space-x-4 mt-4 py-4">
+                                <Button
+                                  icon={PiPencilDuotone}
+                                  label="Edit"
+                                  type="button"
+                                  onClick={handleEditClick}
+                                  size="md"
+                                  className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-md"
+                                />
+                                <Button
+                                  icon={PiTrashDuotone}
+                                  type="button"
+                                  label="Delete"
+                                  onClick={() => setShowDeleteModal(true)}
+                                  size="md"
+                                  className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-md"
+                                />
+                              </div>
+                            </div>
+                          </>
+                        )}
+                        {showDeleteModal && (
+                          <Modal onClose={() => setShowDeleteModal(false)} showCloseButton={false}>
+                            <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50">
+                              <div className="p-9 text-center bg-hefo-light dark:bg-hefo-dark rounded-md">
+                                <h2 className="text-lg mb-9 dark:text-alltext-dark text-alltext-light">
+                                  Are you sure you want to delete this entry?
+                                </h2>
+                                <div className="flex justify-center space-x-5">
+                                  <Button
+                                    icon={PiTrashDuotone}
+                                    label="Confirm"
+                                    onClick={handleDelete}
+                                    className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-md"
+                                  />
+                                  <Button
+                                    icon={PiXCircleDuotone}
+                                    label="Cancel"
+                                    onClick={() => setShowDeleteModal(false)}
+                                    className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-md"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </Modal>
+                        )}
+                      </div>
+                    </div>
+                  );
+                };
+                
+                VaultDisplay.propTypes = {
+                  service: PropTypes.string,
+                  label: PropTypes.string,
+                  username: PropTypes.string,
+                  password: PropTypes.string,
+                  Icon: PropTypes.elementType,
+                  entryId: PropTypes.string,
+                  setEntries: PropTypes.func.isRequired,
+                  setSelectedEntry: PropTypes.func.isRequired,
+                };
+                
+                export default VaultDisplay;
+                

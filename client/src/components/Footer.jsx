@@ -21,7 +21,7 @@ function Footer() {
       >
         <PiUserCircleDuotone className="text-[40px] dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light" />
         {user && (
-          <span className="ml-2 dark:text-alltext-dark text-alltext-light text-[12px] md:text-[14px]">
+          <span className="ml-2 dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light hover:underline text-[12px] md:text-[14px]">
             {user.email || "Anonymous"}
           </span>
         )}
