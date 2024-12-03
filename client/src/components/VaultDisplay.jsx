@@ -96,7 +96,7 @@ const VaultDisplay = ({
       <div className="w-full h-full flex flex-col">
         {isEmpty ? (
           <div className="flex justify-center items-center h-full">
-            <h1 className="text-3xl dark:text-alltext-dark text-alltext-light opacity-40">
+            <h1 className="text-3xl dark:text-alltext-dark text-alltext-light">
               VaultGuard Password Locker
             </h1>
           </div>
