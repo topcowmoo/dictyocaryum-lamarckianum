@@ -25,7 +25,6 @@ import {
   SiParamountplus,
   SiWhatsapp,
   SiX,
-  SiMicrosoft,
 } from "react-icons/si";
 
 // Service Icons Mapping
@@ -55,7 +54,6 @@ export const serviceIcons = {
   paramountplus: SiParamountplus,
   whatsapp: SiWhatsapp,
   x: SiX,
-  microsoft: SiMicrosoft,
   default: PiGlobeHemisphereWestDuotone,
 };
 
@@ -86,6 +84,5 @@ export const serviceNames = {
   paramountplus: "Paramount+",
   whatsapp: "WhatsApp",
   x: "Twitter",
-  microsoft: "Microsoft",
   default: "Other",
 };
