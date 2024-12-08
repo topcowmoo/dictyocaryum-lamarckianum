@@ -67,7 +67,7 @@ function Profile() {
   {/* Card Container */}
   <div className="flex flex-col items-center justify-center min-h-[50%] w-full max-w-lg">
     {/* Card 1: Change Password */}
-    <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl w-full max-w-sm mb-5">
+    <div className="p-4 dark:bg-display-dark bg-sidebar-light rounded-[4px] shadow-xl w-full max-w-sm mb-5">
       <h2 className="text-lg dark:text-title-dark text-title-light mb-3">Change Your Password</h2>
       <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
         Update your master password to keep your account secure.
@@ -78,12 +78,12 @@ function Profile() {
         label="Change Password"
         onClick={handleChangePassword}
         className="dark:text-alltext-dark text-alltext-light w-full text-sm"
-        size="lg"
+        size="md"
       />
     </div>
 
     {/* Card 2: Logout */}
-    <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl w-full max-w-sm mb-5">
+    <div className="p-4 dark:bg-display-dark bg-sidebar-light rounded-[4px] shadow-xl w-full max-w-sm mb-5">
       <h2 className="text-lg dark:text-title-dark text-title-light mb-3">Logout</h2>
       <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
         Log out of your account securely when you are done.
@@ -94,12 +94,12 @@ function Profile() {
         label="Logout"
         onClick={handleLogout}
         className="dark:text-alltext-dark text-alltext-light w-full text-sm"
-        size="lg"
+        size="md"
       />
     </div>
 
     {/* Card 3: Go Back */}
-    <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl w-full max-w-sm">
+    <div className="p-4 dark:bg-display-dark bg-sidebar-light rounded-[4px] shadow-xl w-full max-w-sm">
       <h2 className="text-lg dark:text-title-dark text-title-light mb-3">Back to Dashboard</h2>
       <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
         Return to your main dashboard and view your information.
@@ -110,7 +110,7 @@ function Profile() {
         label="Go Back"
         onClick={() => navigate("/dashboard")}
         className="dark:text-alltext-dark text-alltext-light w-full text-sm"
-        size="lg"
+        size="md"
       />
     </div>
   </div>

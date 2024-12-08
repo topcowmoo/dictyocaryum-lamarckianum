@@ -211,7 +211,7 @@ const getRequirementText = (key) => {
 };
 
 ChangePassword.propTypes = {
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.string,
 };
 
 export default ChangePassword;
