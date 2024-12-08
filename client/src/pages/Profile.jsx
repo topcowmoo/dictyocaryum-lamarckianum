@@ -50,71 +50,72 @@ function Profile() {
         )}
       </div>
 
-      {/* Left Pane for Account Management */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center min-h-screen lg:min-h-0 bg-hefo-light dark:bg-hefo-dark p-8 md:p-16">
+{/* Left Pane for Account Management */}
+<div className="w-full lg:w-1/2 flex flex-col items-center justify-center min-h-screen lg:min-h-0 bg-hefo-light dark:bg-hefo-dark">
+  {/* App Logo */}
+  <img
+    src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
+    alt="App logo"
+    className="h-20 w-auto mb-3 md:h-21"
+  />
 
-        {/* App Logo */}
-        <img
-          src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
-          alt="App logo"
-          className="h-20 w-auto mb-4 md:h-24"
-        />
-        {/* Account Management Title */}
-        <h1 className="text-center text-xl md:text-2xl dark:text-title-dark text-title-light mb-8">
-          Account Management
-        </h1>
+  {/* Account Management Title */}
+  <h1 className="text-center text-xl md:text-2xl dark:text-title-dark text-title-light mb-4">
+    Account Management
+  </h1>
 
-        {/* Card Container */}
-        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 w-full max-w-lg">
-          {/* Card 1: Change Password */}
-          <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl ">
-            <h2 className="text-lg dark:text-title-dark text-title-light mb-3">Change Your Password</h2>
-            <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
-              Update your master password to keep your account secure.
-            </p>
-            <Button
-              icon={PiSealCheckDuotone}
-              iconSize={20}
-              label="Change Password"
-              onClick={handleChangePassword}
-              className="dark:text-alltext-dark text-alltext-light w-2/5 text-sm"
-              size="lg"
-            />
-          </div>
+  {/* Card Container */}
+  <div className="flex flex-col items-center justify-center min-h-[50%] w-full max-w-lg">
+    {/* Card 1: Change Password */}
+    <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl w-full max-w-sm mb-5">
+      <h2 className="text-lg dark:text-title-dark text-title-light mb-3">Change Your Password</h2>
+      <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
+        Update your master password to keep your account secure.
+      </p>
+      <Button
+        icon={PiSealCheckDuotone}
+        iconSize={20}
+        label="Change Password"
+        onClick={handleChangePassword}
+        className="dark:text-alltext-dark text-alltext-light w-full text-sm"
+        size="lg"
+      />
+    </div>
 
-          {/* Card 2: Logout */}
-          <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl">
-            <h2 className="text-lg dark:text-title-dark text-title-light mb-3">Logout</h2>
-            <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
-              Log out of your account securely when you are done.
-            </p>
-            <Button
-              icon={PiSignOutDuotone}
-              iconSize={20}
-              label="Logout"
-              onClick={handleLogout}
-              className="dark:text-alltext-dark text-alltext-light w-2/5 text-sm"
-              size="lg"
-            />
-          </div>
+    {/* Card 2: Logout */}
+    <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl w-full max-w-sm mb-5">
+      <h2 className="text-lg dark:text-title-dark text-title-light mb-3">Logout</h2>
+      <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
+        Log out of your account securely when you are done.
+      </p>
+      <Button
+        icon={PiSignOutDuotone}
+        iconSize={20}
+        label="Logout"
+        onClick={handleLogout}
+        className="dark:text-alltext-dark text-alltext-light w-full text-sm"
+        size="lg"
+      />
+    </div>
 
-          {/* Card 3: Go Back */}
-          <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl">
-            <h2 className="text-lg dark:text-title-dark text-title-light mb-3">Back to Dashboard</h2>
-            <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
-              Return to your main dashboard and view your information.
-            </p>
-            <Button
-              icon={PiArrowCircleLeftDuotone}
-              iconSize={20}
-              label="Go Back"
-              onClick={() => navigate("/dashboard")}
-              className="dark:text-alltext-dark text-alltext-light w-2/5 text-sm"
-              size="lg"
-            />
-          </div>
-        </div>
-      </div>
+    {/* Card 3: Go Back */}
+    <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl w-full max-w-sm">
+      <h2 className="text-lg dark:text-title-dark text-title-light mb-3">Back to Dashboard</h2>
+      <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
+        Return to your main dashboard and view your information.
+      </p>
+      <Button
+        icon={PiArrowCircleLeftDuotone}
+        iconSize={20}
+        label="Go Back"
+        onClick={() => navigate("/dashboard")}
+        className="dark:text-alltext-dark text-alltext-light w-full text-sm"
+        size="lg"
+      />
+    </div>
+  </div>
+</div>
+
 
       {/* Right Section with Background Image (visible only on large screens) */}
       <div className="hidden lg:block w-1/2 min-h-screen overflow-hidden">
