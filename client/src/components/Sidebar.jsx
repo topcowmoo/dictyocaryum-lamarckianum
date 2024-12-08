@@ -34,8 +34,8 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
 
   return (
     <div className="flex flex-col dark:bg-sidebar-dark bg-sidebar-light p-4">
-      {/* Sidebar Items in Two Columns */}
-      <div className="grid grid-cols-2 gap-4 mt-3">
+      {/* Sidebar Items with Responsive Grid */}
+      <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-3">
         {items.map((item) => (
           <div
             key={item.id}
@@ -46,14 +46,15 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
             }`}
             onClick={() => handleItemClick(item)}
           >
-            <div className="shrink-0 text-highlight-light dark:text-highlight-dark">{item.icon}</div>
+            <div className="shrink-0 text-highlight-light dark:text-highlight-dark">
+              {item.icon}
+            </div>
             <div className="flex-grow">
               <p
                 className={`text-sm font-medium ${
                   selectedItemId === item.id
-                ? "text-alltext-light dark:text-alltext-light"
-          : "text-alltext-light dark:text-alltext-dark"
-                }
+                    ? "text-alltext-light dark:text-alltext-light"
+                    : "text-alltext-light dark:text-alltext-dark"
                 }`}
               >
                 {item.title}
@@ -65,30 +66,29 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
 
       {/* Add New Entry */}
       <div
-  className={`relative flex items-center space-x-2 p-4 mt-6 rounded-[4px] transition cursor-pointer ${
-    selectedItemId === "new"
-      ? "bg-hefo-light dark:bg-hefo-light border-2 border-highlight-light dark:border-highlight-dark transform translate-y-[-2px]"
-      : "bg-vault-light dark:bg-vault-dark hover:bg-hefo-light dark:hover:bg-display-dark"
-  }`}
-  onClick={handleAddNewEntry}
->
-  <div className="shrink-0 text-highlight-light dark:text-highlight-dark">
-    <PiPlusCircleDuotone size={28} />
-  </div>
-  <div className="flex-grow">
-    <p
-      className={`text-sm font-medium ${
-        selectedItemId === "new"
-          ? "text-alltext-light dark:text-alltext-light"
-          : "text-alltext-light dark:text-alltext-dark"
-      }`}
-    >
-      Add New Entry
-    </p>
-  </div>
-</div>
-
-</div>
+        className={`relative flex items-center space-x-2 p-4 mt-6 rounded-[4px] transition cursor-pointer ${
+          selectedItemId === "new"
+            ? "bg-hefo-light dark:bg-hefo-light border-2 border-highlight-light dark:border-highlight-dark transform translate-y-[-2px]"
+            : "bg-vault-light dark:bg-vault-dark hover:bg-hefo-light dark:hover:bg-display-dark"
+        }`}
+        onClick={handleAddNewEntry}
+      >
+        <div className="shrink-0 text-highlight-light dark:text-highlight-dark">
+          <PiPlusCircleDuotone size={28} />
+        </div>
+        <div className="flex-grow">
+          <p
+            className={`text-sm font-medium ${
+              selectedItemId === "new"
+                ? "text-alltext-light dark:text-alltext-light"
+                : "text-alltext-light dark:text-alltext-dark"
+            }`}
+          >
+            Add New Entry
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
 
