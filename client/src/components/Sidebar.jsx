@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {
   PiFilmSlateDuotone,
   PiTrashDuotone,
-  PiWifiHighDuotone,
   PiCardholderDuotone,
   PiFolderOpenDuotone,
   PiIdentificationBadgeDuotone,
@@ -19,9 +18,8 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
     { id: 2, title: "Cards", icon: <PiCardholderDuotone size={28} /> },
     { id: 3, title: "Entertainment", icon: <PiFilmSlateDuotone size={28} /> },
     { id: 4, title: "Login", icon: <PiKeyDuotone size={28} /> },
-    { id: 5, title: "Wi-Fi", icon: <PiWifiHighDuotone size={28} /> },
-    { id: 6, title: "Identification", icon: <PiIdentificationBadgeDuotone size={28} /> },
-    { id: 7, title: "Deleted", icon: <PiTrashDuotone size={28} /> },
+    { id: 5, title: "Identification", icon: <PiIdentificationBadgeDuotone size={28} /> },
+    { id: 6, title: "Deleted", icon: <PiTrashDuotone size={28} /> },
   ];
 
   const handleItemClick = (item) => {

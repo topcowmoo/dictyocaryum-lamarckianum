@@ -85,8 +85,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
     { id: 1, title: "Cards" },
     { id: 2, title: "Entertainment" },
     { id: 3, title: "Login" },
-    { id: 4, title: "Wi-Fi" },
-    { id: 5, title: "Identification" },
+    { id: 4, title: "Identification" },
   ];
 
   const serviceItems = Object.entries(serviceNames).map(

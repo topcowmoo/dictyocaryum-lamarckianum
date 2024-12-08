@@ -33,7 +33,7 @@ const lockerSchema = new Schema({
     // category: Specifies the category of the entry for organizational purposes
     category: {
         type: String,  // String data type for the category
-        enum: ["All", "Identification", "Cards", "Login", "Wi-Fi", "Entertainment", "Deleted"],  // Allowed values for the category
+        enum: ["All", "Identification", "Cards", "Login", "Entertainment", "Deleted"],  // Allowed values for the category
         default: "All",  // Default category if none is provided
     },
     // label: Specifies a custom label for the locker entry
