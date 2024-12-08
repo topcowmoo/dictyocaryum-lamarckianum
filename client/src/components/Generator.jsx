@@ -1,7 +1,12 @@
 import { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import Button from "./Button";
-import { PiCopyDuotone, PiArrowsClockwiseDuotone, PiSealCheckDuotone, PiXCircleDuotone } from "react-icons/pi";
+import {
+  PiCopyDuotone,
+  PiArrowsClockwiseDuotone,
+  PiSealCheckDuotone,
+  PiXCircleDuotone,
+} from "react-icons/pi";
 
 // Helper function to generate a secure password
 function generatePassword(
@@ -77,108 +82,103 @@ function Generator({ onSelectedPassword, onClose }) {
     onClose();
   };
 
-  // Generate password when the component is mounted
   useEffect(() => {
     handleGenerate();
   }, [handleGenerate]);
 
   return (
-    <div className="password-generator w-[80vw] max-w-[600px] h-auto max-h-[80vh] p-8 rounded-lg bg-hefo-light dark:bg-sidebar-dark">
-      <h1 className="text-2xl text-center mb-6 dark:text-alltext-dark text-alltext-light">Password Generator</h1>
-
-      {/* Password Length Slider */}
-      <div className="flex justify-between mb-4 items-center dark:text-alltext-dark text-alltext-light">
-        <span>Length:</span>
-        <input
-          type="range"
-          min="14"
-          max="35"
-          value={length}
-          onChange={(e) => setLength(Number(e.target.value))}
-          className="w-3/4"
-        />
-        <span>{length}</span>
+    <div className="w-[600px] h-[500px] bg-sidebar-light dark:bg-sidebar-dark rounded-[8px] shadow-lg">
+      {/* Header Section */}
+      <div className="dark:bg-vault-dark bg-vault-light py-6 px-4 flex items-center justify-center rounded-t-[4px]">
+        <h2 className="text-[34px] dark:text-title-dark text-title-light">
+          Password Generator
+        </h2>
       </div>
 
-      {/* Character Set Checkboxes */}
-      <div className="mb-4">
-        <label className="flex items-center mb-2 dark:text-alltext-dark text-alltext-light">
+      {/* Main Content Section */}
+      <div className="flex-1 p-6">
+        <div className="flex justify-between items-center mb-6">
+          <span className="dark:text-title-dark text-title-light">Length:</span>
           <input
-            type="checkbox"
-            checked={includeUppercase}
-            onChange={() => setIncludeUppercase(!includeUppercase)}
-            className="mr-2 "
+            type="range"
+            min="14"
+            max="35"
+            value={length}
+            onChange={(e) => setLength(Number(e.target.value))}
+            className="w-2/3"
           />
-          A-Z (Uppercase)
-        </label>
+          <span className="dark:text-title-dark text-title-light">{length}</span>
+        </div>
 
-        <label className="flex items-center mb-2 dark:text-alltext-dark text-alltext-light">
-          <input
-            type="checkbox"
-            checked={includeLowercase}
-            onChange={() => setIncludeLowercase(!includeLowercase)}
-            className="mr-2"
-          />
-          a-z (Lowercase)
-        </label>
-
-        <label className="flex items-center mb-2 dark:text-alltext-dark text-alltext-light">
-          <input
-            type="checkbox"
-            checked={includeNumbers}
-            onChange={() => setIncludeNumbers(!includeNumbers)}
-            className="mr-2"
-          />
-          0-9 (Numbers)
-        </label>
-
-        <label className="flex items-center mb-2 dark:text-alltext-dark text-alltext-light">
-          <input
-            type="checkbox"
-            checked={includeSymbols}
-            onChange={() => setIncludeSymbols(!includeSymbols)}
-            className="mr-2"
-          />
-          !@#$%^&* (Symbols)
-        </label>
-      </div>
-
-      {/* Generated Password */}
-      <div className="mb-4 p-6 bg-title-dark rounded-[4px] shadow-xl flex items-center justify-between w-full max-w-[600px]">
-  {/* Generated Password */}
-  <h3 className="text-xl text-center truncate w-[80%]">{password}</h3>
-
-  {/* Icons */}
-  <div className="flex items-center gap-1">
-    <PiArrowsClockwiseDuotone
-      onClick={handleGenerate}
-      className="cursor-pointer text-red-400 hover:text-highlight-light"
-      size={20}
-    />
-    <PiCopyDuotone
-      onClick={() => navigator.clipboard.writeText(password)}
-      className="cursor-pointer text-yellow-700 hover:text-highlight-light"
-      size={20}
-    />
-  </div>
-</div>
-
-
-      {/* Use Password Button */}
-      <div className="flex justify-around mt-4">
-        <Button
-          onClick={handleUsePassword}
-          label="Use Password"
-          icon={PiSealCheckDuotone}
-          size="lg"
-        />
-
-<Button
-              icon={PiXCircleDuotone}
-              onClick={onClose}
-              label="Close"
-              size="lg"
+        <div className="mb-6 grid grid-cols-2 gap-4">
+          <label className="flex items-center dark:text-alltext-dark text-alltext-light">
+            <input
+              type="checkbox"
+              checked={includeUppercase}
+              onChange={() => setIncludeUppercase(!includeUppercase)}
+              className="mr-2"
             />
+            A-Z (Uppercase)
+          </label>
+          <label className="flex items-center dark:text-alltext-dark text-alltext-light">
+            <input
+              type="checkbox"
+              checked={includeLowercase}
+              onChange={() => setIncludeLowercase(!includeLowercase)}
+              className="mr-2"
+            />
+            a-z (Lowercase)
+          </label>
+          <label className="flex items-center dark:text-alltext-dark text-alltext-light">
+            <input
+              type="checkbox"
+              checked={includeNumbers}
+              onChange={() => setIncludeNumbers(!includeNumbers)}
+              className="mr-2"
+            />
+            0-9 (Numbers)
+          </label>
+          <label className="flex items-start dark:text-alltext-dark text-alltext-light">
+            <input
+              type="checkbox"
+              checked={includeSymbols}
+              onChange={() => setIncludeSymbols(!includeSymbols)}
+              className="mr-2"
+            />
+            !@#$%^&* (Symbols)
+          </label>
+        </div>
+
+        <div className="mb-4 p-4 bg-alltext-dark rounded-[4px] shadow-md flex items-center justify-between">
+          <h3 className="text-lg text-center truncate w-[75%]">{password}</h3>
+          <div className="flex items-center gap-4">
+            <PiArrowsClockwiseDuotone
+              onClick={handleGenerate}
+              className="cursor-pointer dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
+              size={25}
+            />
+            <PiCopyDuotone
+              onClick={() => navigator.clipboard.writeText(password)}
+              className="cursor-pointer dark:text-black dark:hover:text-highlight-dark hover:text-highlight-light"
+              size={25}
+            />
+          </div>
+        </div>
+
+        <div className="flex justify-around mt-6">
+          <Button
+            onClick={handleUsePassword}
+            label="Done"
+            icon={PiSealCheckDuotone}
+            size="md"
+          />
+          <Button
+            onClick={onClose}
+            label="Close"
+            icon={PiXCircleDuotone}
+            size="md"
+          />
+        </div>
       </div>
     </div>
   );

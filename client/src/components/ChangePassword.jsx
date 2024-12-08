@@ -7,8 +7,10 @@ import {
   PiCheckCircleDuotone,
   PiXCircleDuotone,
 } from "react-icons/pi";
+import PropTypes from "prop-types";
+import Button from "./Button";
 
-function ChangePassword() {
+function ChangePassword({ onClose }) {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -79,70 +81,77 @@ function ChangePassword() {
   const toggleConfirmPasswordVisibility = () => setShowConfirmPassword((prev) => !prev);
 
   return (
-    <div className="p-4">
-      <h2 className="text-lg dark:text-title-dark text-title-light mb-4">Change Password</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Old Password Input */}
-        <div className="mb-4">
-          <label className="block mb-1 dark:text-title-dark text-title-light">Old Password</label>
-          <div className="relative">
-            <input
-              type={showOldPassword ? "text" : "password"}
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded-[4px]"
-            />
-            <button
-              type="button"
-              onClick={toggleOldPasswordVisibility}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-red-500"
-            >
-              {showOldPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
-            </button>
-          </div>
-        </div>
+    <div className="w-[800px] h-[600px] bg-sidebar-light dark:bg-sidebar-dark flex flex-col rounded-[4px] shadow-lg">
+      {/* Header Section */}
+      <div className="dark:bg-vault-dark bg-vault-light py-6 px-4 flex items-center justify-center rounded-t-[4px]">
+        <h2 className="text-[34px] dark:text-title-dark text-title-light">Change Password</h2>
+      </div>
 
-        {/* New Password Input */}
-        <div className="mb-4">
-          <label className="block mb-1 dark:text-title-dark text-title-light">New Password</label>
-          <div className="relative">
-            <input
-              type={showNewPassword ? "text" : "password"}
-              value={newPassword}
-              onChange={handleNewPasswordChange}
-              className="w-full border border-gray-300 p-2 rounded-[4px]"
-            />
-            <button
-              type="button"
-              onClick={toggleNewPasswordVisibility}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-500"
-            >
-              {showNewPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
-            </button>
+      {/* Main Form Section */}
+      <div className="flex-1 p-6 overflow-y-auto">
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          {/* Old Password Input */}
+          <div>
+            <label className="block mb-1 dark:text-title-dark text-title-light">Old Password</label>
+            <div className="relative">
+              <input
+                type={showOldPassword ? "text" : "password"}
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+                className="w-full border border-gray-300 p-2 rounded-[4px]"
+              />
+              <button
+                type="button"
+                onClick={toggleOldPasswordVisibility}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-red-500"
+              >
+                {showOldPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
+              </button>
+            </div>
           </div>
 
+          {/* New Password Input */}
+          <div>
+            <label className="block mb-1 dark:text-title-dark text-title-light">New Password</label>
+            <div className="relative">
+              <input
+                type={showNewPassword ? "text" : "password"}
+                value={newPassword}
+                onChange={handleNewPasswordChange}
+                className="w-full border border-gray-300 p-2 rounded-[4px]"
+              />
+              <button
+                type="button"
+                onClick={toggleNewPasswordVisibility}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-500"
+              >
+                {showNewPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
+              </button>
+            </div>
+          </div>
 
           {/* Confirm New Password Input */}
-        <div className="mt-4">
-          <label className="block mb-1 dark:text-title-dark text-title-light">Confirm New Password</label>
-          <div className="relative">
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded-[4px]"
-            />
-            <button
-              type="button"
-              onClick={toggleConfirmPasswordVisibility}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-orange-500"
-            >
-              {showConfirmPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
-            </button>
+          <div>
+            <label className="block mb-1 dark:text-title-dark text-title-light">Confirm New Password</label>
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full border border-gray-300 p-2 rounded-[4px]"
+              />
+              <button
+                type="button"
+                onClick={toggleConfirmPasswordVisibility}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-orange-500"
+              >
+                {showConfirmPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
+              </button>
+            </div>
           </div>
-        </div>
+
           {/* Password Requirements */}
-          <div className="mt-4 space-y-1">
+          <div className="space-y-1">
             {Object.entries(requirements).map(([key, met]) => (
               <div key={key} className="flex items-center">
                 {met ? (
@@ -150,25 +159,35 @@ function ChangePassword() {
                 ) : (
                   <PiXCircleDuotone className="text-red-500" />
                 )}
-                <span className="ml-2 text-sm dark:text-title-dark text-title-light">{getRequirementText(key)}</span>
+                <span className="ml-2 text-sm dark:text-title-dark text-title-light">
+                  {getRequirementText(key)}
+                </span>
               </div>
             ))}
           </div>
-        </div>
 
-        
+          {/* Error Message */}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        {/* Error Message */}
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="flex items-center p-3 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light">
-          <PiSealCheckDuotone className="mr-2" />
-          Save Changes
-        </button>
-      </form>
+          {/* Action Buttons */}
+          <div className="flex justify-around mt-6">
+            <Button
+              type="submit"
+              label="Save"
+              icon={PiSealCheckDuotone}
+              size="md"
+              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+            />
+            <Button
+              onClick={onClose}
+              label="Close"
+              icon={PiXCircleDuotone}
+              size="md"
+              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+            />
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
@@ -189,6 +208,10 @@ const getRequirementText = (key) => {
     default:
       return "";
   }
+};
+
+ChangePassword.propTypes = {
+  onClose: PropTypes.func.isRequired,
 };
 
 export default ChangePassword;

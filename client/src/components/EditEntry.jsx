@@ -18,7 +18,9 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
   const [password, setPassword] = useState(initialData?.password || "");
   const [category, setCategory] = useState(initialData?.category || "");
   const [label, setLabel] = useState(initialData?.label || "");
-  const [serviceName, setServiceName] = useState(initialData?.serviceName || "");
+  const [serviceName, setServiceName] = useState(
+    initialData?.serviceName || ""
+  );
   const [showPassword, setShowPassword] = useState(false);
   const [showGenerator, setShowGenerator] = useState(false);
 
@@ -56,7 +58,13 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ username, password, category, serviceName, label }),
+        body: JSON.stringify({
+          username,
+          password,
+          category,
+          serviceName,
+          label,
+        }),
       });
 
       if (response.ok) {
@@ -81,14 +89,16 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
     { id: 5, title: "Identification" },
   ];
 
-  const serviceItems = Object.entries(serviceNames).map(([key, name], index) => {
-    const Icon = serviceIcons[key] || serviceIcons.default; // Retrieve the correct icon or default
-    return {
-      id: index + 1,
-      title: name,
-      icon: <Icon size={20} />, // Use the dynamic icon component properly
-    };
-  });
+  const serviceItems = Object.entries(serviceNames).map(
+    ([key, name], index) => {
+      const Icon = serviceIcons[key] || serviceIcons.default; // Retrieve the correct icon or default
+      return {
+        id: index + 1,
+        title: name,
+        icon: <Icon size={20} />, // Use the dynamic icon component properly
+      };
+    }
+  );
 
   return (
     <div className="h-full w-full flex flex-col">
@@ -166,10 +176,14 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
           </div>
 
           {showGenerator && (
-            <Modal onClose={toggleGeneratorModal}>
+            <Modal
+              onClose={toggleGeneratorModal}
+              customClass="w-[1200px] h-[900px]"
+              showCloseButton={false}
+            >
               <Generator
-                onSelectedPassword={handleSelectPassword} // Pass selected password
-                onClose={closeGeneratorModal} // Handle modal closure
+                onSelectedPassword={handleSelectPassword}
+                onClose={closeGeneratorModal}
               />
             </Modal>
           )}
@@ -214,7 +228,6 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
     </div>
   );
 }
-
 
 EditEntry.propTypes = {
   entryId: PropTypes.string.isRequired,

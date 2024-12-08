@@ -1,5 +1,5 @@
 // Importing necessary hooks, context, and components
-import { useContext, useState } from "react";
+import { useContext, useState } from "react"
 import { DarkModeContext } from "../context/DarkModeContext"; // Context for dark mode functionality
 import { useNavigate } from "react-router-dom"; // For navigation between routes
 import {
@@ -77,6 +77,7 @@ function Profile() {
               label="Change Password"
               onClick={handleChangePassword}
               className="dark:text-alltext-dark text-alltext-light w-2/5 text-sm"
+              size="lg"
             />
           </div>
 
@@ -92,6 +93,7 @@ function Profile() {
               label="Logout"
               onClick={handleLogout}
               className="dark:text-alltext-dark text-alltext-light w-2/5 text-sm"
+              size="lg"
             />
           </div>
 
@@ -107,6 +109,7 @@ function Profile() {
               label="Go Back"
               onClick={() => navigate("/dashboard")}
               className="dark:text-alltext-dark text-alltext-light w-2/5 text-sm"
+              size="lg"
             />
           </div>
         </div>
@@ -123,8 +126,8 @@ function Profile() {
 
       {/* Modal for Changing Password */}
       {isModalOpen && (
-        <Modal onClose={closeModal} showCloseButton={true}>
-          <ChangePassword /> {/* Render the ChangePassword form within the Modal */}
+        <Modal onClose={closeModal} showCloseButton={false}>
+          <ChangePassword onClose={closeModal} /> {/* Render the ChangePassword form within the Modal */}
         </Modal>
       )}
     </div>
