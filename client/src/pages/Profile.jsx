@@ -25,7 +25,6 @@ function Profile() {
 
   // Function to handle user logout
   const handleLogout = () => {
-    console.log("User logged out"); // Placeholder for actual logout logic
     navigate("/login-page"); // Navigate to the login page after logout
   };
 

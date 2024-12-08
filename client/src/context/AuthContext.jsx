@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log("Fetched user:", data.user); //debugging
                     setUser(data.user); // Store user object with email
                 }
             } catch (error) {

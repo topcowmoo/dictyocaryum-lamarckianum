@@ -38,7 +38,6 @@ const VaultDisplay = ({
   const copyToClipboard = () => {
     if (password) {
       navigator.clipboard.writeText(password).then(() => {
-        console.log("Password copied to clipboard");
       });
     }
   };

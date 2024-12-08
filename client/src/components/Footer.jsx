@@ -5,7 +5,6 @@ import { AuthContext } from "../context/AuthContext";
 
 function Footer() {
   const { user } = useContext(AuthContext); // Access user from AuthContext
-  console.log("Current user in footer:", user); // Debugging: log current user
   const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
 

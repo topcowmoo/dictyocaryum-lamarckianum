@@ -14,12 +14,10 @@ router.post("/signup", async (req, res) => {
   try {
     // Hash the password
     const { hash, salt } = auth.hashPassword(password);
-    console.log("Password hashed successfully"); // Debugging: log successful password hashing
 
     // Create a new user with the hashed password and save to the database
     const newUser = new User({ email, passwordHash: hash, salt });
     await newUser.save();
-    console.log("User saved successfully"); // Debugging: log successful user saving
 
     // Generate an authentication token and set it as a cookie
     const token = auth.generateToken(newUser);

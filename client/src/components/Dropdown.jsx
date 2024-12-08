@@ -7,7 +7,6 @@ function Dropdown({ items, onSelect, placeholder = "Select an Option" }) {
   const [selectedItem, setSelectedItem] = useState(placeholder);
 
   const handleSelect = (item) => {
-    console.log("Selected item:", item); // Debugging: Log the selected item
     setSelectedItem(item.title);
     setIsOpen(false); // Close the dropdown after selecting
     onSelect(item); // Call the onSelect prop to update the parent state
