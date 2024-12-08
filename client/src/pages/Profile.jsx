@@ -51,7 +51,8 @@ function Profile() {
       </div>
 
       {/* Left Pane for Account Management */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center bg-hefo-light dark:bg-hefo-dark p-8 md:p-16">
+      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center min-h-screen lg:min-h-0 bg-hefo-light dark:bg-hefo-dark p-8 md:p-16">
+
         {/* App Logo */}
         <img
           src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
@@ -66,7 +67,7 @@ function Profile() {
         {/* Card Container */}
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 w-full max-w-lg">
           {/* Card 1: Change Password */}
-          <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl">
+          <div className="p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-[4px] shadow-xl ">
             <h2 className="text-lg dark:text-title-dark text-title-light mb-3">Change Your Password</h2>
             <p className="text-sm dark:text-alltext-dark text-alltext-light mb-4">
               Update your master password to keep your account secure.
@@ -116,7 +117,8 @@ function Profile() {
       </div>
 
       {/* Right Section with Background Image (visible only on large screens) */}
-      <div className="hidden lg:block w-1/2 h-screen overflow-hidden">
+      <div className="hidden lg:block w-1/2 min-h-screen overflow-hidden">
+
         <img
           src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/pexels-francis-desjardins-1613813-3314113.webp"
           alt="Image of bank exterior"

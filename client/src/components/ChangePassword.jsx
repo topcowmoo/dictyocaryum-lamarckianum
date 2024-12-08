@@ -81,9 +81,9 @@ function ChangePassword({ onClose }) {
   const toggleConfirmPasswordVisibility = () => setShowConfirmPassword((prev) => !prev);
 
   return (
-    <div className="w-[800px] h-[600px] bg-sidebar-light dark:bg-sidebar-dark flex flex-col rounded-[4px] shadow-lg">
+    <div className="w-[650px] h-[650px] bg-sidebar-light dark:bg-sidebar-dark flex flex-col rounded-[4px] shadow-lg">
       {/* Header Section */}
-      <div className="dark:bg-vault-dark bg-vault-light py-6 px-4 flex items-center justify-center rounded-t-[4px]">
+      <div className="dark:bg-vault-dark bg-vault-light py-6 px-6 flex items-center justify-start rounded-t-[4px]">
         <h2 className="text-[34px] dark:text-title-dark text-title-light">Change Password</h2>
       </div>
 
@@ -103,7 +103,7 @@ function ChangePassword({ onClose }) {
               <button
                 type="button"
                 onClick={toggleOldPasswordVisibility}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-red-500"
+                className="absolute text-[20px] right-2 top-1/2 transform -translate-y-1/2 dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light"
               >
                 {showOldPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
               </button>
@@ -123,7 +123,7 @@ function ChangePassword({ onClose }) {
               <button
                 type="button"
                 onClick={toggleNewPasswordVisibility}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-500"
+                className="absolute right-2 text-[20px] top-1/2 transform -translate-y-1/2 dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light"
               >
                 {showNewPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
               </button>
@@ -143,7 +143,7 @@ function ChangePassword({ onClose }) {
               <button
                 type="button"
                 onClick={toggleConfirmPasswordVisibility}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-orange-500"
+                className="absolute right-2 text-[20px] top-1/2 transform -translate-y-1/2 dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light"
               >
                 {showConfirmPassword ? <PiEyeClosedDuotone /> : <PiEyeDuotone />}
               </button>
@@ -167,7 +167,7 @@ function ChangePassword({ onClose }) {
           </div>
 
           {/* Error Message */}
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && <p className="dark:text-alltext-dark text-red-600 text-sm underline text-transform: uppercase">{error}</p>}
 
           {/* Action Buttons */}
           <div className="flex justify-around mt-6">
@@ -176,14 +176,14 @@ function ChangePassword({ onClose }) {
               label="Save"
               icon={PiSealCheckDuotone}
               size="md"
-              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light mt-4"
             />
             <Button
               onClick={onClose}
               label="Close"
               icon={PiXCircleDuotone}
               size="md"
-              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light mt-4"
             />
           </div>
         </form>
