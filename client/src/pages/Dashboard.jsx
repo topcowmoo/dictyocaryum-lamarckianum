@@ -39,26 +39,27 @@ function Dashboard() {
 
   // Filter entries based on category and searchQuery
   const filteredEntries = entries.filter((entry) => {
-    if (!entry) return false; // Skip undefined or null entries
-
+    if (!entry) return false;
+  
     const serviceName = entry.serviceName?.toLowerCase() || "";
     const query = searchQuery?.toLowerCase() || "";
-
+  
     const matchesSearch = !query || serviceName.includes(query);
-
-    // If "All" is selected, show all entries except "Deleted"
-    if (selectedCategory === "All") {
+  
+    // If no category is selected, only apply search logic
+    if (!selectedCategory || selectedCategory === "All") {
       return matchesSearch && entry.category !== "Deleted";
     }
-
+  
     // If "Deleted" is selected, show only deleted entries
     if (selectedCategory === "Deleted") {
       return matchesSearch && entry.category === "Deleted";
     }
-
+  
     // Otherwise, filter by the selected category
     return matchesSearch && entry.category === selectedCategory;
   });
+  
 
   // Handlers
   const handleCategorySelect = (category) => {
