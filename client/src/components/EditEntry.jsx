@@ -81,24 +81,30 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
     }
   };
 
+  const serviceItems = Object.entries(serviceNames).map(([key, name], index) => {
+    const Icon = serviceIcons[key] || serviceIcons.default; // Retrieve the correct icon or default
+    return {
+      id: index + 1,
+      title: name,
+      icon: <Icon size={20} />, // Use the dynamic icon component properly
+    };
+  });
+
+  
   const categoryItems = [
     { id: 1, title: "Cards" },
     { id: 2, title: "Entertainment" },
     { id: 3, title: "Login" },
     { id: 4, title: "Identification" },
   ];
-
-  const serviceItems = Object.entries(serviceNames).map(
-    ([key, name], index) => {
-      const Icon = serviceIcons[key] || serviceIcons.default; // Retrieve the correct icon or default
-      return {
-        id: index + 1,
-        title: name,
-        icon: <Icon size={20} />, // Use the dynamic icon component properly
-      };
-    }
+  
+  const matchingServiceItem = serviceItems.find(
+    (item) => item.title === serviceName
   );
-
+  const matchingCategoryItem = categoryItems.find(
+    (item) => item.title === category
+  );
+  
   return (
     <div className="h-full w-full flex flex-col">
       {/* Header Section */}
@@ -192,9 +198,10 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
               Service Name
             </label>
             <Dropdown
-              items={serviceItems}
-              onSelect={(item) => setServiceName(item.title)}
-            />
+  items={serviceItems}
+  initialSelectedItem={matchingServiceItem} // Pass the matching service
+  onSelect={(item) => setServiceName(item.title)} // Update serviceName on selection
+/>
           </div>
 
           <div className="mb-4">
@@ -202,9 +209,10 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
               Category
             </label>
             <Dropdown
-              items={categoryItems}
-              onSelect={(item) => setCategory(item.title)}
-            />
+  items={categoryItems}
+  initialSelectedItem={matchingCategoryItem} // Pass the matching category
+  onSelect={(item) => setCategory(item.title)} // Update category on selection
+/>
           </div>
 
           <div className="flex justify-around space-x-4 py-4">

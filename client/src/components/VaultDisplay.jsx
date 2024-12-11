@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   PiCopyDuotone,
@@ -6,7 +6,7 @@ import {
   PiEyeClosedDuotone,
   PiPencilDuotone,
   PiTrashDuotone,
-  PiPlusCircleDuotone,
+  PiSealCheckDuotone,
   PiXCircleDuotone,
 } from "react-icons/pi";
 import Button from "./Button";
@@ -30,11 +30,6 @@ const VaultDisplay = ({
   const [showPassword, setShowPassword] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  console.log("VaultDisplay Props - Service:", service);
-  console.log("VaultDisplay Props - Label:", label);
-  console.log("VaultDisplay Props - EntryId:", entryId);
-
 
   // Map service names and fall back to "Unnamed Service"
   const normalizedKey = service?.toLowerCase().replace(/\s+/g, "") || "default";
@@ -120,13 +115,17 @@ const VaultDisplay = ({
     setIsEditing(false);
   };
 
+  useEffect(() => {
+    if (entryId) {
+      setIsEditing(false); // Close edit mode when entryId changes
+    }
+  }, [entryId]);
+
   const handleEditClick = () => setIsEditing(true);
   const handleEditClose = () => setIsEditing(false);
 
   const isEmpty = !service && !username && !password;
 
-  console.log("Is Empty Entry:", isEmpty);
-  console.log("Is Deleted:", label === "Deleted");
 
   return (
     <div className="h-full w-full flex">
@@ -139,11 +138,17 @@ const VaultDisplay = ({
           </div>
         ) : isEditing ? (
           <EditEntry
-            entryId={entryId}
-            initialData={{ service, username, label, password }}
-            onSubmit={handleEditSubmit}
-            onClose={handleEditClose}
-          />
+          entryId={entryId}
+          initialData={{
+            serviceName: service, // Pass the correct service name
+            username: username,
+            password: password,
+            category: category, // Pass the correct category
+            label: label,
+          }}
+          onSubmit={handleEditSubmit}
+          onClose={handleEditClose}
+        />
         ) : (
           <>
             <div className="flex items-center dark:bg-vault-dark bg-vault-light py-6 px-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light shadow-lg">
@@ -231,7 +236,7 @@ const VaultDisplay = ({
               <div className="flex justify-around space-x-4 mt-4 py-4">
                 {category === "Deleted" ? (
                   <Button
-                  icon={PiPlusCircleDuotone} // Use an appropriate icon for restore
+                  icon={PiSealCheckDuotone} // Use an appropriate icon for restore
                   label="Restore"
                   type="button"
                   onClick={() => handleRestore(entryId)} // Call handleRestore function

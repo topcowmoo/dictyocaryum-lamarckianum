@@ -2,24 +2,29 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { PiCaretDown } from "react-icons/pi";
 
-function Dropdown({ items, onSelect, placeholder = "Select an Option" }) {
+const Dropdown = ({
+  items,
+  onSelect,
+  placeholder = "Select an Option",
+  initialSelectedItem,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(placeholder);
+  const [selectedItem, setSelectedItem] = useState(initialSelectedItem || null);
 
   const handleSelect = (item) => {
-    setSelectedItem(item.title);
-    setIsOpen(false); // Close the dropdown after selecting
-    onSelect(item); // Call the onSelect prop to update the parent state
+    setSelectedItem(item); // Set selected item object
+    setIsOpen(false); // Close dropdown
+    onSelect(item); // Notify parent component
   };
 
   return (
     <div className="relative w-full">
       {/* Selected Item */}
       <div
-        className="bg-white p-2 rounded-[4px] cursor-pointer flex items-center justify-between"
+        className="bg-white p-2 rounded-[4px] cursor-pointer flex items-center justify-between border border-gray-300"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span>{selectedItem}</span>
+        <span>{selectedItem?.title || placeholder}</span>
         <PiCaretDown size={20} className="ml-2" />
       </div>
 
@@ -40,7 +45,8 @@ function Dropdown({ items, onSelect, placeholder = "Select an Option" }) {
       )}
     </div>
   );
-}
+};
+
 
 Dropdown.propTypes = {
   items: PropTypes.arrayOf(
@@ -50,8 +56,13 @@ Dropdown.propTypes = {
       icon: PropTypes.element,
     })
   ).isRequired,
-  onSelect: PropTypes.func.isRequired, // Ensure onSelect is required
+  onSelect: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
+  initialSelectedItem: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    icon: PropTypes.element,
+  }),
 };
 
 export default Dropdown;
