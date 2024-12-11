@@ -172,6 +172,7 @@ function Dashboard() {
               setEntries={setEntries}
               setSelectedEntry={setSelectedEntry}
               onClose={handleCloseEditEntry}
+              category={selectedEntry?.category}
             />
           )}
         </div>

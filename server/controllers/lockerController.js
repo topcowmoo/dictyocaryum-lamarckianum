@@ -54,10 +54,29 @@ exports.updatePassword = async (req, res) => {
 exports.deletePassword = async (req, res) => {
   try {
     // Find the locker entry by ID and delete it
-    const deletedLocker = await Locker.findByIdAndDelete(req.params.id);
+    const deletedLocker = await Locker.findByIdAndDelete(req.params.id, { category: "Deleted" }, { new: true });
     if (!deletedLocker) return res.status(404).json({ message: 'Locker not found' }); // Respond with a 404 status if the entry is not found
     res.status(200).json({ message: 'Locker deleted successfully' }); // Respond with a success message
   } catch (err) {
     res.status(500).json({ message: 'Error deleting locker' }); // Respond with a 500 status and error message
   }
 };
+
+// Controller function to restore a deleted password entry
+exports.restorePassword = async (req, res) => {
+  try {
+    const updatedLocker = await Locker.findByIdAndUpdate(
+      req.params.id,
+      { category: req.body.category || "All" }, // Default to "All" if no category is provided
+      { new: true }
+    );
+    if (!updatedLocker) {
+      return res.status(404).json({ message: "Locker not found" }); // Respond with 404 if not found
+    }
+    res.status(200).json(updatedLocker); // Respond with the updated locker
+  } catch (err) {
+    console.error("Error restoring locker entry:", err);
+    res.status(500).json({ message: "Error restoring locker entry" }); // Respond with a 500 status
+  }
+};
+
