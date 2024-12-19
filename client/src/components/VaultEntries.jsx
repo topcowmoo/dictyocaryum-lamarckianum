@@ -64,9 +64,9 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
               <Icon size={42} className="text-highlight-light dark:text-highlight-dark" />
               <div className="flex flex-col">
                 <span className="text-[18px]">{displayName}</span>
-                {entry.label && <span className="text-[15px] text-gray-500">{entry.label}</span>}
+                {entry.label && <span className="text-[15px] text-zinc-800 dark:text-zinc-400">{entry.label}</span>}
                 {entry.username && (
-                  <span className="text-[14px] text-gray-400 italic">
+                  <span className="text-[14px] dark:text-zinc-300 text-zinc-700 italic">
                   {entry.username}
                 </span>
                 )}
