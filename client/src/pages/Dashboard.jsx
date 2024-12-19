@@ -42,22 +42,31 @@ function Dashboard() {
     if (!entry) return false;
   
     const serviceName = entry.serviceName?.toLowerCase() || "";
+    const label = entry.label?.toLowerCase() || "";
+    const username = entry.username?.toLowerCase() || "";
     const query = searchQuery?.toLowerCase() || "";
   
-    const matchesSearch = !query || serviceName.includes(query);
+    // Search Logic: Matches service name, label, or username
+    const matchesSearch =
+      query &&
+      (serviceName.includes(query) ||
+        label.includes(query) ||
+        username.includes(query));
   
-    // If no category is selected, only apply search logic
-    if (!selectedCategory || selectedCategory === "All") {
-      return matchesSearch && entry.category !== "Deleted";
+    // Category Logic
+    let matchesCategory = true;
+    if (selectedCategory === "All") {
+      matchesCategory = entry.category !== "Deleted"; // Exclude "Deleted" entries for "All"
+    } else if (selectedCategory === "Deleted") {
+      matchesCategory = entry.category === "Deleted";
+    } else if (selectedCategory) {
+      matchesCategory =
+        entry.category?.toLowerCase().trim() ===
+        selectedCategory.toLowerCase().trim();
     }
   
-    // If "Deleted" is selected, show only deleted entries
-    if (selectedCategory === "Deleted") {
-      return matchesSearch && entry.category === "Deleted";
-    }
-  
-    // Otherwise, filter by the selected category
-    return matchesSearch && entry.category === selectedCategory;
+    // Final Logic: If there's a search, ignore the category
+    return query ? matchesSearch : matchesCategory;
   });
   
 

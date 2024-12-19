@@ -7,19 +7,27 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
   const [selectedEntry, setSelectedEntry] = useState(null);
 
   const safeEntries = entries || [];
+
   const filteredEntries = safeEntries.filter((entry) => {
     const serviceName = entry.serviceName?.toLowerCase() || "";
+    const label = entry.label?.toLowerCase() || "";
+    const username = entry.username?.toLowerCase() || "";
+    const query = searchQuery?.toLowerCase() || "";
 
-    if (searchQuery) {
-      return serviceName.includes(searchQuery.toLowerCase());
+    if (query) {
+      return (
+        serviceName.includes(query) ||
+        label.includes(query) ||
+        username.includes(query)
+      );
     }
-
+  
     const categoryMatch =
       selectedCategory === "All" ||
       (selectedCategory &&
         entry.category?.toLowerCase().trim() ===
           selectedCategory.toLowerCase().trim());
-
+  
     return categoryMatch;
   });
 
@@ -57,6 +65,11 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
               <div className="flex flex-col">
                 <span className="text-[18px]">{displayName}</span>
                 {entry.label && <span className="text-[15px] text-gray-500">{entry.label}</span>}
+                {entry.username && (
+                  <span className="text-[14px] text-gray-400 italic">
+                  {entry.username}
+                </span>
+                )}
               </div>
             </div>
           </div>
