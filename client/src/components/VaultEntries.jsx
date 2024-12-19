@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { serviceIcons, serviceNames } from "../utils/serviceIcons";
+import { normalizeKey } from "../utils/normalizeKey";
 
 const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries }) => {
   const [selectedEntry, setSelectedEntry] = useState(null);
@@ -8,7 +9,7 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
   const safeEntries = entries || [];
   const filteredEntries = safeEntries.filter((entry) => {
     const serviceName = entry.serviceName?.toLowerCase() || "";
-    
+
     if (searchQuery) {
       return serviceName.includes(searchQuery.toLowerCase());
     }
@@ -22,41 +23,28 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
     return categoryMatch;
   });
 
-  const normalizeKey = (serviceName) => {
-    if (!serviceName) return "default";
-    const key = serviceName.toLowerCase().replace(/\s+/g, ""); // Remove spaces
-    if (key === "amazonprimevideo") return "prime"; // Explicitly map to 'prime'
-    return key;
-  };
-
   const handleEntryClick = (entry) => {
     setSelectedEntry(entry._id);
     const normalizedKey = normalizeKey(entry.serviceName);
     onSelectEntry({
       ...entry,
-      label: entry.label,
       Icon: serviceIcons[normalizedKey] || serviceIcons.default,
     });
   };
 
+  
+
   return (
     <div className="p-4 space-y-4">
-      {filteredEntries.map((entry, index) => {
+      {filteredEntries.map((entry) => {
         const normalizedKey = normalizeKey(entry.serviceName);
         const Icon = serviceIcons[normalizedKey] || serviceIcons.default;
-        const displayName = serviceNames[normalizedKey] || "Unnamed Service";
+        const displayName = serviceNames[normalizedKey] || serviceNames.default;
         const isSelected = selectedEntry === entry._id;
-
-        const customSizes = {
-          zoom: 43,
-          ebay: 43,
-          bankofamerica: 45,
-          default: 42,
-        };
 
         return (
           <div
-            key={entry._id || index}
+            key={entry._id}
             onClick={() => handleEntryClick(entry)}
             className={`flex flex-col items-start cursor-pointer p-3 transition ${
               isSelected
@@ -64,29 +52,11 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
                 : "dark:text-alltext-dark text-alltext-light"
             }`}
           >
-            <div
-              className={`flex items-center ${
-                customSizes[normalizedKey] > 42 ? "space-x-5" : "space-x-6"
-              }`}
-            >
-              {/* Display Icon */}
-              <Icon
-                size={customSizes[normalizedKey] || customSizes.default}
-                className={`${
-                  isSelected ? "text-highlight-light dark:text-highlight-dark" : ""
-                }`}
-              />
+            <div className="flex items-center space-x-5">
+              <Icon size={42} className="text-highlight-light dark:text-highlight-dark" />
               <div className="flex flex-col">
-                {/* Display Name */}
-                <span className={`text-[18px] ${isSelected ? "" : ""}`}>
-                  {displayName}
-                </span>
-                {/* Display Label */}
-                {entry.label && (
-                    <span className={`text-[15px] dark:text-buttonbgc-dark text-alltext-light ${isSelected ? "" : ""}`}>
-                    {entry.label}
-                  </span>
-                )}
+                <span className="text-[18px]">{displayName}</span>
+                {entry.label && <span className="text-[15px] text-gray-500">{entry.label}</span>}
               </div>
             </div>
           </div>
@@ -95,6 +65,8 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
     </div>
   );
 };
+
+
 
 VaultEntries.propTypes = {
   onSelectEntry: PropTypes.func.isRequired,

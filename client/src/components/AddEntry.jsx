@@ -48,6 +48,14 @@ function AddEntry({ onClose, onAddEntry }) {
       return;
     }
 
+    // Normalize and validate the service name
+    const normalizedServiceNameKey = serviceName.toLowerCase().replace(/\s+/g, "");
+    const validatedServiceName =
+      serviceNames[normalizedServiceNameKey] || serviceNames.default;
+
+    console.log("Normalized Key:", normalizedServiceNameKey);
+    console.log("Validated Service Name:", validatedServiceName);
+
     try {
       const response = await fetch(`${apiURL}/api/locker`, {
         method: "POST",
@@ -59,13 +67,14 @@ function AddEntry({ onClose, onAddEntry }) {
           username,
           password,
           category,
-          serviceName,
+          serviceName: validatedServiceName,
           label,
         }),
       });
 
       if (response.ok) {
         const newEntry = await response.json();
+        console.log("New Entry Added:", newEntry);
         onAddEntry(newEntry); // Call parent callback
         setUsername("");
         setPassword("");
@@ -94,7 +103,7 @@ function AddEntry({ onClose, onAddEntry }) {
     return {
       id: index + 1,
       title: name,
-      icon: <Icon size={20} />, // Use the dynamic icon component properly
+      icon: <Icon size={20} />,
     };
   });
 

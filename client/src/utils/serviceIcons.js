@@ -81,8 +81,8 @@ export const serviceNames = {
   gmail: "Gmail",
   tiktok: "TikTok",
   linkedin: "LinkedIn",
-  paramountplus: "Paramount+",
+  paramountplus: "Paramount Plus",
   whatsapp: "WhatsApp",
-  x: "Twitter",
+  x: "X",
   default: "Other",
 };
