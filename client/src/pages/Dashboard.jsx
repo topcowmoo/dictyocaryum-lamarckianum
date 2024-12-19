@@ -96,6 +96,42 @@ function Dashboard() {
     setShowAddEntry(false);
   };
 
+  const handleDelete = async (entryId) => {
+    try {
+      const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ category: "Deleted" }), // Move to "Deleted"
+      });
+  
+      if (response.ok) {
+        setEntries((prevEntries) =>
+          prevEntries.map((entry) =>
+            entry._id === entryId ? { ...entry, category: "Deleted" } : entry
+          )
+        );
+        setSelectedEntry(null);
+      } else {
+        alert("Failed to delete entry");
+      }
+    } catch (error) {
+      console.error("Error deleting entry:", error);
+    }
+  };
+
+
+  const handleEditSubmit = (updatedEntry) => {
+    setEntries((prevEntries) =>
+      prevEntries.map((entry) =>
+        entry._id === updatedEntry._id ? updatedEntry : entry
+      )
+    );
+    setSelectedEntry(null); // Close EditEntry form
+  };
+
   return (
     <div className="h-full flex flex-col">
       <div className="h-full grid md:grid-cols-[380px_1fr_2fr]">
@@ -157,15 +193,19 @@ function Dashboard() {
             />
           ) : (
             <VaultDisplay
-              service={selectedEntry?.serviceName}
-              username={selectedEntry?.username}
-              label={selectedEntry?.label}
-              password={selectedEntry?.password}
-              Icon={selectedEntry?.Icon}
-              entryId={selectedEntry?._id}
-              setEntries={setEntries}
-              setSelectedEntry={setSelectedEntry}
-            />
+            service={selectedEntry?.serviceName}
+            username={selectedEntry?.username}
+            label={selectedEntry?.label}
+            password={selectedEntry?.password}
+            Icon={selectedEntry?.Icon}
+            entryId={selectedEntry?._id}
+            setEntries={setEntries}
+            setSelectedEntry={setSelectedEntry}
+            category={selectedEntry?.category} // Ensure the category is passed
+            onDelete={() => handleDelete(selectedEntry?._id)} // Pass the delete handler
+            onEdit={handleEditSubmit} // Pass the edit submit handler
+          />
+          
           )}
         </div>
       </div>
