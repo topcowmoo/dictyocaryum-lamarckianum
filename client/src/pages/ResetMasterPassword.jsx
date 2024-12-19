@@ -83,7 +83,7 @@ function ResetMasterPassword() {
       </div>
 
       {/* Left Section: Reset Password Form */}
-      <div className="w-full md:w-1/2 flex flex-col items-center justify-center dark:text-title-dark text-title-light bg-sidebar-light dark:bg-sidebar-dark p-8 md:p-16 xl:p-20">
+      <div className="w-full h-full md:w-1/2 flex flex-col items-center justify-center dark:text-title-dark text-title-light bg-sidebar-light dark:bg-sidebar-dark p-8 md:p-16 xl:p-20">
         <div className="w-full max-w-md xl:max-w-lg">
           <img
             src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
