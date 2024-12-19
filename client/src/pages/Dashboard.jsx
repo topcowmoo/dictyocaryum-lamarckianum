@@ -1,158 +1,132 @@
 import { useState, useEffect, useRef } from "react";
-import { useOutletContext } from "react-router-dom"; // For accessing context from the Outlet
-import Sidebar from "../components/Sidebar"; // Sidebar component for category selection
-import VaultEntries from "../components/VaultEntries"; // Component to display entries
-import VaultDisplay from "../components/VaultDisplay"; // Component to display selected entry details
-import AddEntry from "../components/AddEntry"; // Form component to add a new password entry
+import { useOutletContext } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
+import VaultEntries from "../components/VaultEntries";
+import VaultDisplay from "../components/VaultDisplay";
+import AddEntry from "../components/AddEntry";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
 function Dashboard() {
-  const [selectedCategory, setSelectedCategory] = useState("All"); // Default to "All" entries
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [entries, setEntries] = useState([]);
   const [showAddEntry, setShowAddEntry] = useState(false);
-  const { searchQuery } = useOutletContext() || {}; // Ensure searchQuery is safely destructured
-  const addEntryButtonRef = useRef(null);
+  const [visibleSection, setVisibleSection] = useState("sidebar");
+  const { searchQuery } = useOutletContext() || {};
+  const addEntryButtonRef = useRef(null); // Ref for the "Add New Entry" button
 
-  // Fetching entries from the API
-  useEffect(() => {
-    const fetchEntries = async () => {
-      try {
-        const response = await fetch(`${apiURL}/api/locker`, {
-          method: "GET",
-          credentials: "include",
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setEntries(data);
-        } else {
-          console.error("Failed to fetch entries");
-        }
-      } catch (error) {
-        console.error("Error fetching entries:", error);
-      }
-    };
-
-    fetchEntries();
-  }, []);
-
-  // Filter entries based on category and searchQuery
-  const filteredEntries = entries.filter((entry) => {
-    if (!entry) return false;
-  
-    const serviceName = entry.serviceName?.toLowerCase() || "";
-    const label = entry.label?.toLowerCase() || "";
-    const username = entry.username?.toLowerCase() || "";
-    const query = searchQuery?.toLowerCase() || "";
-  
-    // Search Logic: Matches service name, label, or username
-    const matchesSearch =
-      query &&
-      (serviceName.includes(query) ||
-        label.includes(query) ||
-        username.includes(query));
-  
-    // Category Logic
-    let matchesCategory = true;
-    if (selectedCategory === "All") {
-      matchesCategory = entry.category !== "Deleted"; // Exclude "Deleted" entries for "All"
-    } else if (selectedCategory === "Deleted") {
-      matchesCategory = entry.category === "Deleted";
-    } else if (selectedCategory) {
-      matchesCategory =
-        entry.category?.toLowerCase().trim() ===
-        selectedCategory.toLowerCase().trim();
-    }
-  
-    // Final Logic: If there's a search, ignore the category
-    return query ? matchesSearch : matchesCategory;
-  });
-  
-
-  // Handlers
-  const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
-    setSelectedEntry(null);
-    setShowAddEntry(false);
-  };
-
-  const handleEntrySelect = (entry) => {
-    setSelectedEntry(entry);
-    setShowAddEntry(false);
-  };
-
-  const handleAddNewEntry = async (newEntry) => {
-    setEntries((prevEntries) => [newEntry, ...prevEntries]);
-
-    // Fetch updated entries from the API to ensure all data is correct
+  // Fetch entries from API
+  const fetchEntries = async () => {
     try {
       const response = await fetch(`${apiURL}/api/locker`, {
         method: "GET",
         credentials: "include",
       });
       if (response.ok) {
-        const updatedEntries = await response.json();
-        setEntries(updatedEntries); // Replace with the updated entries
-      }
-    } catch (error) {
-      console.error("Error fetching updated entries:", error);
-    }
-    setShowAddEntry(false);
-  };
-
-  const handleCloseAddEntry = () => {
-    setShowAddEntry(false);
-    if (addEntryButtonRef.current) {
-      addEntryButtonRef.current.blur();
-    }
-  };
-
-  const handleDelete = async (entryId) => {
-    try {
-      const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        setEntries((prevEntries) =>
-          prevEntries.filter((entry) => entry._id !== entryId)
-        );
-        setSelectedEntry(null);
+        const data = await response.json();
+        setEntries(data);
       } else {
-        alert("Failed to delete entry");
+        console.error("Failed to fetch entries");
       }
     } catch (error) {
-      console.error("Error deleting entry:", error);
+      console.error("Error fetching entries:", error);
     }
   };
 
-  const handleEditSubmit = (updatedEntry) => {
-    setEntries((prevEntries) =>
-      prevEntries.map((entry) =>
-        entry._id === updatedEntry._id ? updatedEntry : entry
-      )
-    );
-    setSelectedEntry(null); // Close EditEntry form
+  useEffect(() => {
+    fetchEntries();
+  }, []);
+
+  // Filtered entries logic
+  const filteredEntries = entries.filter((entry) => {
+    if (!entry) return false;
+    const query = searchQuery?.toLowerCase() || "";
+    const matchesSearch =
+      query &&
+      (entry.serviceName?.toLowerCase().includes(query) ||
+        entry.label?.toLowerCase().includes(query) ||
+        entry.username?.toLowerCase().includes(query));
+
+    const matchesCategory =
+      selectedCategory === "All"
+        ? entry.category !== "Deleted"
+        : selectedCategory === entry.category;
+
+    return query ? matchesSearch : matchesCategory;
+  });
+
+  // Handlers for section visibility
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setVisibleSection("vaultEntries");
   };
 
-  const handleCloseEditEntry = () => {
-    setSelectedEntry(null); // Close EditEntry form
+  const handleEntrySelect = (entry) => {
+    setSelectedEntry(entry);
+    setVisibleSection("vaultDisplay");
+  };
+
+  const handleAddNewEntry = () => {
+    setShowAddEntry(true);
+    setVisibleSection("vaultDisplay");
+  };
+
+  const handleCloseAddEntry = async () => {
+    setShowAddEntry(false);
+
+    // Refresh the entries after adding a new entry
+    await fetchEntries();
+
+    // Focus the "Add New Entry" button
+    if (addEntryButtonRef.current) {
+      addEntryButtonRef.current.focus();
+    }
+  };
+
+  const handleBackToSidebar = () => {
+    setVisibleSection("sidebar");
+    setSelectedEntry(null);
+    setShowAddEntry(false);
+  };
+
+  const handleBackToEntries = () => {
+    setVisibleSection("vaultEntries");
+    setSelectedEntry(null);
+    setShowAddEntry(false);
   };
 
   return (
     <div className="h-full flex flex-col">
-      <div className="h-full grid grid-cols-[380px_1fr_2fr]">
+      <div className="h-full grid md:grid-cols-[380px_1fr_2fr]">
         {/* Sidebar */}
-        <Sidebar
-          onSelectCategory={handleCategorySelect}
-          onAddNewEntry={() => setShowAddEntry(true)}
-        />
+        <div
+          className={`h-full ${
+            visibleSection === "sidebar" ? "block" : "hidden"
+          } md:block md:w-[380px] dark:bg-sidebar-dark bg-sidebar-light`}
+        >
+          <Sidebar
+            onSelectCategory={handleCategorySelect}
+            onAddNewEntry={handleAddNewEntry}
+            addEntryButtonRef={addEntryButtonRef} // Pass ref to Sidebar
+          />
+        </div>
 
-        {/* Vault Entries Section */}
-        <div className="dark:bg-vault-dark bg-vault-light p-4 h-full overflow-y-auto">
-          {filteredEntries.length > 0 && !showAddEntry && (
+        {/* Vault Entries */}
+        <div
+          className={`h-full ${
+            visibleSection === "vaultEntries" ? "block" : "hidden"
+          } md:block dark:bg-vault-dark bg-vault-light p-4 overflow-y-auto`}
+        >
+          {visibleSection === "vaultEntries" && (
+            <button
+              onClick={handleBackToSidebar}
+              className="text-sm dark:text-highlight-dark text-highlight-light mb-4 md:hidden"
+            >
+              &larr; Back to Categories
+            </button>
+          )}
+          {filteredEntries.length > 0 && (
             <VaultEntries
               entries={filteredEntries}
               selectedCategory={selectedCategory}
@@ -162,12 +136,24 @@ function Dashboard() {
           )}
         </div>
 
-        {/* Vault Display or Add Password Section */}
-        <div className="dark:bg-display-dark bg-display-light p-5 h-full overflow-y-auto">
+        {/* Vault Display */}
+        <div
+          className={`h-full ${
+            visibleSection === "vaultDisplay" ? "block" : "hidden"
+          } md:block dark:bg-display-dark bg-display-light p-5 overflow-y-auto`}
+        >
+          {visibleSection === "vaultDisplay" && (
+            <button
+              onClick={handleBackToEntries}
+              className="text-sm dark:text-highlight-dark text-highlight-light mb-4 md:hidden"
+            >
+              &larr; Back to Entries
+            </button>
+          )}
           {showAddEntry ? (
             <AddEntry
-              onClose={handleCloseAddEntry}
-              onAddEntry={handleAddNewEntry}
+              onClose={handleCloseAddEntry} // Refresh entries when form closes
+              onAddEntry={fetchEntries} // Optional: Directly fetch entries after adding
             />
           ) : (
             <VaultDisplay
@@ -177,12 +163,8 @@ function Dashboard() {
               password={selectedEntry?.password}
               Icon={selectedEntry?.Icon}
               entryId={selectedEntry?._id}
-              onDelete={() => handleDelete(selectedEntry._id)}
-              onEdit={handleEditSubmit}
               setEntries={setEntries}
               setSelectedEntry={setSelectedEntry}
-              onClose={handleCloseEditEntry}
-              category={selectedEntry?.category}
             />
           )}
         </div>

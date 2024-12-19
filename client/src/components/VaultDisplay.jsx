@@ -202,37 +202,41 @@ const VaultDisplay = ({
                 </div>
               </div>
               <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
-                <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
-                  Password
-                </h3>
-                <div className="flex justify-between items-center">
-                  <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
-                    {showPassword ? password : "••••••••••"}
-                  </p>
-                  <div className="flex space-x-2">
-                    <button
-                      type="button"
-                      onClick={togglePasswordVisibility}
-                      className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
-                      aria-label="Toggle password visibility"
-                    >
-                      {showPassword ? (
-                        <PiEyeClosedDuotone className="text-[25px]" />
-                      ) : (
-                        <PiEyeDuotone className="text-[25px]" />
-                      )}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={copyToClipboard}
-                      className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
-                      aria-label="Copy password"
-                    >
-                      <PiCopyDuotone className="text-[25px]" />
-                    </button>
-                  </div>
-                </div>
-              </div>
+  <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
+    Password
+  </h3>
+  <div className="flex justify-between items-center">
+    {/* Display password or dots based on showPassword */}
+    <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
+      {showPassword ? password || "No password set" : "••••••••••"}
+    </p>
+    <div className="flex space-x-2">
+      {/* Toggle visibility button */}
+      <button
+        type="button"
+        onClick={togglePasswordVisibility}
+        className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
+        aria-label="Toggle password visibility"
+      >
+        {showPassword ? (
+          <PiEyeClosedDuotone className="text-[25px]" />
+        ) : (
+          <PiEyeDuotone className="text-[25px]" />
+        )}
+      </button>
+
+      {/* Copy password button */}
+      <button
+        type="button"
+        onClick={copyToClipboard}
+        className="dark:text-alltext-dark text-alltext-light hover:text-highlight-light dark:hover:text-highlight-dark"
+        aria-label="Copy password"
+      >
+        <PiCopyDuotone className="text-[25px]" />
+      </button>
+    </div>
+  </div>
+</div>
               <div className="flex justify-around space-x-4 mt-4 py-4">
                 {category === "Deleted" ? (
                   <Button
