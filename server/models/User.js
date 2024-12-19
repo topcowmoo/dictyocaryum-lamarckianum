@@ -37,8 +37,6 @@ const userSchema = new Schema({
   },
 });
 
-// Index to enforce the uniqueness of the email field in the database
-userSchema.index({ email: 1 }, { unique: true });
 
 // Exporting the model for use in other parts of the application
 module.exports = model("User", userSchema);
