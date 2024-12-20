@@ -179,6 +179,7 @@ function LoginPage() {
           src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/pexels-ozge-taskiran-85164141-12651886.webp"
           alt="Login illustration"
           className="h-full w-full object-cover object-bottom"
+          loading="lazy"
         />
       </div>
     </div>
