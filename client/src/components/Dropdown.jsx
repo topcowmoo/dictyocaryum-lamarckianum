@@ -30,7 +30,7 @@ const Dropdown = ({
 
       {/* Dropdown List */}
       {isOpen && (
-        <div className="absolute mt-2 border border-gray-300 bg-white rounded-[4px] shadow-lg w-full z-10">
+        <div className="absolute mt-2 border border-gray-300 bg-white rounded-[4px] w-full z-10">
           {items.map((item) => (
             <div
               key={item.id}

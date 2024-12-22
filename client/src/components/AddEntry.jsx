@@ -127,7 +127,7 @@ function AddEntry({ onClose, onAddEntry }) {
               type="text"
               value={label}
               onChange={(e) => setLabel(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded-md"
+              className="w-full border border-gray-300 p-2 rounded-[4px]"
               placeholder="e.g., Personal, Work, Family Account"
             />
           </div>
@@ -140,7 +140,7 @@ function AddEntry({ onClose, onAddEntry }) {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded-md"
+              className="w-full border border-gray-300 p-2 rounded-[4px]"
             />
           </div>
 
@@ -151,13 +151,13 @@ function AddEntry({ onClose, onAddEntry }) {
             >
               Password
             </label>
-            <div className="relative flex items-center border border-gray-300 rounded-md">
+            <div className="relative flex items-center border border-gray-300 rounded-[4px]">
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-2 pr-16 rounded-md focus:outline-none"
+                className="w-full p-2 pr-16 rounded-[4px] focus:outline-none"
               />
               <button
                 type="button"
@@ -216,14 +216,14 @@ function AddEntry({ onClose, onAddEntry }) {
               icon={PiSealCheckDuotone}
               type="submit"
               label="Save"
-              className="px-4 py-2 rounded-md dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+              className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
             />
 
             <Button
               icon={PiXCircleDuotone}
               onClick={onClose}
               label="Close"
-              className="px-4 py-2 rounded-md dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
+              className="px-4 py-2 rounded-[4px] dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light"
             />
           </div>
         </form>

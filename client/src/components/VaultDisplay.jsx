@@ -245,7 +245,7 @@ const VaultDisplay = ({
                   type="button"
                   onClick={() => handleRestore(entryId)} // Call handleRestore function
                   size="md"
-                  className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-md"
+                  className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
                 />
               ) : (
                   <>
@@ -255,7 +255,7 @@ const VaultDisplay = ({
                       type="button"
                       onClick={handleEditClick}
                       size="md"
-                      className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-md"
+                      className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
                     />
                     <Button
                       icon={PiTrashDuotone}
@@ -263,7 +263,7 @@ const VaultDisplay = ({
                       label="Delete"
                       onClick={() => setShowDeleteModal(true)}
                       size="md"
-                      className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-md"
+                      className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
                     />
                   </>
                 )}
@@ -274,7 +274,7 @@ const VaultDisplay = ({
         {showDeleteModal && (
           <Modal onClose={() => setShowDeleteModal(false)} showCloseButton={false}>
             <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50">
-              <div className="p-9 text-center bg-hefo-light dark:bg-hefo-dark rounded-md">
+              <div className="p-9 text-center bg-hefo-light dark:bg-hefo-dark rounded-[4px]">
                 <h2 className="text-lg mb-9 dark:text-alltext-dark text-alltext-light">
                   Are you sure you want to delete this entry?
                 </h2>
@@ -283,13 +283,13 @@ const VaultDisplay = ({
                     icon={PiTrashDuotone}
                     label="Confirm"
                     onClick={handleDelete}
-                    className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-md"
+                    className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
                   />
                   <Button
                     icon={PiXCircleDuotone}
                     label="Cancel"
                     onClick={() => setShowDeleteModal(false)}
-                    className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-md"
+                    className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
                   />
                 </div>
               </div>

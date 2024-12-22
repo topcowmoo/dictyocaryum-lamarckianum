@@ -81,7 +81,7 @@ function ChangePassword({ onClose }) {
   const toggleConfirmPasswordVisibility = () => setShowConfirmPassword((prev) => !prev);
 
   return (
-    <div className="w-[650px] h-[650px] bg-sidebar-light dark:bg-sidebar-dark flex flex-col rounded-[4px] shadow-lg">
+    <div className="w-[650px] h-[650px] bg-sidebar-light dark:bg-sidebar-dark flex flex-col rounded-[4px]">
       {/* Header Section */}
       <div className="dark:bg-vault-dark bg-vault-light py-6 px-6 flex items-center justify-start rounded-t-[4px]">
         <h2 className="text-[34px] dark:text-title-dark text-title-light">Change Password</h2>

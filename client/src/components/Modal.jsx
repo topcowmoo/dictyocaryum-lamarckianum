@@ -5,7 +5,7 @@ import Button from "./Button";
 const Modal = ({ onClose, children, showCloseButton = true }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-sidebar-light dark:bg-sidebar-dark rounded-[4px] shadow-xl max-w-[90%] w-[600px]">
+      <div className="bg-sidebar-light dark:bg-sidebar-dark rounded-[4px] max-w-[90%] w-[600px]">
         {children}
         {showCloseButton && (
           <div className="flex justify-end mt-4">
