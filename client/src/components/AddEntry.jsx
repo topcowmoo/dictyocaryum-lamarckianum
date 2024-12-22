@@ -110,7 +110,7 @@ function AddEntry({ onClose, onAddEntry }) {
   return (
     <div className="h-full w-full flex flex-col">
       {/* Header Section */}
-      <div className="dark:bg-vault-dark bg-vault-light py-6 px-4 flex items-center rounded-t-[4px]">
+      <div className="dark:bg-vault-dark bg-vault-light p-6 flex items-center rounded-t-[4px]">
         <h2 className="text-[34px] dark:text-title-dark text-title-light">
           Add New Entry
         </h2>
@@ -211,7 +211,7 @@ function AddEntry({ onClose, onAddEntry }) {
             />
           </div>
 
-          <div className="flex justify-around space-x-4 py-4">
+          <div className="flex mt-20 justify-around space-x-4 py-4">
             <Button
               icon={PiSealCheckDuotone}
               type="submit"

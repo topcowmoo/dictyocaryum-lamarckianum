@@ -102,9 +102,9 @@ function Generator({ onSelectedPassword, onClose }) {
   };
 
   return (
-    <div className="w-[600px] h-[500px] bg-sidebar-light dark:bg-sidebar-dark rounded-[4px] shadow-lg">
+    <div className="w-[600px] h-[500px] bg-sidebar-light dark:bg-hefo-dark rounded-[4px] shadow-lg">
       {/* Header Section */}
-      <div className="dark:bg-vault-dark bg-vault-light py-6 px-4 flex items-center justify-center rounded-t-[4px]">
+      <div className="dark:bg-sidebar-dark bg-vault-light py-6 px-4 flex items-center justify-center rounded-t-[4px]">
         <h2 className="text-[34px] dark:text-title-dark text-title-light">
           Password Generator
         </h2>
@@ -181,7 +181,7 @@ function Generator({ onSelectedPassword, onClose }) {
           </div>
         </div>
 
-        <div className="flex justify-around mt-6">
+        <div className="flex justify-around mt-20">
           <Button
             onClick={handleUsePassword}
             label="Done"

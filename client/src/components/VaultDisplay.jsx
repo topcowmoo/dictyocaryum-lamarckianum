@@ -245,7 +245,7 @@ const VaultDisplay = ({
                   type="button"
                   onClick={() => handleRestore(entryId)} // Call handleRestore function
                   size="md"
-                  className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
+                  className="flex mt-20 items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
                 />
               ) : (
                   <>
@@ -255,7 +255,7 @@ const VaultDisplay = ({
                       type="button"
                       onClick={handleEditClick}
                       size="md"
-                      className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
+                      className="flex mt-20 items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
                     />
                     <Button
                       icon={PiTrashDuotone}
@@ -263,7 +263,7 @@ const VaultDisplay = ({
                       label="Delete"
                       onClick={() => setShowDeleteModal(true)}
                       size="md"
-                      className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
+                      className="flex mt-20 items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
                     />
                   </>
                 )}

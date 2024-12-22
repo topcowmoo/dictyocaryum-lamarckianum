@@ -108,7 +108,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
   return (
     <div className="h-full w-full flex flex-col">
       {/* Header Section */}
-      <div className="dark:bg-vault-dark bg-vault-light py-6 px-4 flex items-center rounded-t-[4px]">
+      <div className="dark:bg-vault-dark bg-vault-light p-6 flex items-center rounded-t-[4px]">
         <h2 className="text-[34px] dark:text-title-dark text-title-light">
           Edit Entry
         </h2>
@@ -215,7 +215,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
 />
           </div>
 
-          <div className="flex justify-around space-x-4 py-4">
+          <div className="flex justify-around space-x-4 py-4 mt-20">
             <Button
               icon={PiSealCheckDuotone}
               type="submit"

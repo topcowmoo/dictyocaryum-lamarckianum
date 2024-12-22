@@ -83,7 +83,7 @@ function ChangePassword({ onClose }) {
   return (
     <div className="w-[650px] h-[650px] bg-sidebar-light dark:bg-sidebar-dark flex flex-col rounded-[4px]">
       {/* Header Section */}
-      <div className="dark:bg-vault-dark bg-vault-light py-6 px-6 flex items-center justify-start rounded-t-[4px]">
+      <div className="dark:bg-vault-dark bg-vault-light p-6 flex items-center justify-start rounded-t-[4px]">
         <h2 className="text-[34px] dark:text-title-dark text-title-light">Change Password</h2>
       </div>
 
@@ -176,14 +176,14 @@ function ChangePassword({ onClose }) {
               label="Save"
               icon={PiSealCheckDuotone}
               size="md"
-              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light mt-4"
+              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light mt-11"
             />
             <Button
               onClick={onClose}
               label="Close"
               icon={PiXCircleDuotone}
               size="md"
-              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light mt-4"
+              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light mt-11"
             />
           </div>
         </form>
