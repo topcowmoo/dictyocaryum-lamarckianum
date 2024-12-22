@@ -59,18 +59,22 @@ function Dashboard() {
   // Handlers for section visibility
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+    setSelectedEntry(null);
+    setShowAddEntry(false); // Close AddEntry modal when category is clicked
     setVisibleSection("vaultEntries");
   };
 
   const handleEntrySelect = (entry) => {
-    setSelectedEntry(entry);
-    setVisibleSection("vaultDisplay");
+    setSelectedEntry(entry); // Set the selected entry
+    setShowAddEntry(false); // Close AddEntry modal if open
+    setVisibleSection("vaultDisplay"); // Show VaultDisplay section
   };
-
-  const handleAddNewEntry = () => {
-    setShowAddEntry(true);
-    setVisibleSection("vaultDisplay");
-  };
+  
+  const handleAddNewEntry = async () => {
+    setSelectedEntry(null); // Clear the selected entry
+    setShowAddEntry(true); // Open AddEntry modal
+    setVisibleSection("vaultDisplay"); // Show VaultDisplay section
+  };  
 
   const handleCloseAddEntry = async () => {
     setShowAddEntry(false);
