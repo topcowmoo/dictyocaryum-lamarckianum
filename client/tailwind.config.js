@@ -37,7 +37,7 @@ export default {
           dark: "#ffffff", // Dark color for general text
         },
         highlight: {
-          light: "#700000", // Light color for text highlights
+          light: "#823519", // Light color for text highlights
           dark: "#EFC471", // Dark color for text highlights
         },
         buttonbgc: {

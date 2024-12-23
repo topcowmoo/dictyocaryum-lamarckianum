@@ -11,15 +11,15 @@ function Header({ setSearchQuery }) {
     <div className="flex justify-start items-center w-full p-4 dark:bg-hefo-dark bg-hefo-light">
       {/* Left Section: Logo */}
       <div className="flex items-center">
-        <button
+        <div
           className="flex-shrink-0 focus:outline-none"
         >
           <img
             src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
             alt="App logo"
-            className="w-[45px] h-[45px] object-contain"
+            className="w-[50px] h-[50px] object-contain"
           />
-        </button>
+        </div>
       </div>
 
       {/* Center Section: SearchBar */}
@@ -30,9 +30,9 @@ function Header({ setSearchQuery }) {
       {/* Right Section: Dark/Light Mode Toggle */}
       <div className="flex justify-end items-center">
         {isDarkMode ? (
-          <PiSunDuotone size={30} onClick={toggleDarkMode} className="dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
+          <PiSunDuotone size={35} onClick={toggleDarkMode} className="dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
         ) : (
-          <PiMoonDuotone size={30} onClick={toggleDarkMode} className="dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
+          <PiMoonDuotone size={35} onClick={toggleDarkMode} className="dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
         )}
       </div>
     </div>
