@@ -44,17 +44,18 @@ function AddEntry({ onClose, onAddEntry }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!label || !username || !password || !category || !serviceName) {
-      alert("All fields are required: Service Name, Label, Username, Password, and Category.");
+      alert(
+        "All fields are required: Service Name, Label, Username, Password, and Category."
+      );
       return;
     }
 
     // Normalize and validate the service name
-    const normalizedServiceNameKey = serviceName.toLowerCase().replace(/\s+/g, "");
+    const normalizedServiceNameKey = serviceName
+      .toLowerCase()
+      .replace(/\s+/g, "");
     const validatedServiceName =
       serviceNames[normalizedServiceNameKey] || serviceNames.default;
-
-    console.log("Normalized Key:", normalizedServiceNameKey);
-    console.log("Validated Service Name:", validatedServiceName);
 
     try {
       const response = await fetch(`${apiURL}/api/locker`, {
@@ -74,7 +75,6 @@ function AddEntry({ onClose, onAddEntry }) {
 
       if (response.ok) {
         const newEntry = await response.json();
-        console.log("New Entry Added:", newEntry);
         onAddEntry(newEntry); // Call parent callback
         setUsername("");
         setPassword("");
@@ -98,14 +98,16 @@ function AddEntry({ onClose, onAddEntry }) {
     { id: 4, title: "Identification" },
   ];
 
-  const serviceItems = Object.entries(serviceNames).map(([key, name], index) => {
-    const Icon = serviceIcons[key] || serviceIcons.default; // Retrieve the correct icon or default
-    return {
-      id: index + 1,
-      title: name,
-      icon: <Icon size={20} />,
-    };
-  });
+  const serviceItems = Object.entries(serviceNames).map(
+    ([key, name], index) => {
+      const Icon = serviceIcons[key] || serviceIcons.default; // Retrieve the correct icon or default
+      return {
+        id: index + 1,
+        title: name,
+        icon: <Icon size={20} />,
+      };
+    }
+  );
 
   return (
     <div className="h-full w-full flex flex-col">
