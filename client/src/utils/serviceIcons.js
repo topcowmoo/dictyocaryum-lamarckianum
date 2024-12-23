@@ -1,8 +1,8 @@
 import { PiGlobeHemisphereWestDuotone } from "react-icons/pi";
 import { FaCcDiscover } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
+import { FaCcVisa } from "react-icons/fa6";
 import {
-  SiVisa,
   SiMastercard,
   SiAmericanexpress,
   SiPaypal,
@@ -50,7 +50,7 @@ export const serviceIcons = {
   primevideo: SiPrime,
   spotify: SiSpotify,
   tiktok: SiTiktok,
-  visa: SiVisa,
+  visa: FaCcVisa,
   wellsfargo: SiWellsfargo,
   whatsapp: SiWhatsapp,
   x: RiTwitterXFill,

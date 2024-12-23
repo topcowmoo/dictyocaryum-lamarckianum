@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { PiCaretDown } from "react-icons/pi";
 
@@ -8,8 +8,9 @@ const Dropdown = ({
   placeholder = "Select an Option",
   initialSelectedItem,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Dropdown starts closed
   const [selectedItem, setSelectedItem] = useState(initialSelectedItem || null);
+  const dropdownRef = useRef(null); // Ref to detect clicks outside the dropdown
 
   const handleSelect = (item) => {
     setSelectedItem(item); // Set selected item object
@@ -17,12 +18,28 @@ const Dropdown = ({
     onSelect(item); // Notify parent component
   };
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false); // Close dropdown if click is outside
+    }
+  };
+
+  useEffect(() => {
+    // Add event listener to detect clicks outside the dropdown
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      // Clean up event listener on component unmount
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative w-full">
+    <div ref={dropdownRef} className="relative w-full">
       {/* Selected Item */}
       <div
         className="bg-white p-2 rounded-[4px] cursor-pointer flex items-center justify-between border border-gray-300"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen((prev) => !prev)} // Toggle dropdown manually
       >
         <span>{selectedItem?.title || placeholder}</span>
         <PiCaretDown size={20} className="ml-2" />
@@ -46,7 +63,6 @@ const Dropdown = ({
     </div>
   );
 };
-
 
 Dropdown.propTypes = {
   items: PropTypes.arrayOf(
