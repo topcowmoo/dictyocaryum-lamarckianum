@@ -31,6 +31,15 @@ app.use(cors({
   },
   credentials: true, // Allow credentials (cookies) to be sent in cross-origin requests
 }));
+app.use((req, res, next) => {
+  res.setHeader(
+    "Cache-Control",
+    "no-store, no-cache, must-revalidate, proxy-revalidate"
+  );
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+  next();
+});
 
 // API Route setup
 app.use('/api/user', userRoutes); // Use user-related routes for '/api/user' endpoint

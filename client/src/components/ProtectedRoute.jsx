@@ -1,15 +1,15 @@
 import { useEffect, useState, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { AuthContext } from "../context/AuthContext"; // Ensure AuthContext is imported
+import { AuthContext } from "../context/AuthContext"; 
 
 const apiURL = import.meta.env.VITE_API_URL;
 
 const ProtectedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-  const { setUser } = useContext(AuthContext); // AuthContext for managing user state
+  const { setUser } = useContext(AuthContext);
 
-  // Check authentication status on mount
+  // Check authentication status
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
@@ -21,10 +21,10 @@ const ProtectedRoute = ({ children }) => {
         if (response.ok) {
           const data = await response.json();
           setIsAuthenticated(true);
-          setUser(data.user); // Update user context with the authenticated user
+          setUser(data.user);
         } else {
           setIsAuthenticated(false);
-          setUser(null); // Clear user context
+          setUser(null);
         }
       } catch (error) {
         console.error("Auth check failed:", error);
@@ -34,19 +34,16 @@ const ProtectedRoute = ({ children }) => {
     };
 
     checkAuthStatus();
-  }, [setUser]);
+  }, [setUser]); // Re-run check if user state changes
 
-  // Render loading state while checking authentication
   if (isAuthenticated === null) {
-    return <div>Loading...</div>; // Replace with a spinner or skeleton loader if desired
+    return <div>Loading...</div>;
   }
 
-  // Navigate to login if not authenticated
   if (!isAuthenticated) {
     return <Navigate to="/login-page" replace />;
   }
 
-  // Render the protected children if authenticated
   return children;
 };
 
