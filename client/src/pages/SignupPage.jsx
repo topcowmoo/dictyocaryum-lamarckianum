@@ -130,7 +130,7 @@ function SignupPage() {
     <h1 className="dark:text-title-dark text-title-light mt-8 text-center text-[20px] md:text-3xl xl:text-[27px] 2xl:text-[44px]">
       VaultGuard Password Locker
     </h1>
-    <h2 className="mt-2 text-center text-[18px] md:text-xl xl:text-[21px] 2xl:text-[25px]">
+    <h2 className="mt-9 text-center text-[18px] md:text-xl xl:text-[21px] 2xl:text-[25px]">
       Create a new account
     </h2>
   </div>

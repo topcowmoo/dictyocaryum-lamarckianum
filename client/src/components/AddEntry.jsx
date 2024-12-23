@@ -213,7 +213,7 @@ function AddEntry({ onClose, onAddEntry }) {
             />
           </div>
 
-          <div className="flex mt-20 justify-around space-x-4 py-4">
+          <div className="flex justify-around space-x-4 py-4">
             <Button
               icon={PiSealCheckDuotone}
               type="submit"

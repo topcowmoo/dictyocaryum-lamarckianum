@@ -73,7 +73,7 @@ function Profile() {
         {/* Card Container */}
         <div className="flex flex-col items-center justify-center min-h-[50%] w-full max-w-lg">
           {/* Card 1: Change Password */}
-          <div className="p-4 dark:bg-display-dark bg-sidebar-light rounded-[4px] shadow-lg w-full max-w-sm mb-5">
+          <div className="p-4 pb-6 dark:bg-display-dark bg-sidebar-light rounded-[4px] shadow-lg w-full max-w-sm mb-5">
             <h2 className="text-lg dark:text-title-dark text-title-light mb-3">
               Change Your Password
             </h2>
@@ -91,7 +91,7 @@ function Profile() {
           </div>
 
           {/* Card 2: Logout */}
-          <div className="p-4 dark:bg-display-dark bg-sidebar-light rounded-[4px] shadow-lg w-full max-w-sm mb-5">
+          <div className="p-4 pb-6 dark:bg-display-dark bg-sidebar-light rounded-[4px] shadow-lg w-full max-w-sm mb-5">
             <h2 className="text-lg dark:text-title-dark text-title-light mb-3">
               Logout
             </h2>
@@ -109,7 +109,7 @@ function Profile() {
           </div>
 
           {/* Card 3: Go Back */}
-          <div className="p-4 dark:bg-display-dark bg-sidebar-light rounded-[4px] shadow-lg w-full max-w-sm">
+          <div className="p-4 pb-6 dark:bg-display-dark bg-sidebar-light rounded-[4px] shadow-lg w-full max-w-sm">
             <h2 className="text-lg dark:text-title-dark text-title-light mb-3">
               Back to Dashboard
             </h2>
