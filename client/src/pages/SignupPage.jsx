@@ -125,12 +125,12 @@ function SignupPage() {
     <img
       src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
       alt="App logo"
-      className="mx-auto w-auto h-16 md:h-24 xl:h-24 2xl:h-27"
+      className="mx-auto w-auto h-16 md:h-20 xl:h-24 2xl:h-27"
     />
-    <h1 className="dark:text-title-dark text-title-light mt-8 text-center text-[20px] md:text-3xl xl:text-[27px] 2xl:text-[44px]">
+    <h1 className="dark:text-title-dark text-title-light mt-8 text-center text-[20px] md:text-[19.5px] lg:text-[26px] xl:text-[27px] 2xl:text-[38px]">
       VaultGuard Password Locker
     </h1>
-    <h2 className="mt-9 text-center text-[18px] md:text-xl xl:text-[21px] 2xl:text-[25px]">
+    <h2 className="md:mt-3 lg:mt-4 xl:mt-9 text-center text-[18px] md:text-[17px] xl:text-[21px] 2xl:text-[25px]">
       Create a new account
     </h2>
   </div>
@@ -180,23 +180,25 @@ function SignupPage() {
             ) : (
               <PiXCircleDuotone className="text-[24px] text-alltext-light dark:text-alltext-dark" />
             )}
-            <span className="ml-2 text-[13px] md:text-[11px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px]">{getRequirementText(key)}</span>
+            <span className="ml-2 text-[13px] md:text-[12px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px]">{getRequirementText(key)}</span>
           </div>
         ))}
       </div>
     </div>
 
     {/* Error Message */}
-    {error && <p className="text-red-500 text-xs md:text-sm">{error}</p>}
+    <div style={{ height: '1.5rem' }}>
+    {error && <p className="text-red-500 text-xs md:text-[13px] lg:text-[16.5px] xl:text-[20px]">{error}</p>}
+    </div>
 
     {/* Signup Button */}
     <div className="flex justify-center mb-4">
-      <Button icon={PiSealCheckDuotone} label="Sign Up" type="submit" className="text-sm md:text-base h-10 px-4 md:px-6 mt-9" iconSize={20} />
+      <Button icon={PiSealCheckDuotone} label="Sign Up" type="submit" className="text-sm md:text-base h-10 px-4 md:px-6 md:mt-7 lg:mt-9" iconSize={20} />
     </div>
   </form>
 
   {/* Bottom Section: Link to Login */}
-  <p className="text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px] -mt-11 mb-11">
+  <p className="text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px] mt-3">
     Already have an account? <Link to="/login-page" className="underline dark:hover:text-highlight-dark hover:text-highlight-light">Login here</Link>
   </p>
 </div>
