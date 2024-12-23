@@ -125,7 +125,7 @@ function SignupPage() {
     <img
       src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
       alt="App logo"
-      className="mx-auto w-auto h-16 md:h-24 xl:h-24 2xl:h-32"
+      className="mx-auto w-auto h-16 md:h-24 xl:h-24 2xl:h-27"
     />
     <h1 className="dark:text-title-dark text-title-light mt-8 text-center text-[20px] md:text-3xl xl:text-[27px] 2xl:text-[44px]">
       VaultGuard Password Locker
@@ -136,7 +136,7 @@ function SignupPage() {
   </div>
 
   {/* Middle Section: Signup Form */}
-  <form className="space-y-4 w-full max-w-md mx-auto" onSubmit={handleSignup}>
+  <form className="space-y-4 w-full max-w-md mx-auto mb-7" onSubmit={handleSignup}>
     {/* Email Input */}
     <div>
       <label htmlFor="email" className="block text-sm md:text-base xl:text-[18px] 2xl:text-[20px]">Email</label>
@@ -190,13 +190,13 @@ function SignupPage() {
     {error && <p className="text-red-500 text-xs md:text-sm">{error}</p>}
 
     {/* Signup Button */}
-    <div className="flex justify-center">
-      <Button icon={PiSealCheckDuotone} label="Sign Up" type="submit" className="text-sm md:text-base h-10 px-4 md:px-6 mt-4" iconSize={20} />
+    <div className="flex justify-center mb-4">
+      <Button icon={PiSealCheckDuotone} label="Sign Up" type="submit" className="text-sm md:text-base h-10 px-4 md:px-6 mt-9" iconSize={20} />
     </div>
   </form>
 
   {/* Bottom Section: Link to Login */}
-  <p className="text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px]">
+  <p className="text-center text-xs md:text-[13px] lg:text-[15px] xl:text-[18px] 2xl:text-[20px] -mt-11 mb-11">
     Already have an account? <Link to="/login-page" className="underline dark:hover:text-highlight-dark hover:text-highlight-light">Login here</Link>
   </p>
 </div>

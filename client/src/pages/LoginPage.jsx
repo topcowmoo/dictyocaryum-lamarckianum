@@ -74,7 +74,7 @@ function LoginPage() {
           <img
             src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
             alt="App logo"
-            className="mx-auto h-16 md:h-24 xl:h-28 2xl:h-32 w-auto"
+            className="mx-auto h-16 md:h-24 xl:h-28 2xl:h-30 w-auto"
           />
           <h1 className="mt-6 text-center text-[21px] md:text-3xl xl:text-[27px] 2xl:text-[31px] dark:text-title-dark text-title-light">
             VaultGuard Password Locker
