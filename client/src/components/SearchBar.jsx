@@ -20,6 +20,7 @@ function SearchBar({ onSearchChange }) {
     <div className="relative w-full max-w-md">
       <input
         id="search"
+        aria-label="search"
         name="search"
         type="text"
         placeholder="Search..."
