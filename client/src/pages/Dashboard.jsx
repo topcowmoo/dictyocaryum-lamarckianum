@@ -196,7 +196,7 @@ function Dashboard() {
               label={selectedEntry?.label}
               password={selectedEntry?.password}
               entryId={selectedEntry?._id}
-              setSelectedEntry={setSelectedEntry}
+              setEntries={setEntries}              setSelectedEntry={setSelectedEntry}
               category={selectedEntry?.category}
               onDelete={() => handleDelete(selectedEntry?._id)}
               onEdit={handleEditSubmit}

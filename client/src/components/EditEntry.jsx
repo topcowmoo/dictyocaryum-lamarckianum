@@ -41,12 +41,12 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!password || !category) {
       alert("Password and category are required.");
       return;
     }
-
+  
     try {
       const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
         method: "PUT",
@@ -61,12 +61,14 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
           label,
         }),
       });
-
+  
       if (response.ok) {
         const updatedEntry = await response.json();
-        onSubmit(updatedEntry); // Notify the parent about the update
+        if (onSubmit) {
+          onSubmit(updatedEntry); // ✅ Ensure onSubmit is called
+        }
         alert("Password entry updated successfully!");
-        onClose(); // Close the modal
+        onClose();
       } else {
         alert("Failed to update password entry. Please try again.");
       }
@@ -75,6 +77,7 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
       alert("An error occurred. Please try again.");
     }
   };
+  
 
   // List of category options
   const categoryItems = [
