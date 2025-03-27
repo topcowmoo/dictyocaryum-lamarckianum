@@ -17,8 +17,8 @@ const apiURL = import.meta.env.VITE_API_URL;
 
 const VaultDisplay = ({
 
+  name,
   username,
-  label,
   password,
   Icon,
   entryId,
@@ -135,10 +135,10 @@ const VaultDisplay = ({
           <EditEntry
           entryId={entryId}
           initialData={{
+            name: name,
             username: username,
             password: password,
-            category: category, // Pass the correct category
-            label: label,
+            category: category,
           }}
           onSubmit={handleEditSubmit}
           onClose={handleEditClose}
@@ -162,10 +162,10 @@ const VaultDisplay = ({
               </div>
               <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
-                  Label
+                  Name
                 </h3>
                 <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
-                  {label}
+                  {name}
                 </p>
               </div>
               <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
@@ -287,7 +287,7 @@ const VaultDisplay = ({
 };
 
 VaultDisplay.propTypes = {
-  label: PropTypes.string,
+  name: PropTypes.string,
   username: PropTypes.string,
   password: PropTypes.string,
   Icon: PropTypes.elementType,

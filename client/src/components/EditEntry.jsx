@@ -13,10 +13,10 @@ import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
 
 function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
+  const [name, setName] = useState(initialData?.name || "");
   const [username, setUsername] = useState(initialData?.username || "");
   const [password, setPassword] = useState(initialData?.password || "");
   const [category, setCategory] = useState(initialData?.category || "");
-  const [label, setLabel] = useState(initialData?.label || "");
   const [showPassword, setShowPassword] = useState(false);
   const [showGenerator, setShowGenerator] = useState(false);
 
@@ -55,10 +55,10 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
         },
         credentials: "include",
         body: JSON.stringify({
+          name,
           username,
           password,
           category,
-          label,
         }),
       });
   
@@ -104,12 +104,12 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
         <form onSubmit={handleSubmit} className="h-full flex flex-col">
           <div className="mb-4">
             <label className="block mb-1 dark:text-title-dark text-title-light">
-              Label
+              Name
             </label>
             <input
               type="text"
-              value={label}
-              onChange={(e) => setLabel(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full border border-gray-300 p-2 rounded-[4px]"
               placeholder="e.g., Personal, Work, Family Account"
             />
@@ -213,10 +213,10 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
 EditEntry.propTypes = {
   entryId: PropTypes.string.isRequired,
   initialData: PropTypes.shape({
+    name: PropTypes.string,
     username: PropTypes.string,
     password: PropTypes.string,
     category: PropTypes.string,
-    label: PropTypes.string,
   }),
   onSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func,

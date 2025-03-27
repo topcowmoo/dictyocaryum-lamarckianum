@@ -44,7 +44,7 @@ function Dashboard() {
     const query = searchQuery?.toLowerCase() || "";
     const matchesSearch =
       query &&
-      (entry.label?.toLowerCase().includes(query) ||
+      (entry.name?.toLowerCase().includes(query) ||
         entry.username?.toLowerCase().includes(query));
 
     const matchesCategory =
@@ -193,7 +193,7 @@ function Dashboard() {
           ) : (
             <VaultDisplay
               username={selectedEntry?.username}
-              label={selectedEntry?.label}
+              name={selectedEntry?.name}
               password={selectedEntry?.password}
               entryId={selectedEntry?._id}
               setEntries={setEntries}              setSelectedEntry={setSelectedEntry}

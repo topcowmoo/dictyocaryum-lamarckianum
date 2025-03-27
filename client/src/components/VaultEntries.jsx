@@ -15,12 +15,12 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
 
   // Filter entries based on search query and category
   const filteredEntries = safeEntries.filter((entry) => {
-    const label = entry.label?.toLowerCase() || "";
+    const name = entry.name?.toLowerCase() || "";
     const username = entry.username?.toLowerCase() || "";
     const query = searchQuery?.toLowerCase() || "";
 
     if (query) {
-      return label.includes(query) || username.includes(query);
+      return name.includes(query) || username.includes(query);
     }
 
     const categoryMatch =
@@ -48,9 +48,9 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
           >
             <div className="flex items-center space-x-5">
               <div className="flex flex-col">
-                {entry.label && (
+                {entry.name && (
                   <span className="text-[15px] text-zinc-800 dark:text-zinc-400">
-                    {entry.label}
+                    {entry.name}
                   </span>
                 )}
                 {entry.username && (

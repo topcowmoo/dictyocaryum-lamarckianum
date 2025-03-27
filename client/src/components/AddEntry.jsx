@@ -13,10 +13,10 @@ import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
 
 function AddEntry({ onClose, onAddEntry }) {
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [category, setCategory] = useState("");
-  const [label, setLabel] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showGenerator, setShowGenerator] = useState(false);
 
@@ -41,9 +41,9 @@ function AddEntry({ onClose, onAddEntry }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!label || !username || !password || !category) {
+    if (!name || !username || !password || !category) {
       alert(
-        "All fields are required: Label, Username, Password, and Category."
+        "All fields are required: Name, Username, Password, and Category."
       );
       return;
     }
@@ -55,20 +55,20 @@ function AddEntry({ onClose, onAddEntry }) {
         },
         credentials: "include",
         body: JSON.stringify({
+          name,
           username,
           password,
           category,
-          label,
         }),
       });
 
       if (response.ok) {
         const newEntry = await response.json();
         onAddEntry(newEntry); // Call parent callback
+        setName("");
         setUsername("");
         setPassword("");
         setCategory("");
-        setLabel("");
         onClose(); // Close form
       } else {
         alert("Failed to add password entry. Please try again.");
@@ -100,12 +100,12 @@ function AddEntry({ onClose, onAddEntry }) {
         <form onSubmit={handleSubmit} className="h-full flex flex-col">
           <div className="mb-4">
             <label className="block mb-1 dark:text-title-dark text-title-light">
-              Label
+              Name
             </label>
             <input
               type="text"
-              value={label}
-              onChange={(e) => setLabel(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full border border-gray-300 p-2 rounded-[4px]"
               placeholder="e.g., Personal, Work, Family Account"
             />

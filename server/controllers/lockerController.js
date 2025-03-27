@@ -19,7 +19,7 @@ exports.getAllPasswords = async (req, res) => {
 
 // Controller function to create a new password entry
 exports.createPassword = async (req, res) => {
-  const { username, password, category, label } = req.body;
+  const { name, username, password, category } = req.body;
 
   // Check if required fields are provided
   if (!password) {
@@ -29,7 +29,7 @@ exports.createPassword = async (req, res) => {
   try {
     // Assume that req.user.userId is set by your auth middleware
     const userId = req.user.userId;
-    const newLockerEntry = new Locker({ userId, username, password, category, label });
+    const newLockerEntry = new Locker({ name, userId, username, password, category });
 
     await newLockerEntry.save();
 

@@ -9,6 +9,11 @@ const lockerSchema = new Schema({
         ref: 'User',  // References the 'User' model
         required: true,  // userId is mandatory for associating locker entries with users
     },
+      // name: Specifies the name of the locker entry
+      name: {
+        type: String,  // String data type for the name
+        trim: true,  // Trims whitespace from the name
+    },
     // username: Optional field for storing the username associated with the service
     username: {
         type: String,  // String data type for the username
@@ -29,11 +34,6 @@ const lockerSchema = new Schema({
         type: String,  // String data type for the category
         enum: ["All", "Identification", "Cards", "Login", "Entertainment", "Deleted"],  // Allowed values for the category
         default: "All",  // Default category if none is provided
-    },
-    // label: Specifies a custom label for the locker entry
-    label: {
-        type: String,  // String data type for the label
-        trim: true,  // Trims whitespace from the label
     },
 });
 
