@@ -20,7 +20,6 @@ const VaultDisplay = ({
   name,
   username,
   password,
-  Icon,
   entryId,
   setEntries,
   setSelectedEntry,
@@ -145,19 +144,11 @@ const VaultDisplay = ({
         />
         ) : (
           <>
-            <div className="flex items-center dark:bg-vault-dark bg-vault-light py-6 px-4 rounded-t-[4px] dark:text-alltext-dark text-alltext-light shadow-lg">
-              <div className="flex items-center space-x-4">
-                {Icon && (
-                  <Icon
-                    size={42}
-                    className="dark:text-highlight-dark text-highlight-light"
-                  />
-                )}
-                
-              </div>
+            <div className="flex items-center dark:bg-sidebar-dark bg-sidebar-light rounded-t-[4px] pt-1 px-4 dark:text-alltext-dark text-alltext-light shadow-lg">
+             
             </div>
-            <div className="flex-1 p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-b-[4px] space-y-4 overflow-y-auto">
-              <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
+            <div className="flex-1 p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-b-[4px] space-y-3 overflow-y-auto">
+              <div className=" border-alltext-light dark:border-alltext-dark pb-2">
              
               </div>
               <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
@@ -290,7 +281,7 @@ VaultDisplay.propTypes = {
   name: PropTypes.string,
   username: PropTypes.string,
   password: PropTypes.string,
-  Icon: PropTypes.elementType,
+  
   entryId: PropTypes.string,
   setEntries: PropTypes.func.isRequired,
   setSelectedEntry: PropTypes.func.isRequired,

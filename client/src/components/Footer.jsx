@@ -10,7 +10,7 @@ function Footer() {
 
   return (
     <footer
-      className="relative bottom-0 left-0 right-0 flex items-center justify-between p-4 text-[10px] md:text-[14px] w-full z-10 dark:bg-hefo-dark bg-hefo-light"
+      className="relative bottom-0 left-0 right-0 flex items-center justify-between p-2.5 text-[10px] md:text-[14px] w-full z-10 dark:bg-hefo-dark bg-hefo-light"
       role="contentinfo"
     >
       {/* Icon Section */}
