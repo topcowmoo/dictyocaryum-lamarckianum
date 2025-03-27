@@ -11,16 +11,12 @@ import Button from "./Button.jsx";
 import Modal from "./Modal.jsx";
 import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
-import { serviceIcons, serviceNames } from "../utils/serviceIcons.js";
 
 function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
   const [username, setUsername] = useState(initialData?.username || "");
   const [password, setPassword] = useState(initialData?.password || "");
   const [category, setCategory] = useState(initialData?.category || "");
   const [label, setLabel] = useState(initialData?.label || "");
-  const [serviceName, setServiceName] = useState(
-    initialData?.serviceName || ""
-  );
   const [showPassword, setShowPassword] = useState(false);
   const [showGenerator, setShowGenerator] = useState(false);
 
@@ -46,8 +42,8 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!serviceName || !password || !category) {
-      alert("Service name, password, and category are required.");
+    if (!password || !category) {
+      alert("Password and category are required.");
       return;
     }
 
@@ -62,7 +58,6 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
           username,
           password,
           category,
-          serviceName,
           label,
         }),
       });
@@ -81,30 +76,17 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
     }
   };
 
-  const serviceItems = Object.entries(serviceNames).map(([key, name], index) => {
-    const Icon = serviceIcons[key] || serviceIcons.default; // Retrieve the correct icon or default
-    return {
-      id: index + 1,
-      title: name,
-      icon: <Icon size={20} />, // Use the dynamic icon component properly
-    };
-  });
-
-  
+  // List of category options
   const categoryItems = [
     { id: 1, title: "Cards" },
     { id: 2, title: "Entertainment" },
     { id: 3, title: "Login" },
     { id: 4, title: "Identification" },
   ];
-  
-  const matchingServiceItem = serviceItems.find(
-    (item) => item.title === serviceName
-  );
-  const matchingCategoryItem = categoryItems.find(
-    (item) => item.title === category
-  );
-  
+
+  // Find the matching category item to preselect in the Dropdown
+  const matchingCategoryItem = categoryItems.find((item) => item.title === category);
+
   return (
     <div className="h-full w-full flex flex-col">
       {/* Header Section */}
@@ -195,24 +177,13 @@ function EditEntry({ entryId, initialData, onSubmit, onClose = () => {} }) {
 
           <div className="mb-4">
             <label className="block mb-1 dark:text-title-dark text-title-light">
-              Service Name
-            </label>
-            <Dropdown
-  items={serviceItems}
-  initialSelectedItem={matchingServiceItem} // Pass the matching service
-  onSelect={(item) => setServiceName(item.title)} // Update serviceName on selection
-/>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-1 dark:text-title-dark text-title-light">
               Category
             </label>
             <Dropdown
-  items={categoryItems}
-  initialSelectedItem={matchingCategoryItem} // Pass the matching category
-  onSelect={(item) => setCategory(item.title)} // Update category on selection
-/>
+              items={categoryItems}
+              initialSelectedItem={matchingCategoryItem} // Pass the matching category
+              onSelect={(item) => setCategory(item.title)} // Update category on selection
+            />
           </div>
 
           <div className="flex justify-around space-x-4 py-4">
@@ -242,7 +213,6 @@ EditEntry.propTypes = {
     username: PropTypes.string,
     password: PropTypes.string,
     category: PropTypes.string,
-    serviceName: PropTypes.string,
     label: PropTypes.string,
   }),
   onSubmit: PropTypes.func.isRequired,
