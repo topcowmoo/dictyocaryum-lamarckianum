@@ -107,7 +107,6 @@ function AddEntry({ onClose, onAddEntry }) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full border border-gray-300 p-2 rounded-[4px]"
-              placeholder="e.g., Personal, Work, Family Account"
             />
           </div>
 

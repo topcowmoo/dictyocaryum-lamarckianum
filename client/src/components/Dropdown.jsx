@@ -5,7 +5,6 @@ import { PiCaretDown } from "react-icons/pi";
 const Dropdown = ({
   items,
   onSelect,
-  placeholder = "Select an Option",
   initialSelectedItem,
 }) => {
   const [isOpen, setIsOpen] = useState(false); // Dropdown starts closed
@@ -41,7 +40,7 @@ const Dropdown = ({
         className="bg-white p-2 rounded-[4px] cursor-pointer flex items-center justify-between border border-gray-300"
         onClick={() => setIsOpen((prev) => !prev)} // Toggle dropdown manually
       >
-        <span>{selectedItem?.title || placeholder}</span>
+        <span>{selectedItem?.title}</span>
         <PiCaretDown size={20} className="ml-2" />
       </div>
 
@@ -73,7 +72,6 @@ Dropdown.propTypes = {
     })
   ).isRequired,
   onSelect: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
   initialSelectedItem: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
