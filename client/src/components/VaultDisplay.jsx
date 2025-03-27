@@ -12,12 +12,11 @@ import {
 import Button from "./Button";
 import EditEntry from "./EditEntry";
 import Modal from "./Modal";
-import { serviceNames } from "../utils/serviceIcons";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
 const VaultDisplay = ({
-  service,
+
   username,
   label,
   password,
@@ -30,10 +29,6 @@ const VaultDisplay = ({
   const [showPassword, setShowPassword] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  // Map service names and fall back to "Unnamed Service"
-  const normalizedKey = service?.toLowerCase().replace(/\s+/g, "") || "default";
-  const displayServiceName = serviceNames[normalizedKey] || "Unnamed Service";
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
@@ -124,7 +119,7 @@ const VaultDisplay = ({
   const handleEditClick = () => setIsEditing(true);
   const handleEditClose = () => setIsEditing(false);
 
-  const isEmpty = !service && !username && !password;
+  const isEmpty = !username && !password;
 
 
   return (
@@ -140,7 +135,6 @@ const VaultDisplay = ({
           <EditEntry
           entryId={entryId}
           initialData={{
-            serviceName: service, // Pass the correct service name
             username: username,
             password: password,
             category: category, // Pass the correct category
@@ -159,21 +153,12 @@ const VaultDisplay = ({
                     className="dark:text-highlight-dark text-highlight-light"
                   />
                 )}
-                <div>
-                  <h2 className="text-[34px] dark:text-title-dark text-title-light">
-                    {displayServiceName}
-                  </h2>
-                </div>
+                
               </div>
             </div>
             <div className="flex-1 p-4 dark:bg-sidebar-dark bg-sidebar-light rounded-b-[4px] space-y-4 overflow-y-auto">
               <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
-                <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
-                  Service Name
-                </h3>
-                <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
-                  {displayServiceName}
-                </p>
+             
               </div>
               <div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
                 <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
