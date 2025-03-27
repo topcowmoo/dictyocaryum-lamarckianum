@@ -9,12 +9,6 @@ const lockerSchema = new Schema({
         ref: 'User',  // References the 'User' model
         required: true,  // userId is mandatory for associating locker entries with users
     },
-    // serviceName: Name of the service being stored in the locker, e.g., 'Netflix'
-    serviceName: {
-        type: String,  // String data type for the service name
-        required: 'Service name is required',  // Custom error message if serviceName is missing
-        trim: true,  // Removes whitespace from both ends of the string
-    },
     // username: Optional field for storing the username associated with the service
     username: {
         type: String,  // String data type for the username

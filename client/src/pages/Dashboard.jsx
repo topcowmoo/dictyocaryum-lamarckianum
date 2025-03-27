@@ -44,8 +44,7 @@ function Dashboard() {
     const query = searchQuery?.toLowerCase() || "";
     const matchesSearch =
       query &&
-      (entry.serviceName?.toLowerCase().includes(query) ||
-        entry.label?.toLowerCase().includes(query) ||
+      (entry.label?.toLowerCase().includes(query) ||
         entry.username?.toLowerCase().includes(query));
 
     const matchesCategory =
@@ -60,29 +59,26 @@ function Dashboard() {
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setSelectedEntry(null);
-    setShowAddEntry(false); // Close AddEntry modal when category is clicked
+    setShowAddEntry(false);
     setVisibleSection("vaultEntries");
   };
 
   const handleEntrySelect = (entry) => {
-    setSelectedEntry(entry); // Set the selected entry
-    setShowAddEntry(false); // Close AddEntry modal if open
-    setVisibleSection("vaultDisplay"); // Show VaultDisplay section
+    setSelectedEntry(entry);
+    setShowAddEntry(false);
+    setVisibleSection("vaultDisplay");
   };
   
-  const handleAddNewEntry = async () => {
-    setSelectedEntry(null); // Clear the selected entry
-    setShowAddEntry(true); // Open AddEntry modal
-    setVisibleSection("vaultDisplay"); // Show VaultDisplay section
+  const handleAddNewEntry = () => {
+    setSelectedEntry(null);
+    setShowAddEntry(true);
+    setVisibleSection("vaultDisplay");
   };  
 
-  const handleCloseAddEntry = async () => {
+  const handleCloseAddEntry = () => {
     setShowAddEntry(false);
 
-    // Refresh the entries after adding a new entry
-    await fetchEntries();
-
-    // Focus the "Add New Entry" button
+    // Focus the "Add New Entry" button after closing
     if (addEntryButtonRef.current) {
       addEntryButtonRef.current.focus();
     }
@@ -108,7 +104,7 @@ function Dashboard() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ category: "Deleted" }), // Move to "Deleted"
+        body: JSON.stringify({ category: "Deleted" }),
       });
   
       if (response.ok) {
@@ -126,14 +122,13 @@ function Dashboard() {
     }
   };
 
-
   const handleEditSubmit = (updatedEntry) => {
     setEntries((prevEntries) =>
       prevEntries.map((entry) =>
         entry._id === updatedEntry._id ? updatedEntry : entry
       )
     );
-    setSelectedEntry(null); // Close EditEntry form
+    setSelectedEntry(null);
   };
 
   return (
@@ -148,7 +143,7 @@ function Dashboard() {
           <Sidebar
             onSelectCategory={handleCategorySelect}
             onAddNewEntry={handleAddNewEntry}
-            addEntryButtonRef={addEntryButtonRef} // Pass ref to Sidebar
+            addEntryButtonRef={addEntryButtonRef}
           />
         </div>
 
@@ -192,24 +187,20 @@ function Dashboard() {
           )}
           {showAddEntry ? (
             <AddEntry
-              onClose={handleCloseAddEntry} // Refresh entries when form closes
-              onAddEntry={fetchEntries} // Optional: Directly fetch entries after adding
+              onClose={handleCloseAddEntry}
+              onAddEntry={fetchEntries}
             />
           ) : (
             <VaultDisplay
-            service={selectedEntry?.serviceName}
-            username={selectedEntry?.username}
-            label={selectedEntry?.label}
-            password={selectedEntry?.password}
-            Icon={selectedEntry?.Icon}
-            entryId={selectedEntry?._id}
-            setEntries={setEntries}
-            setSelectedEntry={setSelectedEntry}
-            category={selectedEntry?.category} // Ensure the category is passed
-            onDelete={() => handleDelete(selectedEntry?._id)} // Pass the delete handler
-            onEdit={handleEditSubmit} // Pass the edit submit handler
-          />
-          
+              username={selectedEntry?.username}
+              label={selectedEntry?.label}
+              password={selectedEntry?.password}
+              entryId={selectedEntry?._id}
+              setSelectedEntry={setSelectedEntry}
+              category={selectedEntry?.category}
+              onDelete={() => handleDelete(selectedEntry?._id)}
+              onEdit={handleEditSubmit}
+            />
           )}
         </div>
       </div>
