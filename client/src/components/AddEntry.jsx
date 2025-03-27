@@ -11,14 +11,12 @@ import Button from "./Button.jsx";
 import Modal from "./Modal.jsx";
 import Generator from "./Generator.jsx";
 import Dropdown from "./Dropdown.jsx";
-import { serviceIcons, serviceNames } from "../utils/serviceIcons.js";
 
 function AddEntry({ onClose, onAddEntry }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [category, setCategory] = useState("");
   const [label, setLabel] = useState("");
-  const [serviceName, setServiceName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showGenerator, setShowGenerator] = useState(false);
 
@@ -43,20 +41,12 @@ function AddEntry({ onClose, onAddEntry }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!label || !username || !password || !category || !serviceName) {
+    if (!label || !username || !password || !category) {
       alert(
-        "All fields are required: Service Name, Label, Username, Password, and Category."
+        "All fields are required: Label, Username, Password, and Category."
       );
       return;
     }
-
-    // Normalize and validate the service name
-    const normalizedServiceNameKey = serviceName
-      .toLowerCase()
-      .replace(/\s+/g, "");
-    const validatedServiceName =
-      serviceNames[normalizedServiceNameKey] || serviceNames.default;
-
     try {
       const response = await fetch(`${apiURL}/api/locker`, {
         method: "POST",
@@ -68,7 +58,6 @@ function AddEntry({ onClose, onAddEntry }) {
           username,
           password,
           category,
-          serviceName: validatedServiceName,
           label,
         }),
       });
@@ -79,7 +68,6 @@ function AddEntry({ onClose, onAddEntry }) {
         setUsername("");
         setPassword("");
         setCategory("");
-        setServiceName("");
         setLabel("");
         onClose(); // Close form
       } else {
@@ -97,17 +85,6 @@ function AddEntry({ onClose, onAddEntry }) {
     { id: 3, title: "Login" },
     { id: 4, title: "Identification" },
   ];
-
-  const serviceItems = Object.entries(serviceNames).map(
-    ([key, name], index) => {
-      const Icon = serviceIcons[key] || serviceIcons.default; // Retrieve the correct icon or default
-      return {
-        id: index + 1,
-        title: name,
-        icon: <Icon size={20} />,
-      };
-    }
-  );
 
   return (
     <div className="h-full w-full flex flex-col">
@@ -193,15 +170,7 @@ function AddEntry({ onClose, onAddEntry }) {
             </Modal>
           )}
 
-          <div className="mb-4">
-            <label className="block mb-1 dark:text-title-dark text-title-light">
-              Service Name
-            </label>
-            <Dropdown
-              items={serviceItems}
-              onSelect={(item) => setServiceName(item.title)}
-            />
-          </div>
+          
 
           <div className="mb-4">
             <label className="block mb-1 dark:text-title-dark text-title-light">

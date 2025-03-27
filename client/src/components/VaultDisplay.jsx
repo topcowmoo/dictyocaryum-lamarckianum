@@ -287,7 +287,6 @@ const VaultDisplay = ({
 };
 
 VaultDisplay.propTypes = {
-  service: PropTypes.string,
   label: PropTypes.string,
   username: PropTypes.string,
   password: PropTypes.string,
