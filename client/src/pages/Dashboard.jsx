@@ -14,7 +14,7 @@ function Dashboard() {
   const [showAddEntry, setShowAddEntry] = useState(false);
   const [visibleSection, setVisibleSection] = useState("sidebar");
   const { searchQuery } = useOutletContext() || {};
-  const addEntryButtonRef = useRef(null); // Ref for the "Add New Entry" button
+  const addEntryButtonRef = useRef(null);
 
   // Fetch entries from API
   const fetchEntries = async () => {
