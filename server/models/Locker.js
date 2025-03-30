@@ -35,6 +35,12 @@ const lockerSchema = new Schema({
         enum: ["All", "Identification", "Cards", "Login", "Entertainment", "Deleted"],  // Allowed values for the category
         default: "All",  // Default category if none is provided
     },
+// Previous category: Used for tracking the previous category before deletion
+    previousCategory: {
+        type: String,
+        enum: ["Identification", "Cards", "Login", "Entertainment", "All"], // no "Deleted" here
+        default: null,
+      },
 });
 
 // Exporting the model for use in other parts of the application

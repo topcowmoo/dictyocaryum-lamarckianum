@@ -77,6 +77,9 @@ const VaultDisplay = ({
   
 
   const handleRestore = async (id) => {
+    const originalEntry = entries.find((entry) => entry._id === id);
+    const previousCategory = originalEntry?.previousCategory || "All";
+  
     try {
       const response = await fetch(`${apiURL}/api/locker/${id}/restore`, {
         method: "PATCH",
@@ -84,9 +87,7 @@ const VaultDisplay = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          category: entries.find((entry) => entry._id === id)?.previousCategory || "All",
-        }),
+        body: JSON.stringify({ category: previousCategory }),
       });
   
       if (response.ok) {
@@ -105,6 +106,7 @@ const VaultDisplay = ({
       alert("An error occurred while trying to restore the entry.");
     }
   };
+  
   
 
   const handlePermanentDelete = async (id) => {
@@ -244,6 +246,15 @@ const VaultDisplay = ({
     </div>
   </div>
 </div>
+<div className="border-b border-alltext-light dark:border-alltext-dark pb-2">
+  <h3 className="text-[18px] mb-4 text-title-light dark:text-title-dark">
+    Category
+  </h3>
+  <p className="text-[16px] dark:text-alltext-dark text-alltext-light">
+    {category}
+  </p>
+</div>
+
 <div className="flex justify-around space-x-4 mt-4 py-4">
   {category === "Deleted" ? (
     <>

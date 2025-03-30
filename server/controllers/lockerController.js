@@ -62,40 +62,51 @@ exports.updatePassword = async (req, res) => {
 // Controller function to "delete" (soft delete) a password entry
 exports.deletePassword = async (req, res) => {
   try {
-    // Instead of deleting the document, mark it as "Deleted"
+    const locker = await Locker.findById(req.params.id);
+
+    if (!locker) {
+      return res.status(404).json({ message: "Locker not found" });
+    }
+console.log("Deleting entry:", locker);
     const deletedLocker = await Locker.findByIdAndUpdate(
       req.params.id,
-      { category: "Deleted" }, // Soft delete by changing category
+      {
+        category: "Deleted",
+        previousCategory: locker.category, // ✅ Save the current category
+      },
       { new: true }
     );
-
-    if (!deletedLocker) {
-      return res.status(404).json({ message: "Locker not found" }); // Respond with a 404 status if the entry is not found
-    }
 
     res.status(200).json({ message: "Locker marked as deleted successfully", deletedLocker });
   } catch (err) {
     console.error("Error deleting locker:", err);
-    res.status(500).json({ message: "Error deleting locker" }); // Respond with a 500 status and error message
+    res.status(500).json({ message: "Error deleting locker" });
   }
 };
+
 
 // Controller function to restore a deleted password entry
 exports.restorePassword = async (req, res) => {
   try {
+    const locker = await Locker.findById(req.params.id);
+
+    if (!locker) {
+      return res.status(404).json({ message: "Locker not found" });
+    }
+    console.log("Restoring entry:", locker);
+
     const updatedLocker = await Locker.findByIdAndUpdate(
       req.params.id,
-      { category: req.body.category || "All" }, // Default to "All" if no category is provided
+      {
+        category: locker.previousCategory || "All",
+      },
       { new: true }
     );
 
-    if (!updatedLocker) {
-      return res.status(404).json({ message: "Locker not found" }); // Respond with 404 if not found
-    }
-
-    res.status(200).json(updatedLocker); // Respond with the updated locker
+    res.status(200).json(updatedLocker);
   } catch (err) {
     console.error("Error restoring locker entry:", err);
-    res.status(500).json({ message: "Error restoring locker entry" }); // Respond with a 500 status
+    res.status(500).json({ message: "Error restoring locker entry" });
   }
 };
+
