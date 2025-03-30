@@ -49,12 +49,12 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
             <div className="flex items-center space-x-5">
               <div className="flex flex-col">
                 {entry.name && (
-                  <span className="text-[15px] text-zinc-800 dark:text-zinc-400">
+                  <span className="text-[16px] text-zinc-800 dark:text-zinc-400">
                     {entry.name}
                   </span>
                 )}
                 {entry.username && (
-                  <span className="text-[14px] dark:text-zinc-300 text-zinc-700 italic">
+                  <span className="text-[14px] dark:text-zinc-300 text-zinc-700">
                     {entry.username}
                   </span>
                 )}
