@@ -8,6 +8,7 @@ import {
   PiTrashDuotone,
   PiSealCheckDuotone,
   PiXCircleDuotone,
+  PiTrashSimpleDuotone,
 } from "react-icons/pi";
 import Button from "./Button";
 import EditEntry from "./EditEntry";
@@ -24,6 +25,7 @@ const VaultDisplay = ({
   setEntries,
   setSelectedEntry,
   category,
+  entries,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -42,7 +44,7 @@ const VaultDisplay = ({
       console.error("entryId is missing");
       return;
     }
-
+  
     try {
       const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
         method: "PATCH",
@@ -50,13 +52,16 @@ const VaultDisplay = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ category: "Deleted" }),
+        body: JSON.stringify({
+          category: "Deleted",
+          previousCategory: category, // 🔥 Store previous category before deletion
+        }),
       });
-
+  
       if (response.ok) {
         setEntries((prevEntries) =>
           prevEntries.map((entry) =>
-            entry._id === entryId ? { ...entry, category: "Deleted" } : entry
+            entry._id === entryId ? { ...entry, category: "Deleted", previousCategory: category } : entry
           )
         );
         setSelectedEntry(null);
@@ -69,6 +74,7 @@ const VaultDisplay = ({
       alert("An error occurred while trying to move the entry.");
     }
   };
+  
 
   const handleRestore = async (id) => {
     try {
@@ -78,7 +84,9 @@ const VaultDisplay = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ category: "All" }), // Restore to "All" or another default category
+        body: JSON.stringify({
+          category: entries.find((entry) => entry._id === id)?.previousCategory || "All",
+        }),
       });
   
       if (response.ok) {
@@ -88,15 +96,38 @@ const VaultDisplay = ({
             entry._id === updatedEntry._id ? updatedEntry : entry
           )
         );
-        setSelectedEntry(null); // Clear the display
+        setSelectedEntry(null);
       } else {
-        alert("Failed to restore entry");
+        alert("Failed to restore entry.");
       }
     } catch (error) {
       console.error("Error restoring entry:", error);
       alert("An error occurred while trying to restore the entry.");
     }
   };
+  
+
+  const handlePermanentDelete = async (id) => {
+    try {
+      const response = await fetch(`${apiURL}/api/locker/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+  
+      if (response.ok) {
+        setEntries((prevEntries) =>
+          prevEntries.filter((entry) => entry._id !== id)
+        );
+        setSelectedEntry(null);
+        setShowDeleteModal(false);
+      } else {
+        alert("Failed to delete entry.");
+      }
+    } catch (error) {
+      console.error("Error deleting entry:", error);
+      alert("An error occurred while trying to delete the entry.");
+    }
+  }
   
 
   const handleEditSubmit = (updatedEntry) => {
@@ -213,40 +244,52 @@ const VaultDisplay = ({
     </div>
   </div>
 </div>
-              <div className="flex justify-around space-x-4 mt-4 py-4">
-                {category === "Deleted" ? (
-                  <Button
-                  icon={PiSealCheckDuotone} // Use an appropriate icon for restore
-                  label="Restore"
-                  type="button"
-                  onClick={() => handleRestore(entryId)} // Call handleRestore function
-                  size="md"
-                  className="flex mt-10 items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
-                />
-              ) : (
-                  <>
-                    <Button
-                      icon={PiPencilDuotone}
-                      label="Edit"
-                      type="button"
-                      onClick={handleEditClick}
-                      size="md"
-                      className="flex mt-10 items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
-                    />
-                    <Button
-                      icon={PiTrashDuotone}
-                      type="button"
-                      label="Delete"
-                      onClick={() => setShowDeleteModal(true)}
-                      size="md"
-                      className="flex mt-10 items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
-                    />
-                  </>
-                )}
-              </div>
+<div className="flex justify-around space-x-4 mt-4 py-4">
+  {category === "Deleted" ? (
+    <>
+      <Button
+        icon={PiSealCheckDuotone}
+        label="Restore"
+        type="button"
+        onClick={() => handleRestore(entryId)}
+        size="md"
+        className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
+      />
+      <Button
+        icon={PiTrashSimpleDuotone}
+        label="Remove"
+        type="button"
+        onClick={() => handlePermanentDelete(entryId)}
+        size="md"
+        className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
+      />
+    </>
+  ) : (
+    <>
+      <Button
+        icon={PiPencilDuotone}
+        label="Edit"
+        type="button"
+        onClick={handleEditClick}
+        size="md"
+        className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
+      />
+      <Button
+        icon={PiTrashDuotone}
+        type="button"
+        label="Delete"
+        onClick={() => setShowDeleteModal(true)}
+        size="md"
+        className="flex items-center space-x-1 dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light rounded-[4px]"
+      />
+    </>
+  )}
+</div>
+
             </div>
           </>
         )}
+        
         {showDeleteModal && (
           <Modal onClose={() => setShowDeleteModal(false)} showCloseButton={false}>
             <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50">
@@ -281,7 +324,7 @@ VaultDisplay.propTypes = {
   name: PropTypes.string,
   username: PropTypes.string,
   password: PropTypes.string,
-  
+  entries: PropTypes.arrayOf(PropTypes.object),
   entryId: PropTypes.string,
   setEntries: PropTypes.func.isRequired,
   setSelectedEntry: PropTypes.func.isRequired,

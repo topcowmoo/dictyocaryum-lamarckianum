@@ -200,6 +200,7 @@ function Dashboard() {
               category={selectedEntry?.category}
               onDelete={() => handleDelete(selectedEntry?._id)}
               onEdit={handleEditSubmit}
+              entries={entries}
             />
           )}
         </div>
