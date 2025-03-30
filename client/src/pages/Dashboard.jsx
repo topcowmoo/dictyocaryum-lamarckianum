@@ -15,6 +15,7 @@ function Dashboard() {
   const [visibleSection, setVisibleSection] = useState("sidebar");
   const { searchQuery } = useOutletContext() || {};
   const addEntryButtonRef = useRef(null);
+  const [selectedSidebarItem, setSelectedSidebarItem] = useState("All");
 
   // Fetch entries from API
   const fetchEntries = async () => {
@@ -58,6 +59,7 @@ function Dashboard() {
   // Handlers for section visibility
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+    setSelectedSidebarItem(category);
     setSelectedEntry(null);
     setShowAddEntry(false);
     setVisibleSection("vaultEntries");
@@ -72,16 +74,19 @@ function Dashboard() {
   const handleAddNewEntry = () => {
     setSelectedEntry(null);
     setShowAddEntry(true);
+    setSelectedSidebarItem("New");
     setVisibleSection("vaultDisplay");
   };  
 
   const handleCloseAddEntry = () => {
     setShowAddEntry(false);
-
-    // Focus the "Add New Entry" button after closing
-    if (addEntryButtonRef.current) {
-      addEntryButtonRef.current.focus();
-    }
+    setVisibleSection("vaultEntries");
+    setSelectedCategory("All"); // ✅ Switch to All view
+    setSelectedEntry(null); // ✅ Nothing selected
+    fetchEntries(); // ✅ Refresh the list
+    setSelectedSidebarItem("All"); // ✅ Reset the sidebar item
+  
+  
   };
 
   const handleBackToSidebar = () => {
@@ -144,6 +149,7 @@ function Dashboard() {
             onSelectCategory={handleCategorySelect}
             onAddNewEntry={handleAddNewEntry}
             addEntryButtonRef={addEntryButtonRef}
+            selectedItem={selectedSidebarItem}
           />
         </div>
 

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import {
   PiFilmSlateDuotone,
@@ -10,9 +9,7 @@ import {
   PiPlusCircleDuotone,
 } from "react-icons/pi";
 
-function Sidebar({ onSelectCategory, onAddNewEntry }) {
-  const [selectedItemId, setSelectedItemId] = useState(null);
-
+function Sidebar({ onSelectCategory, onAddNewEntry, selectedItem }) {
   const items = [
     { id: 1, title: "All", icon: <PiFolderOpenDuotone size={28} /> },
     { id: 2, title: "Cards", icon: <PiCardholderDuotone size={28} /> },
@@ -23,12 +20,10 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
   ];
 
   const handleItemClick = (item) => {
-    setSelectedItemId(item.id);
     onSelectCategory(item.title);
   };
 
   const handleAddNewEntry = () => {
-    setSelectedItemId("new");
     onAddNewEntry();
   };
 
@@ -40,8 +35,8 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
           <div
             key={item.id}
             className={`relative flex items-center space-x-1 pl-2 py-4 rounded-[4px] transition cursor-pointer ${
-              selectedItemId === item.id
-                ? "bg-hefo-light dark:bg-hefo-light border-2  border-highlight-light dark:border-highlight-dark transform translate-y-[-2px]"
+              selectedItem === item.title
+                ? "bg-hefo-light dark:bg-hefo-light border-2 border-highlight-light dark:border-highlight-dark transform translate-y-[-2px]"
                 : "bg-vault-light dark:bg-vault-dark hover:bg-hefo-light dark:hover:bg-display-dark"
             }`}
             onClick={() => handleItemClick(item)}
@@ -52,7 +47,7 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
             <div className="flex-grow">
               <p
                 className={`text-[16px] ${
-                  selectedItemId === item.id
+                  selectedItem === item.title
                     ? "text-alltext-light dark:text-alltext-light"
                     : "text-alltext-light dark:text-alltext-dark"
                 }`}
@@ -67,7 +62,7 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
       {/* Add New Entry */}
       <div
         className={`relative flex items-center space-x-2 pl-2 py-4 mt-6 rounded-[4px] transition cursor-pointer ${
-          selectedItemId === "new"
+          selectedItem === "new"
             ? "bg-hefo-light dark:bg-hefo-light border-2 border-highlight-light dark:border-highlight-dark transform translate-y-[-2px]"
             : "bg-vault-light dark:bg-vault-dark hover:bg-hefo-light dark:hover:bg-display-dark"
         }`}
@@ -79,7 +74,7 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
         <div className="flex-grow">
           <p
             className={`text-[16px] ${
-              selectedItemId === "new"
+              selectedItem === "new"
                 ? "text-alltext-light dark:text-alltext-light"
                 : "text-alltext-light dark:text-alltext-dark"
             }`}
@@ -95,6 +90,7 @@ function Sidebar({ onSelectCategory, onAddNewEntry }) {
 Sidebar.propTypes = {
   onSelectCategory: PropTypes.func.isRequired,
   onAddNewEntry: PropTypes.func.isRequired,
+  selectedItem: PropTypes.string.isRequired,
 };
 
 export default Sidebar;
