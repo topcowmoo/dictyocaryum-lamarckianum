@@ -17,7 +17,6 @@ function Dashboard() {
   const addEntryButtonRef = useRef(null);
   const [selectedSidebarItem, setSelectedSidebarItem] = useState("All");
 
-  // Fetch entries from API
   const fetchEntries = async () => {
     try {
       const response = await fetch(`${apiURL}/api/locker`, {
@@ -39,7 +38,6 @@ function Dashboard() {
     fetchEntries();
   }, []);
 
-  // Filtered entries logic
   const filteredEntries = entries.filter((entry) => {
     if (!entry) return false;
     const query = searchQuery?.toLowerCase() || "";
@@ -47,7 +45,6 @@ function Dashboard() {
       query &&
       (entry.name?.toLowerCase().includes(query) ||
         entry.username?.toLowerCase().includes(query));
-
     const matchesCategory =
       selectedCategory === "All"
         ? entry.category !== "Deleted"
@@ -56,7 +53,6 @@ function Dashboard() {
     return query ? matchesSearch : matchesCategory;
   });
 
-  // Handlers for section visibility
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setSelectedSidebarItem(category);
@@ -70,35 +66,21 @@ function Dashboard() {
     setShowAddEntry(false);
     setVisibleSection("vaultDisplay");
   };
-  
+
   const handleAddNewEntry = () => {
     setSelectedEntry(null);
     setShowAddEntry(true);
     setSelectedSidebarItem("New");
     setVisibleSection("vaultDisplay");
-  };  
+  };
 
   const handleCloseAddEntry = () => {
     setShowAddEntry(false);
     setVisibleSection("vaultEntries");
-    setSelectedCategory("All"); // ✅ Switch to All view
-    setSelectedEntry(null); // ✅ Nothing selected
-    fetchEntries(); // ✅ Refresh the list
-    setSelectedSidebarItem("All"); // ✅ Reset the sidebar item
-  
-  
-  };
-
-  const handleBackToSidebar = () => {
-    setVisibleSection("sidebar");
+    setSelectedCategory("All");
     setSelectedEntry(null);
-    setShowAddEntry(false);
-  };
-
-  const handleBackToEntries = () => {
-    setVisibleSection("vaultEntries");
-    setSelectedEntry(null);
-    setShowAddEntry(false);
+    fetchEntries();
+    setSelectedSidebarItem("All");
   };
 
   const handleDelete = async (entryId) => {
@@ -106,15 +88,12 @@ function Dashboard() {
       const response = await fetch(`${apiURL}/api/locker/${entryId}`, {
         method: "PATCH",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ category: "Deleted" }),
       });
-  
       if (response.ok) {
-        setEntries((prevEntries) =>
-          prevEntries.map((entry) =>
+        setEntries((prev) =>
+          prev.map((entry) =>
             entry._id === entryId ? { ...entry, category: "Deleted" } : entry
           )
         );
@@ -128,8 +107,8 @@ function Dashboard() {
   };
 
   const handleEditSubmit = (updatedEntry) => {
-    setEntries((prevEntries) =>
-      prevEntries.map((entry) =>
+    setEntries((prev) =>
+      prev.map((entry) =>
         entry._id === updatedEntry._id ? updatedEntry : entry
       )
     );
@@ -137,13 +116,49 @@ function Dashboard() {
   };
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="h-full grid md:grid-cols-[380px_1fr_2fr]">
+    <div className="flex flex-col min-h-screen overflow-y-auto">
+
+      {/* ✅ Tab Navigation (md and below) */}
+      <div className="lg:hidden flex justify-around border-b border-gray-300 dark:border-gray-600 bg-sidebar-light dark:bg-sidebar-dark">
+        <button
+          className={`flex-1 py-3 text-sm ${
+            visibleSection === "sidebar"
+              ? "border-b-2 border-highlight-light dark:border-highlight-dark text-alltext-light dark:text-alltext-dark"
+              : "text-gray-500 dark:text-gray-400"
+          }`}
+          onClick={() => setVisibleSection("sidebar")}
+        >
+          Categories
+        </button>
+        <button
+          className={`flex-1 py-3 text-sm ${
+            visibleSection === "vaultEntries"
+              ? "border-b-2 border-highlight-light dark:border-highlight-dark font-semibold"
+              : "text-alltext-light dark:text-alltext-dark"
+          }`}
+          onClick={() => setVisibleSection("vaultEntries")}
+        >
+          Entries
+        </button>
+        <button
+          className={`flex-1 py-3 text-sm ${
+            visibleSection === "vaultDisplay"
+              ? "border-b-2 border-highlight-light dark:border-highlight-dark font-semibold"
+              : "text-alltext-light dark:text-alltext-dark"
+          }`}
+          onClick={() => setVisibleSection("vaultDisplay")}
+        >
+          Display
+        </button>
+      </div>
+
+      {/* ✅ Main Layout: lg and up use grid */}
+      <div className="h-full lg:grid lg:grid-cols-[365px_1.2fr_1.8fr]">
         {/* Sidebar */}
         <div
           className={`h-full ${
             visibleSection === "sidebar" ? "block" : "hidden"
-          } md:block md:w-[380px] dark:bg-sidebar-dark bg-sidebar-light`}
+          } lg:block dark:bg-sidebar-dark bg-sidebar-light`}
         >
           <Sidebar
             onSelectCategory={handleCategorySelect}
@@ -157,16 +172,8 @@ function Dashboard() {
         <div
           className={`h-full ${
             visibleSection === "vaultEntries" ? "block" : "hidden"
-          } md:block dark:bg-vault-dark bg-vault-light p-4 overflow-y-auto`}
+          } lg:block dark:bg-vault-dark bg-vault-light p-4 overflow-y-auto`}
         >
-          {visibleSection === "vaultEntries" && (
-            <button
-              onClick={handleBackToSidebar}
-              className="text-sm dark:text-highlight-dark text-highlight-light mb-4 md:hidden"
-            >
-              &larr; Back to Categories
-            </button>
-          )}
           {filteredEntries.length > 0 && (
             <VaultEntries
               entries={filteredEntries}
@@ -181,28 +188,18 @@ function Dashboard() {
         <div
           className={`h-full ${
             visibleSection === "vaultDisplay" ? "block" : "hidden"
-          } md:block dark:bg-display-dark bg-display-light p-5 overflow-y-auto`}
+          } lg:block dark:bg-display-dark bg-display-light p-5 overflow-y-auto`}
         >
-          {visibleSection === "vaultDisplay" && (
-            <button
-              onClick={handleBackToEntries}
-              className="text-sm dark:text-highlight-dark text-highlight-light mb-4 md:hidden"
-            >
-              &larr; Back to Entries
-            </button>
-          )}
           {showAddEntry ? (
-            <AddEntry
-              onClose={handleCloseAddEntry}
-              onAddEntry={fetchEntries}
-            />
+            <AddEntry onClose={handleCloseAddEntry} onAddEntry={fetchEntries} />
           ) : (
             <VaultDisplay
               username={selectedEntry?.username}
               name={selectedEntry?.name}
               password={selectedEntry?.password}
               entryId={selectedEntry?._id}
-              setEntries={setEntries}              setSelectedEntry={setSelectedEntry}
+              setEntries={setEntries}
+              setSelectedEntry={setSelectedEntry}
               category={selectedEntry?.category}
               onDelete={() => handleDelete(selectedEntry?._id)}
               onEdit={handleEditSubmit}
