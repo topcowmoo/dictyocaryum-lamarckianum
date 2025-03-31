@@ -37,30 +37,32 @@ const VaultEntries = ({ onSelectEntry, selectedCategory, searchQuery, entries })
         const isSelected = selectedEntry === entry._id;
 
         return (
-          <div
-            key={entry._id}
-            onClick={() => handleEntryClick(entry)}
-            className={`flex flex-col items-start cursor-pointer p-3 transition ${
-              isSelected
-                ? "dark:text-title-dark text-title-light"
-                : "dark:text-alltext-dark text-alltext-light"
-            }`}
-          >
-            <div className="flex items-center space-x-5">
-              <div className="flex flex-col">
-                {entry.name && (
-                  <span className="text-[16px] text-zinc-800 dark:text-zinc-400">
-                    {entry.name}
-                  </span>
-                )}
-                {entry.username && (
-                  <span className="text-[14px] dark:text-zinc-300 text-zinc-700">
-                    {entry.username}
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
+         <div
+  key={entry._id}
+  onClick={() => handleEntryClick(entry)}
+  className={`flex flex-col items-start cursor-pointer p-3 rounded-md transition-all duration-200 ${
+    isSelected
+      ? "lg:bg-hefo-light lg:border-l-4 lg:border-highlight-light lg:dark:bg-highlight-dark/10 lg:dark:border-highlight-dark lg:dark:text-alltext-dark lg:text-alltext-light"
+      : "hover:bg-highlight-light/5 dark:hover:bg-highlight-dark/5 text-alltext-light dark:text-alltext-dark"
+  }`}
+>
+  <div className="flex items-center space-x-5 w-full">
+    <div className="flex flex-col w-full">
+      {entry.name && (
+        <span className="text-[16px] text-zinc-800 dark:text-zinc-300">
+          {entry.name}
+        </span>
+      )}
+      {entry.username && (
+        <span className="text-[14px] text-zinc-600 dark:text-zinc-400">
+          {entry.username}
+        </span>
+      )}
+    </div>
+  </div>
+</div>
+
+        
         );
       })}
     </div>
