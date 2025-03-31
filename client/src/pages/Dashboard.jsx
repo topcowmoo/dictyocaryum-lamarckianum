@@ -172,7 +172,7 @@ useEffect(() => {
             visibleSection === "vaultEntries" ? "block" : "hidden"
           } lg:block dark:bg-vault-dark bg-vault-light overflow-hidden`}
         >
-          <div className="lg:h-full md:h-[calc(100vh-180px)] h-[calc(100vh-184px)] overflow-y-auto scrollbar-thin scrollbar-thumb-highlight-light dark:scrollbar-thumb-highlight-dark">
+          <div className="lg:h-full md:h-[calc(100vh-160px)] h-[calc(100vh-160px)] overflow-y-auto scrollbar-thin scrollbar-thumb-highlight-light dark:scrollbar-thumb-highlight-dark">
 
     {filteredEntries.length > 0 && (
       <VaultEntries

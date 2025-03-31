@@ -17,7 +17,7 @@ function Header({ setSearchQuery }) {
           <img
             src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
             alt="App logo"
-            className="w-[50px] h-[50px] object-contain"
+            className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] object-contain"
           />
         </div>
       </div>
@@ -30,9 +30,9 @@ function Header({ setSearchQuery }) {
       {/* Right Section: Dark/Light Mode Toggle */}
       <div className="flex justify-end items-center">
         {isDarkMode ? (
-          <PiSunDuotone size={35} onClick={toggleDarkMode} className="dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
+          <PiSunDuotone size={32} onClick={toggleDarkMode} className="dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
         ) : (
-          <PiMoonDuotone size={35} onClick={toggleDarkMode} className="dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
+          <PiMoonDuotone size={32} onClick={toggleDarkMode} className="dark:text-alltext-dark text-alltext-light dark:hover:text-highlight-dark hover:text-highlight-light cursor-pointer" />
         )}
       </div>
     </div>

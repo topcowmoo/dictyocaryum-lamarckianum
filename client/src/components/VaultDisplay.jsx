@@ -159,7 +159,7 @@ const VaultDisplay = ({
       <div className="w-full h-full flex flex-col">
       {isEmpty ? (
   <div className="flex justify-center items-start h-full pt-[10%] md:pt-[45%] lg:pt-[45%]">
-    <h1 className="text-3xl dark:text-alltext-dark text-alltext-light">
+    <h1 className="text-[20px] 2xl:text-3xl dark:text-alltext-dark text-alltext-light">
       VaultGuard Password Locker
     </h1>
   </div>
@@ -303,30 +303,31 @@ const VaultDisplay = ({
         )}
         
         {showDeleteModal && (
-          <Modal onClose={() => setShowDeleteModal(false)} showCloseButton={false}>
-            <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50">
-              <div className="p-9 text-center bg-hefo-light dark:bg-hefo-dark rounded-[4px]">
-                <h2 className="text-lg mb-9 dark:text-alltext-dark text-alltext-light">
-                  Are you sure you want to delete this entry?
-                </h2>
-                <div className="flex justify-center space-x-5">
-                  <Button
-                    icon={PiTrashDuotone}
-                    label="Confirm"
-                    onClick={handleDelete}
-                    className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
-                  />
-                  <Button
-                    icon={PiXCircleDuotone}
-                    label="Cancel"
-                    onClick={() => setShowDeleteModal(false)}
-                    className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
-                  />
-                </div>
-              </div>
-            </div>
-          </Modal>
-        )}
+  <Modal onClose={() => setShowDeleteModal(false)} showCloseButton={false}>
+    <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 px-4">
+      <div className="w-full max-w-[90%] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] p-6 text-center bg-hefo-light dark:bg-hefo-dark rounded-[4px]">
+        <h2 className="text-lg mb-6 dark:text-alltext-dark text-alltext-light">
+          Are you sure you want to delete this entry?
+        </h2>
+        <div className="flex justify-center space-x-5">
+          <Button
+            icon={PiTrashDuotone}
+            label="Confirm"
+            onClick={handleDelete}
+            className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
+          />
+          <Button
+            icon={PiXCircleDuotone}
+            label="Cancel"
+            onClick={() => setShowDeleteModal(false)}
+            className="dark:text-buttonti-dark text-buttonti-light px-4 py-2 rounded-[4px]"
+          />
+        </div>
+      </div>
+    </div>
+  </Modal>
+)}
+
       </div>
     </div>
   );
