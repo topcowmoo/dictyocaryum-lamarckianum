@@ -155,15 +155,16 @@ const VaultDisplay = ({
 
 
   return (
-    <div className="h-full w-full flex">
+    <div className="min-h-full w-full flex">
       <div className="w-full h-full flex flex-col">
-        {isEmpty ? (
-          <div className="flex justify-center items-center h-full">
-            <h1 className="text-3xl dark:text-alltext-dark text-alltext-light">
-              VaultGuard Password Locker
-            </h1>
-          </div>
-        ) : isEditing ? (
+      {isEmpty ? (
+  <div className="flex justify-center items-start h-full pt-[10%] md:pt-[45%] lg:pt-[45%]">
+    <h1 className="text-3xl dark:text-alltext-dark text-alltext-light">
+      VaultGuard Password Locker
+    </h1>
+  </div>
+) : isEditing ? (
+
           <EditEntry
           entryId={entryId}
           initialData={{

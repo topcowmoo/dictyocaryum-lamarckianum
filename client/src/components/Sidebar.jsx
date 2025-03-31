@@ -28,10 +28,10 @@ function Sidebar({ onSelectCategory, onAddNewEntry, selectedItem }) {
   };
 
   return (
-    <div className="flex flex-col dark:bg-sidebar-dark bg-sidebar-light p-4 pb-32 sm:pb-4">
+    <div className="flex flex-col dark:bg-sidebar-dark bg-sidebar-light p-4 pb-10 sm:pb-4">
 
       {/* Sidebar Items with Responsive Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3 w-full">
+      <div className="grid grid-cols-1 gap-3 mt-3 w-full">
 
 
         {items.map((item) => (

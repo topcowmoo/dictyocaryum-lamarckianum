@@ -53,6 +53,17 @@ function Dashboard() {
     return query ? matchesSearch : matchesCategory;
   });
 
+  // Auto-switch to vaultEntries tab when searchQuery is active on small screens
+useEffect(() => {
+  const isSmallScreen = window.innerWidth < 1024; // md and below
+  const hasSearchQuery = searchQuery && searchQuery.trim().length > 0;
+
+  if (isSmallScreen && hasSearchQuery && visibleSection !== "vaultEntries") {
+    setVisibleSection("vaultEntries");
+  }
+}, [searchQuery, visibleSection]);
+
+
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setSelectedSidebarItem(category);
@@ -116,47 +127,34 @@ function Dashboard() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen overflow-y-auto">
-
-      {/* ✅ Tab Navigation (md and below) */}
+    <div className="flex flex-col h-full overflow-hidden">
+      {/* ✅ Mobile Tabs */}
       <div className="lg:hidden flex justify-around border-b border-gray-300 dark:border-gray-600 bg-sidebar-light dark:bg-sidebar-dark">
-        <button
-          className={`flex-1 py-3 text-sm ${
-            visibleSection === "sidebar"
-              ? "border-b-2 border-highlight-light dark:border-highlight-dark text-alltext-light dark:text-alltext-dark"
-              : "text-gray-500 dark:text-gray-400"
-          }`}
-          onClick={() => setVisibleSection("sidebar")}
-        >
-          Categories
-        </button>
-        <button
-          className={`flex-1 py-3 text-sm ${
-            visibleSection === "vaultEntries"
-              ? "border-b-2 border-highlight-light dark:border-highlight-dark font-semibold"
-              : "text-alltext-light dark:text-alltext-dark"
-          }`}
-          onClick={() => setVisibleSection("vaultEntries")}
-        >
-          Entries
-        </button>
-        <button
-          className={`flex-1 py-3 text-sm ${
-            visibleSection === "vaultDisplay"
-              ? "border-b-2 border-highlight-light dark:border-highlight-dark font-semibold"
-              : "text-alltext-light dark:text-alltext-dark"
-          }`}
-          onClick={() => setVisibleSection("vaultDisplay")}
-        >
-          Display
-        </button>
+        {["sidebar", "vaultEntries", "vaultDisplay"].map((section) => (
+          <button
+            key={section}
+            className={`flex-1 py-3 text-sm ${
+              visibleSection === section
+                ? "border-b-2 border-highlight-light dark:border-highlight-dark text-alltext-light dark:text-alltext-dark font-semibold"
+                : "text-alltext-light dark:text-alltext-dark"
+            }`}
+            onClick={() => setVisibleSection(section)}
+          >
+            {section === "sidebar"
+              ? "Categories"
+              : section === "vaultEntries"
+              ? "Entries"
+              : "Display"}
+          </button>
+        ))}
       </div>
 
-      {/* ✅ Main Layout: lg and up use grid */}
-      <div className="h-full lg:grid lg:grid-cols-[365px_1.2fr_1.8fr]">
+      {/* ✅ Grid Layout */}
+      <div className="flex-grow lg:grid lg:grid-cols-[280px_1.4fr_1.6fr] h-full overflow-hidden">
+        
         {/* Sidebar */}
         <div
-          className={`h-full ${
+          className={`h-full overflow-y-auto ${
             visibleSection === "sidebar" ? "block" : "hidden"
           } lg:block dark:bg-sidebar-dark bg-sidebar-light`}
         >
@@ -170,25 +168,27 @@ function Dashboard() {
 
         {/* Vault Entries */}
         <div
-          className={`h-full ${
+          className={`${
             visibleSection === "vaultEntries" ? "block" : "hidden"
-          } lg:block dark:bg-vault-dark bg-vault-light p-4 overflow-y-auto`}
+          } lg:block dark:bg-vault-dark bg-vault-light overflow-hidden`}
         >
-          {filteredEntries.length > 0 && (
-            <VaultEntries
-              entries={filteredEntries}
-              selectedCategory={selectedCategory}
-              onSelectEntry={handleEntrySelect}
-              searchQuery={searchQuery}
-            />
-          )}
+          <div className="lg:h-full md:h-[calc(100vh-180px)] h-[calc(100vh-184px)] overflow-y-auto">
+    {filteredEntries.length > 0 && (
+      <VaultEntries
+        entries={filteredEntries}
+        selectedCategory={selectedCategory}
+        onSelectEntry={handleEntrySelect}
+        searchQuery={searchQuery}
+      />
+            )}
+          </div>
         </div>
 
         {/* Vault Display */}
         <div
           className={`h-full ${
             visibleSection === "vaultDisplay" ? "block" : "hidden"
-          } lg:block dark:bg-display-dark bg-display-light p-5 overflow-y-auto`}
+          } lg:block dark:bg-display-dark bg-display-light overflow-y-auto p-5`}
         >
           {showAddEntry ? (
             <AddEntry onClose={handleCloseAddEntry} onAddEntry={fetchEntries} />
