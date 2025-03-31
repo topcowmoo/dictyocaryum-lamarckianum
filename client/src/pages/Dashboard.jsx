@@ -16,6 +16,7 @@ function Dashboard() {
   const { searchQuery } = useOutletContext() || {};
   const addEntryButtonRef = useRef(null);
   const [selectedSidebarItem, setSelectedSidebarItem] = useState("All");
+  const [hasAutoSwitched, setHasAutoSwitched] = useState(false);
 
   const fetchEntries = async () => {
     try {
@@ -54,14 +55,22 @@ function Dashboard() {
   });
 
   // Auto-switch to vaultEntries tab when searchQuery is active on small screens
-useEffect(() => {
-  const isSmallScreen = window.innerWidth < 1024; // md and below
-  const hasSearchQuery = searchQuery && searchQuery.trim().length > 0;
 
-  if (isSmallScreen && hasSearchQuery && visibleSection !== "vaultEntries") {
-    setVisibleSection("vaultEntries");
-  }
-}, [searchQuery, visibleSection]);
+  useEffect(() => {
+    const isSmallScreen = window.innerWidth < 1024;
+    const hasSearchQuery = searchQuery && searchQuery.trim().length > 0;
+  
+    if (isSmallScreen && hasSearchQuery && !hasAutoSwitched) {
+      setVisibleSection("vaultEntries");
+      setHasAutoSwitched(true);
+    }
+  
+    // Reset auto-switch flag when search is cleared
+    if (!hasSearchQuery) {
+      setHasAutoSwitched(false);
+    }
+  }, [searchQuery, visibleSection, hasAutoSwitched]);
+  
 
 
   const handleCategorySelect = (category) => {
