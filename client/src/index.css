@@ -11,3 +11,22 @@ html {
     /* Adding a smooth transition effect for background color and text color changes */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+
+@media (max-height: 599px) and (orientation: landscape) {
+    .profile-landscape-fix {
+      justify-content: flex-start !important;
+      align-items: center !important;
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+      overflow-y: auto !important;
+      height: 100vh;
+    }
+  
+    .profile-card-wrapper {
+      max-width: 90% !important;
+      width: 100%;
+    }
+  }
+  
+  

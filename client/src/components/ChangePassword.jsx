@@ -81,7 +81,8 @@ function ChangePassword({ onClose }) {
   const toggleConfirmPasswordVisibility = () => setShowConfirmPassword((prev) => !prev);
 
   return (
-    <div className="w-[650px] h-[650px] bg-sidebar-light dark:bg-hefo-dark flex flex-col rounded-[4px]">
+    <div className="w-[90vw] h-[90vh] max-w-[650px] max-h-[650px] md:w-[650px] md:h-[650px] bg-sidebar-light dark:bg-hefo-dark flex flex-col rounded-[4px] overflow-hidden">
+
       {/* Header Section */}
       <div className="dark:bg-sidebar-dark bg-vault-light p-6 flex items-center justify-start rounded-t-[4px]">
         <h2 className="text-[34px] dark:text-title-dark text-title-light">Change Password</h2>
@@ -170,20 +171,20 @@ function ChangePassword({ onClose }) {
           {error && <p className="dark:text-alltext-dark text-red-600 text-sm underline text-transform: uppercase">{error}</p>}
 
           {/* Action Buttons */}
-          <div className="flex justify-around mt-6">
+          <div className="flex md:justify-around mt-6 justify-around">
             <Button
               type="submit"
               label="Save"
               icon={PiSealCheckDuotone}
-              size="md"
-              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light mt-11"
+              size={20}
+              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light w-1/4 md:w-40 text-sm md:text-base"
             />
             <Button
               onClick={onClose}
               label="Close"
               icon={PiXCircleDuotone}
-              size="md"
-              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light mt-11"
+              size={20}
+              className="dark:bg-buttonbgc-dark bg-buttonbgc-light dark:text-buttonti-dark text-buttonti-light w-1/4 md:w-40 text-sm md:text-base"
             />
           </div>
         </form>

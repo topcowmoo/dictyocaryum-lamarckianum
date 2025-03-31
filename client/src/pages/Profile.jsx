@@ -57,21 +57,26 @@ function Profile() {
       </div>
 
       {/* Left Pane for Account Management */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center min-h-screen lg:min-h-0 bg-hefo-light dark:bg-hefo-dark">
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center min-h-screen lg:min-h-0 bg-hefo-light dark:bg-hefo-dark profile-landscape-fix">
+
+
+
+
         {/* App Logo */}
         <img
           src="https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/vplogo.svg"
           alt="App logo"
-          className="h-20 w-auto mb-3 md:h-21"
+          className="h-12 md:h-20 w-auto mb-3 md:h-21"
         />
 
         {/* Account Management Title */}
-        <h1 className="text-center text-xl md:text-2xl dark:text-title-dark text-title-light mb-4">
+        <h1 className="text-center text-xl md:text-2xl dark:text-title-dark text-title-light mb-6">
           Account Management
         </h1>
 
         {/* Card Container */}
-        <div className="flex flex-col items-center justify-center min-h-[50%] w-full max-w-lg">
+        <div className="flex flex-col items-center justify-center w-full max-w-lg gap-y-6 profile-card-wrapper">
+
           {/* Card 1: Change Password */}
           <div className="p-4 pb-6 dark:bg-display-dark bg-sidebar-light rounded-[4px] shadow-lg w-full max-w-sm mb-5">
             <h2 className="text-lg dark:text-title-dark text-title-light mb-3">

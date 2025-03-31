@@ -7,6 +7,11 @@ export default {
 
   theme: {
     extend: { // Extending the default Tailwind theme
+      
+      screens: {
+        'landscape-sm': { raw: '(max-width: 768px) and (orientation: landscape)' },
+      },
+
       fontFamily: {
         // Adding custom font families to the "sans" stack
         sans: ["Poppins", "Segoe UI", "Helvetica Neue"],
