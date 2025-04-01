@@ -56,33 +56,30 @@
 
 VaultGuard Password Locker provides a secure and efficient way to manage your passwords. It features a responsive design with customizable dark and light modes for a seamless user experience on any device. Built with React, Vite, and Tailwind CSS, the app emphasizes speed, security, and ease of use, ensuring your credentials remain safe and easily accessible.
 
-<!-- Dark Mode Landing Page:
+Signup Page:
 
-![image](https://portfoliobucket2024.s3.amazonaws.com/landingdark.webp)
+![image](https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/Signup+Page.webp)
 
-Light Mode Landing Page:
+Login Page:
 
-![image](https://portfoliobucket2024.s3.amazonaws.com/landinglight.webp)
+![image](https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/Login+page.webp)
 
-About Me Page In Dark Mode:
+Dashboard:
 
-![image](https://portfoliobucket2024.s3.amazonaws.com/about.webp)
+![image](https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/dashboard.webp)
 
-Projects Page In Light Mode:
+Add New Entry:
 
-![image](https://portfoliobucket2024.s3.amazonaws.com/projects.webp)
+![image](https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/addnewentry.webp)
 
-Contact Page In Light Mode:
+Mobile View Dashboard:
 
-![image](https://portfoliobucket2024.s3.amazonaws.com/contact.webp)
+![image](https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/mobiledashboard.webp)
 
-Mobile View In Dark Mode:
+Mobile View Profile Page:
 
-![image](https://portfoliobucket2024.s3.amazonaws.com/mobile.webp)
+![image](https://vaultguardbucket2024.s3.us-east-1.amazonaws.com/mobile+profile+page.webp)
 
-Hamburger Menu In Dark Mode:
-
-![image](https://portfoliobucket2024.s3.amazonaws.com/hamburger.webp) -->
 
 <!-- BUILT WITH -->
 
