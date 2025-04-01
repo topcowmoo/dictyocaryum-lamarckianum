@@ -20,9 +20,9 @@
 
 <a href="https://vpl.onrender.com/">Deployed App on Render</a>
 ·
-<a href="hhttps://github.com/topcowmoo/dictyocaryum-lamarckianum/issues">Report Bug</a>
+<a href="https://github.com/topcowmoo/dictyocaryum-lamarckianum/issues">Report Bug</a>
 ·
-<a href="hhttps://github.com/topcowmoo/dictyocaryum-lamarckianum/issues">Request Feature</a>
+<a href="https://github.com/topcowmoo/dictyocaryum-lamarckianum/issues">Request Feature</a>
 </p>
 </div>
 
